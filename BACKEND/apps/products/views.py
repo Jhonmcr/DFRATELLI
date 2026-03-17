@@ -1,21 +1,37 @@
-from rest_framework import generics
+from rest_framework import generics, viewsets, filters
+from django_filters.rest_framework import DjangoFilterBackend
 from .models import Product, Category
 from .serializers import ProductSerializer, CategorySerializer
+from .permissions import IsAdminOrReadOnly
+from .filters import ProductFilter
+# from .filters import ProductFilter  # opcional si usas filtros avanzados
 
 
-class ProductListView(generics.ListAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-
-
-class ProductDetailView(generics.RetrieveAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-
-
-class CategoryListView(generics.ListAPIView):
-    queryset = Category.objects.all()
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all().order_by("name")
     serializer_class = CategorySerializer
+    permission_classes = [IsAdminOrReadOnly]
+
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all().order_by("name")
+    serializer_class = ProductSerializer
+    permission_classes = [IsAdminOrReadOnly]
+
+    # 🔥 Filtros y búsqueda
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+
+    # Filtros exactos
+    filterset_fields = ["category", "price"]
+
+    # Búsqueda por texto
+    search_fields = ["name", "description"]
+
+    # Ordenamiento
+    ordering_fields = ["price", "name", "id"]
+    
+    # Filtro Avanzado
+    filterset_class = ProductFilter
 
 
 class ProductsByCategoryView(generics.ListAPIView):

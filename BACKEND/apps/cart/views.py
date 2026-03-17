@@ -45,34 +45,30 @@ class AddToCartView(generics.GenericAPIView):
         return Response({"message": "Producto agregado al carrito"}, status=200)
 
 
-class RemoveFromCartView(generics.GenericAPIView):
+class CartItemDetailView(generics.GenericAPIView):
+    """
+    Maneja la actualización de cantidad (PUT/PATCH) y eliminación (DELETE)
+    de un ítem específico en el carrito.
+    """
     permission_classes = [IsAuthenticated]
 
-    def post(self, request):
-        product_id = request.data.get("product_id")
-
-        if not product_id:
-            return Response({"error": "product_id es requerido"}, status=400)
-
+    def delete(self, request, item_id):
         cart = get_or_create_cart(request.user)
-
         try:
-            item = CartItem.objects.get(cart=cart, product_id=product_id)
+            item = CartItem.objects.get(cart=cart, id=item_id)
             item.delete()
             return Response({"message": "Producto eliminado del carrito"}, status=200)
         except CartItem.DoesNotExist:
             return Response({"error": "Producto no está en el carrito"}, status=404)
 
+    def patch(self, request, item_id):
+        return self.put(request, item_id)
 
-class UpdateCartItemView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request):
-        product_id = request.data.get("product_id")
+    def put(self, request, item_id):
         quantity = request.data.get("quantity")
 
-        if not product_id or quantity is None:
-            return Response({"error": "product_id y quantity son requeridos"}, status=400)
+        if quantity is None:
+            return Response({"error": "quantity es requerido"}, status=400)
 
         quantity = int(quantity)
 
@@ -82,7 +78,7 @@ class UpdateCartItemView(generics.GenericAPIView):
         cart = get_or_create_cart(request.user)
 
         try:
-            item = CartItem.objects.get(cart=cart, product_id=product_id)
+            item = CartItem.objects.get(cart=cart, id=item_id)
             item.quantity = quantity
             item.save()
             return Response({"message": "Cantidad actualizada"}, status=200)
