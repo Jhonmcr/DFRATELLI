@@ -1,1 +1,95 @@
 @import "tailwindcss";
+
+@theme {
+  --color-brand-orange: #FF8C00;
+  --color-brand-orange-light: #FFA500;
+  --color-brand-brown: #5C3D11;
+  --color-brand-brown-dark: #3B2509;
+}
+
+@layer base {
+  body {
+    background-color: #1a0f05;
+    color: #f5e6d3;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .bg-glass {
+    background-color: rgba(44, 24, 8, 0.65);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 140, 0, 0.15);
+  }
+  .text-neon {
+    text-shadow: 0 0 10px rgba(255, 140, 0, 0.75);
+  }
+  .shadow-neon {
+    box-shadow: 0 0 20px rgba(255, 140, 0, 0.4);
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Override Tailwind slate backgrounds to warm tones */
+.bg-slate-950 {
+  background-color: #1a0f05 !important;
+}
+.bg-slate-900 {
+  background-color: #2c1808 !important;
+}
+.bg-slate-800 {
+  background-color: #3d2410 !important;
+}
+.border-slate-800 {
+  border-color: rgba(255, 140, 0, 0.15) !important;
+}
+.border-slate-700 {
+  border-color: rgba(255, 140, 0, 0.25) !important;
+}
+.text-slate-400 {
+  color: #c4a882 !important;
+}
+.text-slate-500 {
+  color: #a08060 !important;
+}
+.bg-slate-900\/40 {
+  background-color: rgba(44, 24, 8, 0.4) !important;
+}
+.bg-slate-900\/60 {
+  background-color: rgba(44, 24, 8, 0.6) !important;
+}
+.bg-slate-800\/50 {
+  background-color: rgba(61, 36, 16, 0.5) !important;
+}
+.bg-slate-800\/80 {
+  background-color: rgba(61, 36, 16, 0.8) !important;
+}
+.from-slate-950 {
+  --tw-gradient-from: #1a0f05 !important;
+}
+.via-slate-900\/60 {
+  --tw-gradient-via: rgba(44, 24, 8, 0.6) !important;
+}
+.text-white {
+  color: #fff7ee !important;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #1a0f05;
+}
+::-webkit-scrollbar-thumb {
+  background: #5C3D11;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF8C00;
+}

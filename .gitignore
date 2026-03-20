@@ -24,3 +24,19 @@ build/
 
 # Editor
 .vscode/
+
+.env
+
+# Archivos de pruebas o scripts temporales
+BACKEND/test_*.py
+BACKEND/*_test.py
+BACKEND/check_s3.py
+BACKEND/list_s3.py
+BACKEND/upload_test.py
+BACKEND/test_image.py
+BACKEND/test_api_upload.py
+
+# Carpeta de productos locales (si no deben subirse)
+BACKEND/products/*.png
+BACKEND/products/*.jpg
+BACKEND/products/*.jpeg

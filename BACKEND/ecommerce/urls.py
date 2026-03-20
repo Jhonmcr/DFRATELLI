@@ -8,7 +8,12 @@ from apps.users.views import (
     RegisterView,
     LoginView,
     PasswordResetRequestView,
-    PasswordResetConfirmView
+    PasswordResetConfirmView,
+    AdminStatsView,
+    ChangePasswordView,
+    UserProfileView,
+    UserListView,
+    RoleChangeView,
 )
 
 from rest_framework_simplejwt.views import TokenRefreshView
@@ -22,6 +27,12 @@ urlpatterns = [
     path("api/auth/register/", RegisterView.as_view(), name="register"),
     path("api/auth/login/", LoginView.as_view(), name="login"),
     path("api/auth/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("api/auth/change-password/", ChangePasswordView.as_view(), name="change_password"),
+    
+    path("api/admin/stats/", AdminStatsView.as_view(), name="admin_stats"),
+    path("api/admin/users/", UserListView.as_view(), name="admin_users"),
+    path("api/admin/role-change/", RoleChangeView.as_view(), name="role_change"),
+    path("api/profile/", UserProfileView.as_view(), name="user_profile"),
 
     # ---------------------------
     # 🔐 RECUPERACIÓN DE CONTRASEÑA
@@ -35,6 +46,7 @@ urlpatterns = [
     path("api/cart/", include("apps.cart.urls")),
     path("api/orders/", include("apps.orders.urls")),
     path("api/products/", include("apps.products.urls")),
+    path("api/contact/", include("core.urls")),
 ]
 
 if settings.DEBUG:
