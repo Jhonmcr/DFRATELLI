@@ -12,11 +12,12 @@
  */
 
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast"; // Librería de notificaciones Push
 
 // ─── CONTEXTOS (Estado Global Auth y Carrito) ──────────────────────
-import { useAuth } from "./context/AuthContext";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import { CartProvider } from "./context/CartContext";
 
 // ─── COMPONENTES BASE A TODA PANTALLA (Layouting) ────────────────
 import Navbar from "./components/layout/Navbar";
@@ -73,8 +74,12 @@ const PrivateRoute = ({ children }) => {
  */
 function App() {
   return (
-    // Fondo del cuerpo HTML base para todo el domReact
-    <div className="min-h-screen bg-[#1a0f05] flex flex-col font-sans">
+    // Envuelve toda la App con Providers de API Context
+    <AuthProvider>
+      <CartProvider>
+        <Router>
+          {/* Fondo del cuerpo HTML base para todo el domReact */}
+          <div className="min-h-screen bg-[#1a0f05] flex flex-col font-sans">
             
             <Navbar />
 
@@ -143,6 +148,9 @@ function App() {
               }} 
             />
           </div>
+        </Router>
+      </CartProvider>
+    </AuthProvider>
   );
 }
 
