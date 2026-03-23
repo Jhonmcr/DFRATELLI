@@ -48,28 +48,28 @@ export default function UserSettings() {
   return (
     <div className="py-12 px-6 md:px-12 max-w-3xl mx-auto w-full">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-white mb-2">Configuración <span className="text-amber-500">de Cuenta</span></h1>
+        <h1 className="text-4xl font-bold text-gray-900 mb-2">Configuración <span className="text-amber-500">de Cuenta</span></h1>
         <p className="text-slate-400">Gestiona tu contraseña y consulta tu información de usuario.</p>
       </div>
 
       {/* User Info Card */}
       <div className="bg-slate-900 border border-slate-700 rounded-2xl p-6 mb-6">
-        <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+        <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
           <User className="w-5 h-5 text-amber-500" /> Información de Cuenta
         </h2>
         {profile ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
             <div>
               <p className="text-slate-500 mb-1">Nombre</p>
-              <p className="text-white font-medium">{profile.first_name} {profile.last_name}</p>
+              <p className="text-gray-900 font-medium">{profile.first_name} {profile.last_name}</p>
             </div>
             <div>
               <p className="text-slate-500 mb-1">Email</p>
-              <p className="text-white font-medium">{profile.email}</p>
+              <p className="text-gray-900 font-medium">{profile.email}</p>
             </div>
             <div>
               <p className="text-slate-500 mb-1">Teléfono</p>
-              <p className="text-white font-medium">{profile.phone_number || '—'}</p>
+              <p className="text-gray-900 font-medium">{profile.phone_number || '—'}</p>
             </div>
             <div>
               <p className="text-slate-500 mb-1">Rol</p>
@@ -83,7 +83,7 @@ export default function UserSettings() {
 
       {/* Unique Code Card */}
       <div className="bg-slate-900 border border-slate-700 rounded-2xl p-6 mb-6">
-        <h2 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
+        <h2 className="text-lg font-bold text-gray-900 mb-2 flex items-center gap-2">
           <Hash className="w-5 h-5 text-amber-500" /> Tu Código de Identificación
         </h2>
         <p className="text-slate-400 text-sm mb-4">Este código único te identifica en el sistema. El administrador puede usarlo para cambiar tu rol.</p>
@@ -107,7 +107,7 @@ export default function UserSettings() {
 
       {/* Change Password Card */}
       <div className="bg-slate-900 border border-slate-700 rounded-2xl p-6">
-        <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+        <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
           <KeyRound className="w-5 h-5 text-amber-500" /> Cambiar Contraseña
         </h2>
         <form onSubmit={handleChangePassword} className="flex flex-col gap-4">
@@ -118,7 +118,7 @@ export default function UserSettings() {
               value={oldPassword}
               onChange={e => setOldPassword(e.target.value)}
               required
-              className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500"
+              className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-gray-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500"
             />
             <button type="button" onClick={() => setShowOld(!showOld)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300">
               {showOld ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -131,7 +131,7 @@ export default function UserSettings() {
               value={newPassword}
               onChange={e => setNewPassword(e.target.value)}
               required
-              className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500"
+              className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-gray-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500"
             />
             <button type="button" onClick={() => setShowNew(!showNew)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300">
               {showNew ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -143,7 +143,7 @@ export default function UserSettings() {
             value={confirmPassword}
             onChange={e => setConfirmPassword(e.target.value)}
             required
-            className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-gray-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500"
           />
           <button
             type="submit"

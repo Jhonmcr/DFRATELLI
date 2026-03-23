@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="col-span-1 md:col-span-2">
           <div className="flex items-center gap-2 mb-6">
             <Wrench className="w-6 h-6 text-amber-500" />
-            <span className="text-xl font-bold tracking-wider text-white">
+            <span className="text-xl font-bold tracking-wider text-gray-900">
               D<span className="text-amber-500">FRATELLI</span>
             </span>
           </div>
@@ -18,7 +18,7 @@ export default function Footer() {
           </p>
         </div>
         <div>
-          <h4 className="text-white font-semibold mb-6">Enlaces</h4>
+          <h4 className="text-gray-900 font-semibold mb-6">Enlaces</h4>
           <ul className="space-y-4 text-slate-400">
             <li><Link to="/catalog" className="hover:text-amber-500 transition-colors">Catálogo</Link></li>
             <li><Link to="/marcas" className="hover:text-amber-500 transition-colors">Marcas</Link></li>
@@ -26,7 +26,7 @@ export default function Footer() {
           </ul>
         </div>
         <div>
-          <h4 className="text-white font-semibold mb-6">Contacto</h4>
+          <h4 className="text-gray-900 font-semibold mb-6">Contacto</h4>
           <ul className="space-y-4 text-slate-400">
             <li>soporte@dfratelli.com</li>
             <li>+1 (555) 123-4567</li>
@@ -37,7 +37,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto border-t border-slate-800/50 pt-8 text-center md:text-left text-slate-500 text-sm flex flex-col md:flex-row justify-between items-center">
         <p>© 2026 DFRATELLI. Todos los derechos reservados.</p>
         <div className="flex gap-4 mt-4 md:mt-0">
-          <a href="https://github.com/tu-usuario" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-1.5">
+          <a href="https://github.com/tu-usuario" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 transition-colors flex items-center gap-1.5">
             <Github className="w-4 h-4" />
             GitHub del Desarrollador
           </a>

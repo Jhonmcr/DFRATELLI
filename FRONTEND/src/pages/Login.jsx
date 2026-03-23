@@ -23,9 +23,7 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const response = await api.post('auth/login/', formData);
-      // The backend returns access and refresh tokens
-      login({ username: formData.email }, response.data.access, response.data.refresh);
+      await login(formData);
       navigate('/');
     } catch (err) {
       if (err.response && err.response.data) {
@@ -52,7 +50,7 @@ export default function Login() {
       >
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-600 to-amber-400"></div>
         <div>
-          <h2 className="mt-2 text-center text-3xl font-extrabold text-white">
+          <h2 className="mt-2 text-center text-3xl font-extrabold text-gray-900">
             Iniciar <span className="text-amber-500">Sesión</span>
           </h2>
           <p className="mt-2 text-center text-sm text-slate-400">
@@ -78,7 +76,7 @@ export default function Login() {
                 name="email"
                 type="email"
                 required
-                className="appearance-none rounded-lg relative block w-full px-3 py-3 pl-10 border border-slate-700 bg-slate-800/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent sm:text-sm transition-all"
+                className="appearance-none rounded-lg relative block w-full px-3 py-3 pl-10 border border-slate-700 bg-slate-800/50 text-gray-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent sm:text-sm transition-all"
                 placeholder="Correo electrónico"
                 value={formData.email}
                 onChange={handleChange}
@@ -93,7 +91,7 @@ export default function Login() {
                 name="password"
                 type="password"
                 required
-                className="appearance-none rounded-lg relative block w-full px-3 py-3 pl-10 border border-slate-700 bg-slate-800/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent sm:text-sm transition-all"
+                className="appearance-none rounded-lg relative block w-full px-3 py-3 pl-10 border border-slate-700 bg-slate-800/50 text-gray-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent sm:text-sm transition-all"
                 placeholder="Contraseña"
                 value={formData.password}
                 onChange={handleChange}

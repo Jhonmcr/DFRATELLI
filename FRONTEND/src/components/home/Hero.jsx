@@ -19,12 +19,12 @@ import BrandLogo from '../../assets/brand/logo-dfratelli.png'; // Logotipo princ
 
 const Hero = () => {
   return (
-    // Contenedor principal con fondo oscuro y overflow hidden para los elementos decorativos
-    <div className="relative min-h-[90vh] flex items-center justify-center bg-[#1a0f05] overflow-hidden pt-20">
+    // Contenedor principal con fondo Naranja oscuro / Marrón nocturno simulando el tema oscuro original
+    <div className="relative min-h-[90vh] flex items-center justify-center bg-[#2c1200] overflow-hidden pt-20">
       
       {/* ───── START DECORACIONES DE FONDO ───── */}
       {/* Círculo difuminado superior / primario */}
-      <div className="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-orange-600/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl pointer-events-none"></div>
       {/* Círculo difuminado inferior / secundario */}
       <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-[#5C3D11]/20 rounded-full blur-3xl pointer-events-none"></div>
       
@@ -51,21 +51,21 @@ const Hero = () => {
             className="text-center lg:text-left pt-10 lg:pt-0"
           >
             {/* Tagline / Badge */}
-            <div className="inline-flex items-center space-x-2 bg-orange-500/10 border border-orange-500/20 rounded-full px-4 py-1.5 mb-6">
-              <span className="flex h-2 w-2 rounded-full bg-orange-500 animate-pulse"></span>
-              <span className="text-orange-400 text-sm font-medium tracking-wide">Calidad Profesional</span>
+            <div className="inline-flex items-center space-x-2 bg-amber-500/10 border border-amber-500/20 rounded-full px-4 py-1.5 mb-6">
+              <span className="flex h-2 w-2 rounded-full bg-amber-500 animate-pulse"></span>
+              <span className="text-amber-600 text-sm font-medium tracking-wide">Calidad Profesional</span>
             </div>
             
             {/* Título Principal */}
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6">
               Construye Mejor. <br className="hidden md:block"/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">
                 Construye Fuerte.
               </span>
             </h1>
             
             {/* Subtítulo / Descripción */}
-            <p className="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
+            <p className="text-lg md:text-xl text-amber-100/80 mb-10 max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
               Equipamiento y herramientas industriales de alta gama para proyectos que exigen la máxima precisión, durabilidad y rendimiento.
             </p>
             
@@ -73,7 +73,7 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
               <Link
                 to="/products"
-                className="group relative px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl overflow-hidden shadow-lg shadow-orange-500/20 transition-all duration-300 w-full sm:w-auto flex justify-center items-center"
+                className="group relative px-8 py-4 bg-amber-500 hover:bg-amber-600 text-gray-900 font-bold rounded-xl overflow-hidden shadow-lg shadow-amber-500/20 transition-all duration-300 w-full sm:w-auto flex justify-center items-center"
               >
                 {/* Efecto de brillo en hover (pseudo-elemento animado) */}
                 <div className="absolute inset-0 w-full h-full bg-white/20 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
@@ -85,44 +85,55 @@ const Hero = () => {
             </div>
 
             {/* Beneficios rápidos (Iconos con texto) */}
-            <div className="mt-12 pt-8 border-t border-[#5C3D11]/30 grid grid-cols-1 sm:grid-cols-3 gap-6">
-              <div className="flex items-center justify-center lg:justify-start text-gray-300">
-                <ShieldCheck className="h-5 w-5 text-orange-500 mr-2" />
+            <div className="mt-12 pt-8 border-t border-orange-900/40 grid grid-cols-1 sm:grid-cols-3 gap-6">
+              <div className="flex items-center justify-center lg:justify-start text-amber-50/90">
+                <ShieldCheck className="h-5 w-5 text-amber-500 mr-2" />
                 <span className="text-sm font-medium">Garantía Total</span>
               </div>
-              <div className="flex items-center justify-center lg:justify-start text-gray-300">
-                <Timer className="h-5 w-5 text-orange-500 mr-2" />
+              <div className="flex items-center justify-center lg:justify-start text-amber-50/90">
+                <Timer className="h-5 w-5 text-amber-500 mr-2" />
                 <span className="text-sm font-medium">Envío Rápido</span>
               </div>
-              <div className="flex items-center justify-center lg:justify-start text-gray-300">
-                <Award className="h-5 w-5 text-orange-500 mr-2" />
+              <div className="flex items-center justify-center lg:justify-start text-amber-50/90">
+                <Award className="h-5 w-5 text-amber-500 mr-2" />
                 <span className="text-sm font-medium">Marca Líder</span>
               </div>
             </div>
           </motion.div>
 
-          {/* Lado Derecho: Logotipo de la Marca circular */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.8 }}   // Inicia pequeño y transparente
-            animate={{ opacity: 1, scale: 1 }}     // Escala al tamaño real
-            transition={{ duration: 0.8, delay: 0.2 }} // Retraso para efecto cascada
-            className="flex justify-center items-center h-full relative"
-          >
-            {/* Contenedor del logo: establece los límites del círculo */}
-            <div className="relative w-[360px] h-[360px] md:w-[440px] md:h-[440px] rounded-full flex items-center justify-center shadow-[0_0_80px_rgba(255,140,0,0.15)] bg-[#2a1b0a]/30 backdrop-blur-sm border border-orange-500/20 overflow-hidden group">
+          {/* Lado Derecho: Logotipo de la Marca CUADRADO ANIMADO */}
+          <div className="flex justify-center items-center h-full relative mt-10 lg:mt-0">
+            <div className="relative w-[300px] h-[300px] md:w-[420px] md:h-[420px] flex items-center justify-center">
               
-              {/* Resplandor animado detrás del logo */}
-              <div className="absolute inset-0 rounded-full border border-orange-500/30 scale-105 group-hover:scale-110 group-hover:border-orange-500/50 transition-all duration-700"></div>
+              {/* Cuadro exterior rotando */}
+              <motion.div 
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+                className="absolute inset-0 opacity-30 border-[3px] border-amber-500 rounded-3xl"
+              ></motion.div>
               
-              {/* Imagen del logo DFRATELLI - centrada y recortada por el overflow-hidden del padre */}
-              <img 
-                src={BrandLogo}
-                alt="DFRATELLI Logo Oficial" 
-                className="w-full h-full object-cover rounded-full"
-                // object-cover: Escala la imagen para cubrir todo el círculo sin distorsionar
-              />
+              {/* Cuadro interior rotando inverso */}
+              <motion.div 
+                animate={{ rotate: -360 }}
+                transition={{ repeat: Infinity, duration: 15, ease: "linear" }}
+                className="absolute inset-6 opacity-50 border-[4px] border-orange-500 rounded-[2rem]"
+              ></motion.div>
+              
+              {/* Logo Redondeado completamente que sube y baja */}
+              <motion.div
+                animate={{ y: [-15, 15, -15] }}
+                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                className="relative z-10 w-[240px] h-[240px] md:w-[320px] md:h-[320px] shadow-[0_0_80px_rgba(255,140,0,0.6)] bg-[#1a0f05] backdrop-blur-sm border-2 border-amber-500/60 rounded-full overflow-hidden flex items-center justify-center"
+              >
+                <img 
+                  src={BrandLogo}
+                  alt="DFRATELLI Logo Oficial" 
+                  className="w-full h-full object-contain scale-110 rounded-full"
+                />
+              </motion.div>
+
             </div>
-          </motion.div>
+          </div>
 
         </div>
       </div>

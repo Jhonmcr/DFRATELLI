@@ -1,102 +1,91 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Package, Upload } from 'lucide-react';
 import api from '../services/api';
-import { AuthContext } from '../context/AuthContext';
-import toast from 'react-hot-toast';
 
 export default function Brands() {
-  const { user } = useContext(AuthContext);
   const [brands, setBrands] = useState([]);
   const [loading, setLoading] = useState(true);
-  const fileInputRefs = useRef({});
+
+  useEffect(() => {
+    fetchBrands();
+  }, []);
 
   const fetchBrands = async () => {
     try {
       const res = await api.get('products/brands/');
       setBrands(res.data.results || res.data);
-    } catch (err) {
-      console.error("Error fetching brands:", err);
+    } catch (error) {
+      console.error("Error cargando marcas:", error);
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => { fetchBrands(); }, []);
-
-  const handleImageUpload = async (id, file) => {
-    if (!file) return;
-    const formData = new FormData();
-    formData.append('image', file);
-    try {
-      const res = await api.patch(`products/brands/${id}/`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
-      setBrands(brands.map(b => b.id === id ? res.data : b));
-      toast.success('Imagen de marca actualizada');
-    } catch (err) {
-      console.error(err);
-      toast.error('Error al subir imagen');
-    }
-  };
-
+  const API_URL = "http://127.0.0.1:8000";
   return (
-    <div className="py-12 px-6 md:px-12 max-w-7xl mx-auto w-full">
-      <div className="mb-12">
-        <h1 className="text-4xl font-bold text-white mb-4">Nuestras <span className="text-amber-500">Marcas</span></h1>
-        <p className="text-slate-400">Las mejores marcas de herramientas y materiales de construcción al alcance de tu mano.</p>
-      </div>
+    <div className="pt-32 pb-16 px-6 md:px-12 max-w-7xl mx-auto w-full min-h-[80vh] relative">
+      <div className="absolute top-1/4 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[100px] -z-10" />
+
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center mb-16"
+      >
+        <span className="text-amber-500 font-semibold tracking-wider uppercase text-sm mb-2 block">
+          Calidad Certificada
+        </span>
+        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">
+          Nuestras <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">Marcas</span>
+        </h1>
+        <p className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-amber-700 max-w-2xl mx-auto text-lg">
+          Trabajamos únicamente con fabricantes líderes a nivel mundial para garantizar el éxito de tus proyectos.
+        </p>
+      </motion.div>
 
       {loading ? (
-        <div className="flex justify-center py-12">
+        <div className="flex justify-center items-center py-20">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div>
         </div>
-      ) : brands.length === 0 ? (
-        <div className="text-center py-20 text-slate-500">
-          <Package className="w-16 h-16 mx-auto mb-4 opacity-30" />
-          <p className="text-xl">No hay marcas registradas aún.</p>
-          {(user?.role === 'ADMIN' || user?.role === 'SUPERADMIN') && (
-            <p className="text-sm mt-2 text-amber-500">Puedes agregar marcas desde el panel de administración.</p>
-          )}
-        </div>
       ) : (
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 pb-6 cursor-grab active:cursor-grabbing" style={{ scrollbarWidth: 'none' }}>
-          {brands.map((brand) => (
-            <motion.div
-              key={brand.id}
-              whileHover={{ scale: 1.02 }}
-              className="group relative h-48 md:h-64 rounded-xl overflow-hidden cursor-pointer flex-shrink-0 w-64 md:w-80 snap-center border border-slate-800"
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 mb-20 px-4 max-w-5xl mx-auto">
+          {brands.map((brand, index) => (
+            <motion.div 
+              key={brand.id || index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.05, type: 'spring', stiffness: 300 }}
+              className="relative aspect-square rounded-3xl overflow-hidden group cursor-pointer flex items-center justify-center bg-transparent transition-all duration-500 hover:z-10"
             >
-              {brand.image ? (
-                <img src={brand.image} alt={brand.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-              ) : (
-                <div className="absolute inset-0 bg-slate-800 flex items-center justify-center transition-colors group-hover:bg-slate-700">
-                  <Package className="w-16 h-16 text-slate-600" />
-                </div>
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent"></div>
-              <div className="absolute bottom-0 left-0 p-6 w-full z-20 pointer-events-none">
-                <h3 className="text-xl font-bold text-white group-hover:text-amber-400 transition-colors drop-shadow-md">{brand.name}</h3>
+              {/* Efecto de resplandor futurista detrás del logo en el hover */}
+              <div className="absolute inset-0 bg-amber-500/0 group-hover:bg-amber-500/5 transition-colors duration-500 rounded-3xl blur-xl" />
+              
+              <div className="relative w-full h-full flex items-center justify-center p-6 z-10 transition-transform duration-700 ease-out group-hover:scale-110">
+                {brand.image ? (
+                  <img 
+                    src={brand.image.startsWith('http') ? brand.image : `${API_URL}${brand.image}`} 
+                    alt={brand.name} 
+                    className="w-full h-full object-contain drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)] group-hover:drop-shadow-[0_20px_20px_rgba(245,158,11,0.3)] transition-all duration-700"
+                  />
+                ) : (
+                  <span className="text-7xl font-black text-white/10 group-hover:text-amber-500/80 transition-all duration-700 drop-shadow-2xl">
+                    {brand.name.charAt(0)}
+                  </span>
+                )}
               </div>
 
-              {(user?.role === 'ADMIN' || user?.role === 'SUPERADMIN') && (
-                <div className="absolute top-4 right-4 z-30 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button
-                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); fileInputRefs.current[brand.id]?.click(); }}
-                    className="bg-slate-900/80 hover:bg-amber-500 text-white hover:text-slate-900 p-2 rounded-full backdrop-blur-sm border border-slate-700 transition-colors shadow-lg"
-                    title="Actualizar Imagen"
-                  >
-                    <Upload className="w-4 h-4" />
-                  </button>
-                  <input
-                    type="file" accept="image/*" className="hidden"
-                    ref={el => fileInputRefs.current[brand.id] = el}
-                    onChange={(e) => handleImageUpload(brand.id, e.target.files[0])}
-                  />
-                </div>
-              )}
+              {/* Nombre revelado al hacer hover, como un HUD futurista */}
+              <div className="absolute bottom-4 left-0 right-0 text-center opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 z-20">
+                <span className="text-sm font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-800 to-blue-950 tracking-[0.2em] uppercase drop-shadow-[0_2px_4px_rgba(255,255,255,0.8)]">
+                  {brand.name}
+                </span>
+              </div>
             </motion.div>
           ))}
+          {brands.length === 0 && (
+            <div className="col-span-full text-center text-slate-400 py-10">
+              No hay marcas registradas en el sistema todavía.
+            </div>
+          )}
         </div>
       )}
     </div>

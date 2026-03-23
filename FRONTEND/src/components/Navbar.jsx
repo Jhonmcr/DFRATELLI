@@ -96,10 +96,10 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed w-full z-50 bg-glass py-4 px-4 sm:px-6 md:px-12 flex justify-between items-center transition-all duration-300">
+    <nav className="absolute w-full z-50 bg-glass py-4 px-4 sm:px-6 md:px-12 flex justify-between items-center transition-all duration-300">
       <Link to="/" className="flex items-center gap-2 cursor-pointer group relative z-50">
         <Wrench className="w-6 h-6 sm:w-8 sm:h-8 text-amber-500 group-hover:rotate-12 transition-transform shrink-0" />
-        <span className="text-lg sm:text-2xl font-bold tracking-wider text-white truncate max-w-[120px] sm:max-w-none">
+        <span className="text-lg sm:text-2xl font-bold tracking-wider text-gray-900 truncate max-w-[120px] sm:max-w-none">
           D<span className="text-amber-500">FRATELLI</span>
         </span>
       </Link>
@@ -155,7 +155,7 @@ export default function Navbar() {
             >
               <Bell className="w-6 h-6" />
               {notifications > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center animate-pulse">
+                <span className="absolute -top-1 -right-1 bg-red-500 text-gray-900 text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center animate-pulse">
                   {notifications > 9 ? '9+' : notifications}
                 </span>
               )}
@@ -164,7 +164,7 @@ export default function Navbar() {
             {showDropdown && notifData && (
               <div className="absolute right-0 mt-3 w-72 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl overflow-hidden z-50">
                 <div className="p-4 border-b border-slate-800 bg-slate-800/50">
-                   <h4 className="text-white font-bold">Notificaciones</h4>
+                   <h4 className="text-gray-900 font-bold">Notificaciones</h4>
                    <p className="text-xs text-slate-400">Tienes {notifications} alertas pendientes</p>
                 </div>
                 <div className="max-h-64 overflow-y-auto">
@@ -180,7 +180,7 @@ export default function Navbar() {
                                <Bell className="w-4 h-4" />
                              </div>
                              <div>
-                               <p className="text-sm text-white font-medium">{notif.title}</p>
+                               <p className="text-sm text-gray-900 font-medium">{notif.title}</p>
                                <p className="text-xs text-slate-400 mt-1">{notif.description}</p>
                              </div>
                            </Link>

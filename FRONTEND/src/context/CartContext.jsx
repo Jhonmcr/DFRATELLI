@@ -164,6 +164,7 @@ export const CartProvider = ({ children }) => {
  * 
  * @returns {Object} Objetos y modificadores del carrito
  */
+export { CartContext };
 export const useCart = () => {
     const context = useContext(CartContext);
     if (!context) {

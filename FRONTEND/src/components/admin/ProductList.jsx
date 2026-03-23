@@ -92,8 +92,8 @@ const ProductList = () => {
     
     if (isLoading) {
         return (
-            <div className="flex h-64 items-center justify-center bg-[#1a0f05]">
-                <div className="h-10 w-10 animate-spin rounded-full border-4 border-orange-500 border-t-transparent"></div>
+            <div className="flex h-64 items-center justify-center bg-amber-50">
+                <div className="h-10 w-10 animate-spin rounded-full border-4 border-amber-500 border-t-transparent"></div>
             </div>
         );
     }
@@ -101,15 +101,15 @@ const ProductList = () => {
     return (
         <div className="space-y-6">
             {/* Header de la sección */}
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0 pb-4 border-b border-[#5C3D11]/30">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0 pb-4 border-b border-amber-200">
                 <div>
-                    <h2 className="text-2xl font-bold text-white flex items-center">
+                    <h2 className="text-2xl font-bold text-gray-900 flex items-center">
                         Gestión de Productos
-                        <span className="ml-3 bg-orange-500/20 text-orange-400 py-0.5 px-2.5 rounded-full text-sm border border-orange-500/30">
+                        <span className="ml-3 bg-amber-500/20 text-amber-600 py-0.5 px-2.5 rounded-full text-sm border border-amber-500/30">
                             {products.length}
                         </span>
                     </h2>
-                    <p className="text-gray-400 mt-1">Administra el inventario, precios y detalles de artículos.</p>
+                    <p className="text-gray-600 mt-1">Administra el inventario, precios y detalles de artículos.</p>
                 </div>
                 
                 {/* 
@@ -118,7 +118,7 @@ const ProductList = () => {
                   Se mantiene el UI aquí por escalabilidad de la estructura. 
                 */}
                 <button
-                    className="flex items-center px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg shadow-lg shadow-orange-500/20 transition-all"
+                    className="flex items-center px-4 py-2 bg-amber-500 hover:bg-amber-600 text-gray-900 font-medium rounded-lg shadow-lg shadow-amber-500/20 transition-all"
                 >
                     <Plus className="h-5 w-5 mr-2" />
                     Nuevo Producto
@@ -126,17 +126,17 @@ const ProductList = () => {
             </div>
 
             {/* Barra de utilidades: Búsqueda */}
-            <div className="flex items-center justify-between bg-[#2a1b0a] p-4 rounded-xl border border-[#5C3D11]/30 shadow-inner">
+            <div className="flex items-center justify-between bg-white p-4 rounded-xl border border-amber-200 shadow-inner">
                 <div className="relative w-full max-w-md">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Search className="h-5 w-5 text-gray-400" />
+                        <Search className="h-5 w-5 text-gray-600" />
                     </div>
                     <input
                         type="text"
                         placeholder="Buscar por nombre o categoría..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="block w-full pl-10 pr-3 py-2 border border-[#5C3D11] rounded-lg bg-[#1a0f05] text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors sm:text-sm"
+                        className="block w-full pl-10 pr-3 py-2 border border-amber-200 rounded-lg bg-amber-50 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-colors sm:text-sm"
                     />
                 </div>
             </div>
@@ -145,10 +145,10 @@ const ProductList = () => {
             {filteredProducts.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {filteredProducts.map((product) => (
-                        <div key={product.id} className="bg-[#2a1b0a] rounded-xl border border-[#5C3D11]/30 overflow-hidden flex flex-col hover:border-orange-500/30 hover:shadow-lg hover:shadow-orange-500/5 transition-all group">
+                        <div key={product.id} className="bg-white rounded-xl border border-amber-200 overflow-hidden flex flex-col hover:border-amber-500/30 hover:shadow-lg hover:shadow-amber-500/5 transition-all group">
                             
                             {/* Imagen del producto en S3 o default */}
-                            <div className="h-48 bg-[#1a0f05] flex items-center justify-center p-4 relative overflow-hidden">
+                            <div className="h-48 bg-amber-50 flex items-center justify-center p-4 relative overflow-hidden">
                                 {product.image ? (
                                     <img 
                                         src={product.image.startsWith('http') ? product.image : `${API_URL}${product.image}`}
@@ -161,7 +161,7 @@ const ProductList = () => {
                                 
                                 {/* Badge de On Sale */}
                                 {product.is_on_sale && product.discount_percentage > 0 && (
-                                    <div className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center shadow-lg">
+                                    <div className="absolute top-2 right-2 bg-red-500 text-gray-900 text-xs font-bold px-2 py-1 rounded-full flex items-center shadow-lg">
                                         <Percent className="h-3 w-3 mr-0.5" />
                                         {product.discount_percentage}% OFF
                                     </div>
@@ -169,11 +169,11 @@ const ProductList = () => {
                                 
                                 {/* Badge de Stock */}
                                 {product.stock <= 0 ? (
-                                    <div className="absolute top-2 left-2 bg-red-500/90 backdrop-blur text-white text-xs font-bold px-2 py-1 rounded uppercase shadow-lg border border-red-600">
+                                    <div className="absolute top-2 left-2 bg-red-500/90 backdrop-blur text-gray-900 text-xs font-bold px-2 py-1 rounded uppercase shadow-lg border border-red-600">
                                         Agotado
                                     </div>
                                 ) : product.stock < 10 ? (
-                                    <div className="absolute top-2 left-2 bg-yellow-500/90 backdrop-blur text-white text-xs font-bold px-2 py-1 rounded uppercase shadow-lg border border-yellow-600">
+                                    <div className="absolute top-2 left-2 bg-yellow-500/90 backdrop-blur text-gray-900 text-xs font-bold px-2 py-1 rounded uppercase shadow-lg border border-yellow-600">
                                         Bajo ({product.stock})
                                     </div>
                                 ) : null}
@@ -183,22 +183,22 @@ const ProductList = () => {
                             <div className="p-5 flex-1 flex flex-col">
                                 {/* Estado Activo / Inactivo */}
                                 <div className="flex justify-between items-start mb-2">
-                                    <span className="inline-flex items-center text-xs font-medium text-gray-400 bg-[#1a0f05] px-2 py-1 rounded border border-[#5C3D11]">
+                                    <span className="inline-flex items-center text-xs font-medium text-gray-600 bg-amber-50 px-2 py-1 rounded border border-amber-200">
                                         <Tag className="h-3 w-3 mr-1" />
                                         {product.category?.name || "Sin categoría"}
                                     </span>
                                     <span className={`inline-flex h-2.5 w-2.5 rounded-full ${product.is_active ? 'bg-green-500 shadow-[0_0_5px_rgba(34,197,94,0.5)]' : 'bg-red-500'}`} title={product.is_active ? 'Activo' : 'Inactivo'} />
                                 </div>
                                 
-                                <h3 className="text-lg font-bold text-white mb-3 line-clamp-2" title={product.name}>
+                                <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2" title={product.name}>
                                     {product.name}
                                 </h3>
                                 
-                                <div className="mt-auto pt-4 border-t border-[#5C3D11]/30 flex justify-between items-end">
+                                <div className="mt-auto pt-4 border-t border-amber-200 flex justify-between items-end">
                                     <div>
                                         <p className="text-xs text-gray-500 mb-0.5 uppercase tracking-wider font-semibold">Precio / Stock</p>
                                         <div className="flex items-center">
-                                            <span className="text-xl font-bold text-orange-400">
+                                            <span className="text-xl font-bold text-amber-600">
                                                 {formatPrice(product.sale_price !== undefined ? product.sale_price : product.price)}
                                             </span>
                                             {/* Muestra info precio viejo tachado si aplica */}
@@ -210,7 +210,7 @@ const ProductList = () => {
                                         </div>
                                     </div>
                                     <div className="text-right">
-                                        <span className="text-sm font-medium text-gray-300 flex items-center justify-end">
+                                        <span className="text-sm font-medium text-gray-700 flex items-center justify-end">
                                             <Package className="h-4 w-4 mr-1 text-gray-500" />
                                             {product.stock} ud.
                                         </span>
@@ -219,7 +219,7 @@ const ProductList = () => {
                             </div>
                             
                             {/* Botones de acción (Aparecen on hover en desktop, siempre en mobile) */}
-                            <div className="bg-[#1a0f05] px-4 py-3 flex justify-between border-t border-[#5C3D11]/50 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+                            <div className="bg-amber-50 px-4 py-3 flex justify-between border-t border-amber-300 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                                 <button className="flex-1 flex items-center justify-center py-1.5 text-sm font-medium text-blue-400 hover:text-blue-300 hover:bg-blue-400/10 rounded mr-2 transition-colors">
                                     <Edit className="h-4 w-4 mr-1.5" />
                                     Editar
@@ -236,10 +236,10 @@ const ProductList = () => {
                     ))}
                 </div>
             ) : (
-                <div className="text-center py-16 bg-[#2a1b0a] rounded-xl border border-[#5C3D11]/30">
+                <div className="text-center py-16 bg-white rounded-xl border border-amber-200">
                     <Search className="mx-auto h-12 w-12 text-gray-600 mb-4" />
-                    <h3 className="text-lg font-medium text-white">No se encontraron productos</h3>
-                    <p className="mt-1 text-gray-400">Ajusta tu búsqueda o agrega nuevos productos al catálogo.</p>
+                    <h3 className="text-lg font-medium text-gray-900">No se encontraron productos</h3>
+                    <p className="mt-1 text-gray-600">Ajusta tu búsqueda o agrega nuevos productos al catálogo.</p>
                 </div>
             )}
         </div>

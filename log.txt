@@ -1,0 +1,9 @@
+2a8e251 Fix Router crash on App.jsx
+2c577b2 Downgrade plugin-react
+3a063e0 Downgrade Vite para Tailwind
+76bf82d Preparando URL dinamica para produccion
+d5afc53 Solucion de Gunicorn
+d228c27 Tarea: Actualizar la configuracion de la base de datos de produccion y añadir requirements.txt
+d94a03b AVANCE: GUARDADO DEL PROGRESO DE BACKEND Y FRONTEND ANTES DE DESPLEGAR A PRODUCCION
+406e786 AVANCE: GUARDADO DEL AVANCE DEL BACKEND (ACTUALIZANDO LOS MODELOS DE ORDENES, PRODUCTS, CART Y USERS) ANTES DE COMENZAR CON EL LANDING PAGE FRONTEND
+b043b59 Initial commit - DFRATELLI project

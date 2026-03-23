@@ -7,7 +7,7 @@ import ProductList from '../../components/admin/ProductList';
 
 const AdminProducts = () => {
   return (
-    <div className="text-white">
+    <div className="text-gray-900">
       <h1 className="text-3xl font-bold mb-6">Gestión de Productos</h1>
       <ProductList />
     </div>

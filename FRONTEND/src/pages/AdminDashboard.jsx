@@ -39,7 +39,7 @@ export default function AdminDashboard() {
   return (
     <div className="py-12 px-6 md:px-12 max-w-7xl mx-auto w-full">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-white mb-2">Panel de <span className="text-amber-500">Administración</span></h1>
+        <h1 className="text-4xl font-bold text-gray-900 mb-2">Panel de <span className="text-amber-500">Administración</span></h1>
         <p className="text-slate-400">Bienvenido de vuelta, {user?.first_name ? `${user.first_name} ${user.last_name}` : user?.username}. Nivel de acceso: <strong className="text-amber-400">{user?.role}</strong>.</p>
       </div>
 
@@ -48,48 +48,48 @@ export default function AdminDashboard() {
           <div className="bg-amber-500/10 p-4 rounded-full text-amber-500"><Users className="w-6 h-6" /></div>
           <div>
             <h3 className="text-slate-400 text-sm">Usuarios Totales</h3>
-            <p className="text-3xl font-bold text-white">{stats.total_users}</p>
+            <p className="text-3xl font-bold text-gray-900">{stats.total_users}</p>
           </div>
         </div>
         <div className="bg-glass border border-slate-800 rounded-xl p-6 flex items-center gap-4 hover:border-amber-500/30 transition-colors">
           <div className="bg-amber-500/10 p-4 rounded-full text-amber-500"><Box className="w-6 h-6" /></div>
           <div>
             <h3 className="text-slate-400 text-sm">Productos Activos</h3>
-            <p className="text-3xl font-bold text-white">{stats.active_products}</p>
+            <p className="text-3xl font-bold text-gray-900">{stats.active_products}</p>
           </div>
         </div>
         <div className="bg-glass border border-slate-800 rounded-xl p-6 flex items-center gap-4 hover:border-amber-500/30 transition-colors">
           <div className="bg-amber-500/10 p-4 rounded-full text-amber-500"><TrendingUp className="w-6 h-6" /></div>
           <div>
             <h3 className="text-slate-400 text-sm">Ventas Confirmadas</h3>
-            <p className="text-3xl font-bold text-white">${stats.total_sales.toFixed(2)}</p>
+            <p className="text-3xl font-bold text-gray-900">${stats.total_sales.toFixed(2)}</p>
           </div>
         </div>
         <div className="bg-glass border border-slate-800 rounded-xl p-6 flex items-center gap-4 hover:border-red-500/30 transition-colors">
           <div className="bg-red-500/10 p-4 rounded-full text-red-500"><ShieldCheck className="w-6 h-6" /></div>
           <div>
             <h3 className="text-slate-400 text-sm">Notificaciones</h3>
-            <p className="text-3xl font-bold text-white">{stats.critical_notifications}</p>
+            <p className="text-3xl font-bold text-gray-900">{stats.critical_notifications}</p>
           </div>
         </div>
       </div>
 
       <div className="bg-glass border border-slate-800 rounded-xl p-6">
-         <h2 className="text-2xl font-bold text-white mb-6">Acceso Rápido</h2>
+         <h2 className="text-2xl font-bold text-gray-900 mb-6">Acceso Rápido</h2>
          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <Link to="/admin/products" className="py-4 text-center border border-slate-700 bg-slate-800/50 hover:bg-slate-800 text-white rounded-lg transition-colors shadow-sm">
+            <Link to="/admin/products" className="py-4 text-center border border-slate-700 bg-slate-800/50 hover:bg-slate-800 text-gray-900 rounded-lg transition-colors shadow-sm">
                Gestionar Productos
             </Link>
-            <Link to="/admin/orders" className="py-4 text-center border border-slate-700 bg-slate-800/50 hover:bg-slate-800 text-white rounded-lg transition-colors shadow-sm">
+            <Link to="/admin/orders" className="py-4 text-center border border-slate-700 bg-slate-800/50 hover:bg-slate-800 text-gray-900 rounded-lg transition-colors shadow-sm">
                Revisar Órdenes
             </Link>
-            <Link to="/admin/brands" className="py-4 flex items-center justify-center gap-2 border border-slate-700 bg-slate-800/50 hover:bg-slate-800 text-white rounded-lg transition-colors shadow-sm">
+            <Link to="/admin/brands" className="py-4 flex items-center justify-center gap-2 border border-slate-700 bg-slate-800/50 hover:bg-slate-800 text-gray-900 rounded-lg transition-colors shadow-sm">
                <Tag className="w-4 h-4" /> Gestionar Marcas
             </Link>
-            <Link to="/admin/messages" className="py-4 flex items-center justify-center gap-2 border border-slate-700 bg-slate-800/50 hover:bg-slate-800 text-white rounded-lg transition-colors shadow-sm">
+            <Link to="/admin/messages" className="py-4 flex items-center justify-center gap-2 border border-slate-700 bg-slate-800/50 hover:bg-slate-800 text-gray-900 rounded-lg transition-colors shadow-sm">
                <Mail className="w-4 h-4" /> Mensajes de Contacto
             </Link>
-            <Link to="/admin/users" className="py-4 flex items-center justify-center gap-2 border border-slate-700 bg-slate-800/50 hover:bg-slate-800 text-white rounded-lg transition-colors shadow-sm">
+            <Link to="/admin/users" className="py-4 flex items-center justify-center gap-2 border border-slate-700 bg-slate-800/50 hover:bg-slate-800 text-gray-900 rounded-lg transition-colors shadow-sm">
                <Users className="w-4 h-4" /> Ver Usuarios
             </Link>
             {user?.role === 'SUPERADMIN' && (

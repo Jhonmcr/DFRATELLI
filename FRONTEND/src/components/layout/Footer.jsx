@@ -17,32 +17,32 @@ import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from "lucide-react"
 
 const Footer = () => {
   return (
-    <footer className="bg-[#1a0f05] border-t border-[#5C3D11]/30 pt-16 pb-8">
+    <footer className="bg-[#1a0a00] border-t border-amber-900/50 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Contenedor principal del grid: 1 columna en móvil, 4 columnas en desktop */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        {/* Contenedor principal del grid: 1 columna en móvil, 3 columnas en desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           
           {/* Columna 1: Información de la marca */}
           <div className="space-y-4">
             <Link to="/" className="inline-block">
-              <span className="text-2xl font-bold bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+              <span className="text-2xl font-bold text-amber-500">
                 DFRATELLI
               </span>
             </Link>
-            <p className="text-gray-400 text-sm leading-relaxed">
+            <p className="text-slate-400 text-sm leading-relaxed">
               Herramientas de calidad profesional para todo tipo de proyectos.
               Construyendo el futuro juntos desde el primer clavo.
             </p>
             {/* Redes sociales */}
             <div className="flex space-x-4 pt-2">
-              <a href="#" className="text-gray-400 hover:text-orange-400 hover:-translate-y-1 transition-all duration-300">
+              <a href="#" className="text-slate-400 hover:text-amber-600 hover:-translate-y-1 transition-all duration-300">
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-orange-400 hover:-translate-y-1 transition-all duration-300">
+              <a href="#" className="text-slate-400 hover:text-amber-600 hover:-translate-y-1 transition-all duration-300">
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-orange-400 hover:-translate-y-1 transition-all duration-300">
+              <a href="#" className="text-slate-400 hover:text-amber-600 hover:-translate-y-1 transition-all duration-300">
                 <Twitter className="h-5 w-5" />
               </a>
             </div>
@@ -53,35 +53,16 @@ const Footer = () => {
             <h3 className="text-white font-semibold mb-6">Navegación</h3>
             <ul className="space-y-3">
               <li>
-                <Link to="/" className="text-gray-400 hover:text-orange-400 transition-colors text-sm hover:translate-x-1 inline-block transform duration-300">Inicio</Link>
+                <Link to="/" className="text-slate-400 hover:text-amber-600 transition-colors text-sm hover:translate-x-1 inline-block transform duration-300">Inicio</Link>
               </li>
               <li>
-                <Link to="/products" className="text-gray-400 hover:text-orange-400 transition-colors text-sm hover:translate-x-1 inline-block transform duration-300">Catálogo</Link>
+                <Link to="/products" className="text-slate-400 hover:text-amber-600 transition-colors text-sm hover:translate-x-1 inline-block transform duration-300">Catálogo</Link>
               </li>
               <li>
-                <span className="text-gray-600 text-sm cursor-not-allowed">Nosotros (Próximamente)</span>
+                <Link to="/about" className="text-slate-400 hover:text-amber-600 transition-colors text-sm hover:translate-x-1 inline-block transform duration-300">Nosotros</Link>
               </li>
               <li>
-                <span className="text-gray-600 text-sm cursor-not-allowed">Distribuidores</span>
-              </li>
-            </ul>
-          </div>
-
-          {/* Columna 3: Enlaces de ayuda y soporte */}
-          <div>
-            <h3 className="text-white font-semibold mb-6">Soporte</h3>
-            <ul className="space-y-3">
-              <li>
-                <span className="text-gray-600 text-sm cursor-not-allowed">Mi Cuenta</span>
-              </li>
-              <li>
-                <span className="text-gray-600 text-sm cursor-not-allowed">Envíos y Devoluciones</span>
-              </li>
-              <li>
-                <span className="text-gray-600 text-sm cursor-not-allowed">Términos y Condiciones</span>
-              </li>
-              <li>
-                <span className="text-gray-600 text-sm cursor-not-allowed">Política de Privacidad</span>
+                <Link to="/brands" className="text-slate-400 hover:text-amber-600 transition-colors text-sm hover:translate-x-1 inline-block transform duration-300">Marcas</Link>
               </li>
             </ul>
           </div>
@@ -91,23 +72,23 @@ const Footer = () => {
             <h3 className="text-white font-semibold mb-6">Contacto</h3>
             <ul className="space-y-4">
               <li className="flex items-start">
-                <MapPin className="h-5 w-5 text-orange-500 mr-3 mt-0.5" />
-                <span className="text-gray-400 text-sm">Av. Principal Ferretera, Zona Industrial, Ciudad.</span>
+                <MapPin className="h-5 w-5 text-amber-500 mr-3 mt-0.5" />
+                <span className="text-slate-400 text-sm">Av. Principal Ferretera, Zona Industrial, Ciudad.</span>
               </li>
               <li className="flex items-center">
-                <Phone className="h-5 w-5 text-orange-500 mr-3" />
-                <span className="text-gray-400 text-sm">+1 (234) 567-8900</span>
+                <Phone className="h-5 w-5 text-amber-500 mr-3" />
+                <span className="text-slate-400 text-sm">+1 (234) 567-8900</span>
               </li>
               <li className="flex items-center">
-                <Mail className="h-5 w-5 text-orange-500 mr-3" />
-                <span className="text-gray-400 text-sm">contacto@dfratelli.com</span>
+                <Mail className="h-5 w-5 text-amber-500 mr-3" />
+                <span className="text-slate-400 text-sm">contacto@dfratelli.com</span>
               </li>
             </ul>
           </div>
         </div>
 
         {/* Separador inferior y copyright */}
-        <div className="border-t border-[#5C3D11]/30 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+        <div className="border-t border-amber-900/50 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
           <p>&copy; {new Date().getFullYear()} DFRATELLI. Todos los derechos reservados.</p>
           <p className="mt-2 md:mt-0">Diseñado con excelencia.</p>
         </div>

@@ -6,7 +6,7 @@ import React from 'react';
 
 const AdminOrders = () => {
   return (
-    <div className="text-white">
+    <div className="text-gray-900">
       <h1 className="text-3xl font-bold mb-6">Gestión de Órdenes</h1>
       <p>Lista de órdenes maestro (Próximamente)</p>
     </div>

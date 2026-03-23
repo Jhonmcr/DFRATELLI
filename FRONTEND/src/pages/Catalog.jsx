@@ -49,7 +49,7 @@ export default function Catalog() {
   }, [categoryParam, searchTerm, minPrice, maxPrice]);
 
   return (
-    <div className="py-12 px-6 md:px-12 max-w-7xl mx-auto w-full">
+    <div className="pt-32 pb-12 px-6 md:px-12 max-w-7xl mx-auto w-full">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
           <h1 className="text-4xl font-bold text-white mb-2">Catálogo de <span className="text-amber-500">Productos</span></h1>
@@ -63,7 +63,7 @@ export default function Catalog() {
                placeholder="Buscar productos..."
                value={searchTerm}
                onChange={(e) => setSearchTerm(e.target.value)}
-               className="w-full bg-slate-900 border border-slate-700 rounded-lg py-2 pl-10 pr-4 text-white focus:outline-none focus:border-amber-500 transition-colors"
+               className="w-full bg-slate-900 border border-slate-700 rounded-lg py-2 pl-10 pr-4 text-gray-900 focus:outline-none focus:border-amber-500 transition-colors"
              />
              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
           </div>
@@ -77,7 +77,7 @@ export default function Catalog() {
             </button>
             {showFilters && (
               <div className="absolute right-0 mt-2 w-64 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl z-50 p-4 origin-top-right">
-                <h4 className="text-white font-bold mb-4 text-sm">Filtrar por Precio</h4>
+                <h4 className="text-gray-900 font-bold mb-4 text-sm">Filtrar por Precio</h4>
                 <div className="flex gap-2 mb-4">
                   <div className="flex-1">
                     <label className="text-xs text-slate-400 mb-1 block">Min ($)</label>
@@ -85,7 +85,7 @@ export default function Catalog() {
                       type="number" 
                       value={minPrice} 
                       onChange={(e) => setMinPrice(e.target.value)} 
-                      className="w-full bg-slate-800 border border-slate-700 rounded p-2 text-white text-sm focus:outline-none focus:border-amber-500" 
+                      className="w-full bg-slate-800 border border-slate-700 rounded p-2 text-gray-900 text-sm focus:outline-none focus:border-amber-500" 
                     />
                   </div>
                   <div className="flex-1">
@@ -94,14 +94,14 @@ export default function Catalog() {
                       type="number" 
                       value={maxPrice} 
                       onChange={(e) => setMaxPrice(e.target.value)} 
-                      className="w-full bg-slate-800 border border-slate-700 rounded p-2 text-white text-sm focus:outline-none focus:border-amber-500" 
+                      className="w-full bg-slate-800 border border-slate-700 rounded p-2 text-gray-900 text-sm focus:outline-none focus:border-amber-500" 
                     />
                   </div>
                 </div>
                 <div className="flex justify-between items-center">
                   <button 
                     onClick={() => { setMinPrice(''); setMaxPrice(''); setShowFilters(false); }}
-                    className="text-xs text-slate-400 hover:text-white transition-colors"
+                    className="text-xs text-slate-400 hover:text-gray-900 transition-colors"
                   >
                     Limpiar
                   </button>
@@ -135,7 +135,7 @@ export default function Catalog() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               onClick={() => navigate(`/product/${product.id}`)}
-              className="bg-glass rounded-xl overflow-hidden border border-slate-800 hover:border-amber-500/30 transition-colors group flex flex-col h-full cursor-pointer"
+              className="bg-[#2c1200]/80 rounded-xl overflow-hidden border border-amber-900/50 hover:border-amber-400 shadow-[0_4px_15px_rgba(0,0,0,0.5)] transition-all duration-300 group flex flex-col h-full cursor-pointer"
             >
               <div className="h-48 bg-slate-900 relative">
                 {product.image ? (
@@ -148,7 +148,7 @@ export default function Catalog() {
                 </div>
               </div>
               <div className="p-5 flex flex-col flex-grow">
-                <h3 className="text-lg font-bold text-white mb-1">{product.name}</h3>
+                <h3 className="text-lg font-bold text-white mb-1 group-hover:text-amber-400 transition-colors">{product.name}</h3>
                 <p className="text-sm text-slate-400 mb-4 line-clamp-2">{product.description}</p>
                 <div className="mt-auto flex justify-between items-center">
                   {product.is_on_sale && product.discount_percentage > 0 ? (

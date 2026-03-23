@@ -145,7 +145,7 @@ export default function AdminProducts() {
     <div className="py-12 px-6 md:px-12 max-w-7xl mx-auto w-full relative">
       <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-4xl font-bold text-white mb-2">Gestionar <span className="text-amber-500">Productos</span></h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">Gestionar <span className="text-amber-500">Productos</span></h1>
           <p className="text-slate-400">Añade, edita y elimina productos de tu catálogo.</p>
         </div>
         <button 
@@ -180,7 +180,7 @@ export default function AdminProducts() {
                       )}
                    </div>
                    <div>
-                     <span className="text-white font-medium block">{product.name}</span>
+                     <span className="text-gray-900 font-medium block">{product.name}</span>
                      <span className="text-slate-500 text-sm line-clamp-1">{product.description}</span>
                    </div>
                 </td>
@@ -216,8 +216,8 @@ export default function AdminProducts() {
         <div className="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
            <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
               <div className="flex justify-between items-center p-6 border-b border-slate-800 bg-slate-800/50">
-                <h2 className="text-2xl font-bold text-white">{editingId ? 'Editar Producto' : 'Nuevo Producto'}</h2>
-                <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-white transition-colors">
+                <h2 className="text-2xl font-bold text-gray-900">{editingId ? 'Editar Producto' : 'Nuevo Producto'}</h2>
+                <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-gray-900 transition-colors">
                   <X className="w-6 h-6" />
                 </button>
               </div>
@@ -232,20 +232,20 @@ export default function AdminProducts() {
                 <form id="productForm" onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-slate-400 mb-1">Nombre del Producto *</label>
-                    <input type="text" name="name" required value={formData.name} onChange={handleChange} className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-white" />
+                    <input type="text" name="name" required value={formData.name} onChange={handleChange} className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-gray-900" />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-slate-400 mb-1">Descripción</label>
-                    <textarea name="description" rows="3" value={formData.description} onChange={handleChange} className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-white resize-none"></textarea>
+                    <textarea name="description" rows="3" value={formData.description} onChange={handleChange} className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-gray-900 resize-none"></textarea>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-slate-400 mb-1">Precio *</label>
-                      <input type="number" step="0.01" name="price" required value={formData.price} onChange={handleChange} className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-white" />
+                      <input type="number" step="0.01" name="price" required value={formData.price} onChange={handleChange} className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-gray-900" />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-slate-400 mb-1">Stock *</label>
-                      <input type="number" name="stock" required value={formData.stock} onChange={handleChange} className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-white" />
+                      <input type="number" name="stock" required value={formData.stock} onChange={handleChange} className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-gray-900" />
                     </div>
                   </div>
 
@@ -272,7 +272,7 @@ export default function AdminProducts() {
                             max="100" 
                             value={formData.discount_percentage} 
                             onChange={handleChange} 
-                            className="w-full px-4 py-2 bg-slate-900 border border-amber-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-white" 
+                            className="w-full px-4 py-2 bg-slate-900 border border-amber-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-gray-900" 
                           />
                         </div>
                         <div>
@@ -295,7 +295,7 @@ export default function AdminProducts() {
                               value={newCategoryName} 
                               onChange={(e) => setNewCategoryName(e.target.value)} 
                               placeholder="Nombre de la categoría"
-                              className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-white" 
+                              className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-gray-900" 
                             />
                             <button 
                               type="button" 
@@ -307,14 +307,14 @@ export default function AdminProducts() {
                             <button 
                               type="button" 
                               onClick={() => setIsCreatingCategory(false)}
-                              className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg transition-colors"
+                              className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-gray-900 font-bold rounded-lg transition-colors"
                             >
                               ✕
                             </button>
                           </>
                         ) : (
                           <>
-                            <select name="category" value={formData.category} onChange={handleChange} className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-white">
+                            <select name="category" value={formData.category} onChange={handleChange} className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-gray-900">
                               <option value="">-- Seleccionar --</option>
                               {categories.map(cat => (
                                 <option key={cat.id} value={cat.id}>{cat.name}</option>
@@ -340,7 +340,7 @@ export default function AdminProducts() {
               </div>
 
               <div className="p-6 border-t border-slate-800 bg-slate-800/50 flex justify-end gap-3">
-                <button onClick={() => setIsModalOpen(false)} className="px-6 py-2 border border-slate-600 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition-colors">
+                <button onClick={() => setIsModalOpen(false)} className="px-6 py-2 border border-slate-600 rounded-lg text-slate-300 hover:text-gray-900 hover:bg-slate-700 transition-colors">
                   Cancelar
                 </button>
                 <button type="submit" form="productForm" className="px-6 py-2 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold rounded-lg transition-colors shadow-neon">

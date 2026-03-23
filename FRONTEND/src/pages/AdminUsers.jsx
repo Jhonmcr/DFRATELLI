@@ -52,7 +52,7 @@ export default function AdminUsers() {
   return (
     <div className="py-12 px-6 md:px-12 max-w-7xl mx-auto w-full">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-white mb-2">Gestión de <span className="text-amber-500">Usuarios</span></h1>
+        <h1 className="text-4xl font-bold text-gray-900 mb-2">Gestión de <span className="text-amber-500">Usuarios</span></h1>
         <p className="text-slate-400">Consulta la información de todos los usuarios registrados.</p>
       </div>
 
@@ -67,7 +67,7 @@ export default function AdminUsers() {
                 placeholder="Buscar usuario..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 bg-slate-800 text-white text-sm border border-slate-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-500 placeholder-slate-500"
+                className="w-full pl-9 pr-3 py-2 bg-slate-800 text-gray-900 text-sm border border-slate-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-500 placeholder-slate-500"
               />
             </div>
           </div>
@@ -80,7 +80,7 @@ export default function AdminUsers() {
                 onClick={() => setSelected(u)}
                 className={`w-full text-left p-4 border-b border-slate-800 transition-colors ${selected?.id === u.id ? 'bg-amber-500/10 border-l-2 border-l-amber-500' : 'hover:bg-slate-800/60'}`}
               >
-                <p className="text-sm font-medium text-white truncate">{u.first_name} {u.last_name || u.username}</p>
+                <p className="text-sm font-medium text-gray-900 truncate">{u.first_name} {u.last_name || u.username}</p>
                 <p className="text-xs text-slate-500 truncate">{u.email}</p>
                 <div className="mt-1">{roleBadge(u.role)}</div>
               </button>
@@ -97,7 +97,7 @@ export default function AdminUsers() {
                   <Users className="w-8 h-8 text-amber-500" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">{selected.first_name} {selected.last_name}</h2>
+                  <h2 className="text-2xl font-bold text-gray-900">{selected.first_name} {selected.last_name}</h2>
                   <p className="text-slate-400 text-sm">@{selected.username}</p>
                 </div>
                 <div className="ml-auto">{roleBadge(selected.role)}</div>
@@ -111,7 +111,7 @@ export default function AdminUsers() {
               
               {currentUser?.role === 'SUPERADMIN' && selected.role !== 'SUPERADMIN' && (
                 <div className="mt-8 pt-6 border-t border-slate-800">
-                  <h3 className="text-white font-bold mb-4">Gestión de Acceso Rápida</h3>
+                  <h3 className="text-gray-900 font-bold mb-4">Gestión de Acceso Rápida</h3>
                   <div className="flex gap-4">
                     {selected.role === 'CLIENT' ? (
                       <button 
@@ -148,7 +148,7 @@ function InfoRow({ icon, label, value, mono }) {
   return (
     <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-4">
       <div className="flex items-center gap-2 text-slate-400 text-xs mb-2">{icon}{label}</div>
-      <p className={`text-white font-medium ${mono ? 'font-mono tracking-widest text-amber-400' : ''}`}>{value}</p>
+      <p className={`text-gray-900 font-medium ${mono ? 'font-mono tracking-widest text-amber-400' : ''}`}>{value}</p>
     </div>
   );
 }

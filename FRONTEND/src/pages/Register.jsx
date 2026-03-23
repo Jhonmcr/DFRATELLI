@@ -60,7 +60,7 @@ export default function Register() {
       >
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-600"></div>
         <div>
-          <h2 className="mt-2 text-center text-3xl font-extrabold text-white">
+          <h2 className="mt-2 text-center text-3xl font-extrabold text-gray-900">
             Crear <span className="text-amber-500">Cuenta</span>
           </h2>
           <p className="mt-2 text-center text-sm text-slate-400">
@@ -93,7 +93,7 @@ export default function Register() {
                 name="username"
                 type="text"
                 required
-                className="appearance-none rounded-lg relative block w-full px-3 py-3 pl-10 border border-slate-700 bg-slate-800/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent sm:text-sm transition-all"
+                className="appearance-none rounded-lg relative block w-full px-3 py-3 pl-10 border border-slate-700 bg-slate-800/50 text-gray-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent sm:text-sm transition-all"
                 placeholder="Nombre de usuario"
                 value={formData.username}
                 onChange={handleChange}
@@ -106,7 +106,7 @@ export default function Register() {
                 name="first_name"
                 type="text"
                 required
-                className="appearance-none rounded-lg relative block w-full px-3 py-3 border border-slate-700 bg-slate-800/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent sm:text-sm transition-all"
+                className="appearance-none rounded-lg relative block w-full px-3 py-3 border border-slate-700 bg-slate-800/50 text-gray-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent sm:text-sm transition-all"
                 placeholder="Nombre"
                 value={formData.first_name}
                 onChange={handleChange}
@@ -116,7 +116,7 @@ export default function Register() {
                 name="last_name"
                 type="text"
                 required
-                className="appearance-none rounded-lg relative block w-full px-3 py-3 border border-slate-700 bg-slate-800/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent sm:text-sm transition-all"
+                className="appearance-none rounded-lg relative block w-full px-3 py-3 border border-slate-700 bg-slate-800/50 text-gray-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent sm:text-sm transition-all"
                 placeholder="Apellido"
                 value={formData.last_name}
                 onChange={handleChange}
@@ -132,7 +132,7 @@ export default function Register() {
                 name="email"
                 type="email"
                 required
-                className="appearance-none rounded-lg relative block w-full px-3 py-3 pl-10 border border-slate-700 bg-slate-800/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent sm:text-sm transition-all"
+                className="appearance-none rounded-lg relative block w-full px-3 py-3 pl-10 border border-slate-700 bg-slate-800/50 text-gray-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent sm:text-sm transition-all"
                 placeholder="Correo electrónico"
                 value={formData.email}
                 onChange={handleChange}
@@ -147,7 +147,7 @@ export default function Register() {
                 id="phone_number"
                 name="phone_number"
                 type="tel"
-                className="appearance-none rounded-lg relative block w-full px-3 py-3 pl-10 border border-slate-700 bg-slate-800/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent sm:text-sm transition-all"
+                className="appearance-none rounded-lg relative block w-full px-3 py-3 pl-10 border border-slate-700 bg-slate-800/50 text-gray-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent sm:text-sm transition-all"
                 placeholder="Número de teléfono (Ej: +58424...)"
                 value={formData.phone_number}
                 onChange={handleChange}
@@ -163,7 +163,7 @@ export default function Register() {
                 name="password"
                 type="password"
                 required
-                className="appearance-none rounded-lg relative block w-full px-3 py-3 pl-10 border border-slate-700 bg-slate-800/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent sm:text-sm transition-all"
+                className="appearance-none rounded-lg relative block w-full px-3 py-3 pl-10 border border-slate-700 bg-slate-800/50 text-gray-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent sm:text-sm transition-all"
                 placeholder="Contraseña"
                 value={formData.password}
                 onChange={handleChange}

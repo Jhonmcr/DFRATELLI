@@ -30,7 +30,7 @@ export default function AdminSettings() {
   return (
     <div className="py-12 px-6 md:px-12 max-w-7xl mx-auto w-full">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-white mb-2">Configuraciones de <span className="text-amber-500">Sistema</span></h1>
+        <h1 className="text-4xl font-bold text-gray-900 mb-2">Configuraciones de <span className="text-amber-500">Sistema</span></h1>
         <p className="text-slate-400">Ajustes avanzados y gestión de roles (Solo SuperAdmin).</p>
       </div>
 
@@ -39,16 +39,16 @@ export default function AdminSettings() {
         <div className="bg-glass border border-slate-800 rounded-xl p-6">
           <div className="flex items-center gap-3 mb-6">
              <Server className="w-6 h-6 text-amber-500" />
-             <h2 className="text-xl font-bold text-white">Preferencias de Tienda</h2>
+             <h2 className="text-xl font-bold text-gray-900">Preferencias de Tienda</h2>
           </div>
           <form className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-slate-400 mb-1">Nombre de la Empresa</label>
-              <input type="text" defaultValue="DFRATELLI" className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-white" />
+              <input type="text" defaultValue="DFRATELLI" className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-gray-900" />
             </div>
             <div>
               <label className="block text-sm font-medium text-slate-400 mb-1">Moneda Principal</label>
-              <select className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-white">
+              <select className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-gray-900">
                 <option value="USD">USD ($)</option>
                 <option value="VES">VES (Bs)</option>
               </select>
@@ -65,7 +65,7 @@ export default function AdminSettings() {
         <div className="bg-glass border border-slate-800 rounded-xl p-6">
           <div className="flex items-center gap-3 mb-2">
             <UserCog className="w-6 h-6 text-amber-500" />
-            <h2 className="text-xl font-bold text-white">Cambio de Rol</h2>
+            <h2 className="text-xl font-bold text-gray-900">Cambio de Rol</h2>
           </div>
           <p className="text-slate-500 text-sm mb-6">Cambia el rol de un usuario usando su Código Único (visible en Configuración de Cuenta del usuario).</p>
           <form onSubmit={handleRoleChange} className="space-y-4">
@@ -77,7 +77,7 @@ export default function AdminSettings() {
                 value={uniqueCode}
                 onChange={e => setUniqueCode(e.target.value.toUpperCase())}
                 required
-                className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-white font-mono placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-gray-900 font-mono placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500"
               />
             </div>
             <div>
@@ -85,7 +85,7 @@ export default function AdminSettings() {
               <select
                 value={newRole}
                 onChange={e => setNewRole(e.target.value)}
-                className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+                className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-500"
               >
                 <option value="CLIENT">Cliente</option>
                 <option value="ADMIN">Administrador</option>

@@ -67,7 +67,7 @@ export default function MyOrders() {
   return (
     <div className="py-12 px-6 md:px-12 max-w-5xl mx-auto w-full flex-grow">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-white mb-2">Mis <span className="text-amber-500">Compras</span></h1>
+        <h1 className="text-4xl font-bold text-gray-900 mb-2">Mis <span className="text-amber-500">Compras</span></h1>
         <p className="text-slate-400">Historial de tus órdenes y estado de procesamiento.</p>
       </div>
 
@@ -90,7 +90,7 @@ export default function MyOrders() {
       ) : orders.length === 0 ? (
         <div className="bg-glass border border-slate-800 rounded-xl p-12 text-center flex flex-col items-center">
            <ShoppingBag className="w-16 h-16 text-slate-600 mb-4" />
-           <h3 className="text-2xl font-bold text-white mb-2">Aún no tienes compras</h3>
+           <h3 className="text-2xl font-bold text-gray-900 mb-2">Aún no tienes compras</h3>
            <p className="text-slate-400">Cuando realices tú primer pedido aparecerá aquí.</p>
         </div>
       ) : (
@@ -99,12 +99,12 @@ export default function MyOrders() {
              <div key={order.id} className="bg-slate-900 border border-slate-700 rounded-2xl overflow-hidden shadow-lg transition-all hover:border-amber-500/30">
                 <div className="bg-slate-800/50 p-4 md:p-6 border-b border-slate-700 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                    <div>
-                      <h2 className="text-xl font-bold text-white mb-1">Orden <span className="text-amber-500">#ORD-00{order.id}</span></h2>
+                      <h2 className="text-xl font-bold text-gray-900 mb-1">Orden <span className="text-amber-500">#ORD-00{order.id}</span></h2>
                       <p className="text-sm text-slate-400">Realizada el: {new Date(order.created_at).toLocaleString('es-ES')}</p>
                    </div>
                    <div className="flex flex-col items-end gap-2">
                       {getStatusBadge(order.status)}
-                      <p className="text-2xl font-bold text-white">${parseFloat(order.total).toFixed(2)}</p>
+                      <p className="text-2xl font-bold text-gray-900">${parseFloat(order.total).toFixed(2)}</p>
                    </div>
                 </div>
                 <div className="p-4 md:p-6">
@@ -120,7 +120,7 @@ export default function MyOrders() {
                               )}
                            </div>
                            <div className="overflow-hidden">
-                              <p className="text-white font-medium truncate" title={item.product_name}>{item.product_name}</p>
+                              <p className="text-gray-900 font-medium truncate" title={item.product_name}>{item.product_name}</p>
                               <p className="text-sm text-amber-500">Cant: {item.quantity}</p>
                            </div>
                         </div>

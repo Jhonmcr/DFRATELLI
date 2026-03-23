@@ -81,7 +81,7 @@ export default function AdminBrands() {
     <div className="py-12 px-6 md:px-12 max-w-7xl mx-auto w-full">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
         <div>
-          <h1 className="text-4xl font-bold text-white mb-2">Gestión de <span className="text-amber-500">Marcas</span></h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">Gestión de <span className="text-amber-500">Marcas</span></h1>
           <p className="text-slate-400">Agrega, edita o elimina marcas y sube imágenes para cada una.</p>
         </div>
         <button
@@ -102,12 +102,12 @@ export default function AdminBrands() {
             value={newBrandName}
             onChange={(e) => setNewBrandName(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleCreate()}
-            className="flex-1 px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="flex-1 px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-gray-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500"
           />
           <button onClick={handleCreate} className="bg-green-500 hover:bg-green-400 text-slate-900 font-bold px-5 py-3 rounded-lg transition-colors flex items-center gap-1">
             <Check className="w-5 h-5" /> Guardar
           </button>
-          <button onClick={() => { setCreating(false); setNewBrandName(''); }} className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-3 rounded-lg transition-colors">
+          <button onClick={() => { setCreating(false); setNewBrandName(''); }} className="bg-slate-700 hover:bg-slate-600 text-gray-900 px-4 py-3 rounded-lg transition-colors">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -141,7 +141,7 @@ export default function AdminBrands() {
                 {/* Upload Image Button */}
                 <button
                   onClick={() => fileInputRefs.current[brand.id]?.click()}
-                  className="absolute top-3 right-3 bg-slate-900/70 hover:bg-amber-500 text-white hover:text-slate-900 p-2.5 rounded-full backdrop-blur-sm border border-slate-700 transition-all shadow-md opacity-0 group-hover:opacity-100"
+                  className="absolute top-3 right-3 bg-slate-900/70 hover:bg-amber-500 text-gray-900 hover:text-slate-900 p-2.5 rounded-full backdrop-blur-sm border border-slate-700 transition-all shadow-md opacity-0 group-hover:opacity-100"
                   title="Cambiar imagen"
                 >
                   <Upload className="w-4 h-4" />
@@ -163,18 +163,18 @@ export default function AdminBrands() {
                       value={editName}
                       onChange={(e) => setEditName(e.target.value)}
                       onKeyDown={(e) => e.key === 'Enter' && handleRename(brand.id)}
-                      className="flex-1 px-3 py-2 bg-slate-800 border border-slate-600 rounded-lg text-white text-sm focus:outline-none focus:ring-1 focus:ring-amber-500"
+                      className="flex-1 px-3 py-2 bg-slate-800 border border-slate-600 rounded-lg text-gray-900 text-sm focus:outline-none focus:ring-1 focus:ring-amber-500"
                     />
                     <button onClick={() => handleRename(brand.id)} className="bg-green-500 hover:bg-green-400 text-slate-900 p-2 rounded-lg">
                       <Check className="w-4 h-4" />
                     </button>
-                    <button onClick={() => setEditingId(null)} className="bg-slate-700 hover:bg-slate-600 text-white p-2 rounded-lg">
+                    <button onClick={() => setEditingId(null)} className="bg-slate-700 hover:bg-slate-600 text-gray-900 p-2 rounded-lg">
                       <X className="w-4 h-4" />
                     </button>
                   </div>
                 ) : (
                   <div className="flex items-center justify-between">
-                    <h3 className="text-lg font-bold text-white truncate">{brand.name}</h3>
+                    <h3 className="text-lg font-bold text-gray-900 truncate">{brand.name}</h3>
                     <div className="flex gap-2 ml-2">
                       <button
                         onClick={() => { setEditingId(brand.id); setEditName(brand.name); }}

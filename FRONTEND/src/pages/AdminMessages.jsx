@@ -38,7 +38,7 @@ export default function AdminMessages() {
   return (
     <div className="py-12 px-6 md:px-12 max-w-7xl mx-auto w-full flex-grow">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-white mb-2">Mensajes de <span className="text-amber-500">Contacto</span></h1>
+        <h1 className="text-4xl font-bold text-gray-900 mb-2">Mensajes de <span className="text-amber-500">Contacto</span></h1>
         <p className="text-slate-400">Mensajes enviados por clientes a través del formulario de contacto.</p>
       </div>
 
@@ -51,7 +51,7 @@ export default function AdminMessages() {
           {/* Left sidebar - message list */}
           <div className="w-72 flex-shrink-0 bg-slate-900 border border-slate-700 rounded-2xl overflow-hidden flex flex-col">
             <div className="p-4 border-b border-slate-700 bg-slate-800/50">
-              <p className="text-sm font-bold text-white">
+              <p className="text-sm font-bold text-gray-900">
                 {messages.filter(m => !m.is_read).length} sin leer
               </p>
             </div>
@@ -73,7 +73,7 @@ export default function AdminMessages() {
                     }`}
                   >
                     <div className="flex items-center justify-between gap-2">
-                      <span className={`text-sm truncate font-medium ${!msg.is_read ? 'text-white' : 'text-slate-400'}`}>
+                      <span className={`text-sm truncate font-medium ${!msg.is_read ? 'text-gray-900' : 'text-slate-400'}`}>
                         {msg.name || msg.email}
                       </span>
                       {!msg.is_read && (
@@ -93,7 +93,7 @@ export default function AdminMessages() {
             {selected ? (
               <>
                 <div className="p-6 border-b border-slate-700 bg-slate-800/50">
-                  <h2 className="text-xl font-bold text-white mb-3">{selected.subject}</h2>
+                  <h2 className="text-xl font-bold text-gray-900 mb-3">{selected.subject}</h2>
                   <div className="flex flex-wrap gap-4 text-sm text-slate-400">
                     {selected.name && (
                       <span className="flex items-center gap-1.5">

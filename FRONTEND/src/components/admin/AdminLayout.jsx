@@ -1,4 +1,5 @@
 /**
+/**
  * @file AdminLayout.jsx
  * @description Estructura base para el panel de administración
  */
@@ -7,7 +8,7 @@ import { Outlet } from 'react-router-dom';
 
 const AdminLayout = () => {
   return (
-    <div className="flex min-h-screen bg-[#1a0f05]">
+    <div className="flex min-h-screen bg-gradient-to-br from-amber-500 via-amber-600 to-orange-700 pt-24 text-gray-900">
       <main className="flex-1 p-8">
         <Outlet />
       </main>

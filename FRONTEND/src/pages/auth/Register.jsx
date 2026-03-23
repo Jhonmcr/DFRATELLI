@@ -98,93 +98,87 @@ const Register = () => {
   // ─── ESTRUCTURA DE COMPONENTE VISUAL ─────────────────────────────
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#1a0f05] py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center bg-amber-50 py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         
       {/* ─── FONDOS / GRADIENTES ABSTRACTOS ─── */}
-      <div className="absolute top-0 left-0 -ml-40 -mt-20 w-96 h-96 bg-orange-600/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute top-0 left-0 -ml-40 -mt-20 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl pointer-events-none"></div>
       <div className="absolute bottom-0 right-0 -mr-40 -mb-20 w-80 h-80 bg-[#5C3D11]/20 rounded-full blur-3xl pointer-events-none"></div>
       
-      <div className="max-w-md w-full space-y-8 z-10 relative">
-        <div className="text-center">
-          <Link to="/" className="inline-block group mx-auto mb-6">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500 to-orange-700 mx-auto shadow-xl shadow-orange-500/20 group-hover:-translate-y-1 transition-transform">
-              <UserPlus className="h-8 w-8 text-white" />
+      <div className="max-w-md w-full space-y-4 z-10 relative">
+        <div className="text-center mt-8">
+          <Link to="/" className="inline-block group mx-auto mb-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-500 to-orange-700 mx-auto shadow-xl shadow-amber-500/20 group-hover:-translate-y-1 transition-transform">
+              <UserPlus className="h-6 w-6 text-gray-900" />
             </div>
           </Link>
-          <h2 className="text-center text-3xl font-extrabold text-white tracking-tight">
+          <h2 className="text-center text-2xl font-extrabold text-gray-900 tracking-tight">
             Únete a DFRATELLI
           </h2>
-          <p className="mt-3 text-center text-sm text-gray-400">
+          <p className="mt-3 text-center text-sm text-gray-600">
             ¿Ya tienes una cuenta?{" "}
-            <Link to="/login" className="font-medium text-orange-400 hover:text-orange-300 transition-colors">
+            <Link to="/login" className="font-medium text-amber-600 hover:text-orange-300 transition-colors">
               Inicia sesión aquí
             </Link>
           </p>
         </div>
 
-        <form className="mt-8 bg-[#2a1b0a]/80 backdrop-blur-md border border-[#5C3D11]/50 p-8 rounded-2xl shadow-2xl" onSubmit={handleSubmit}>
+        <form className="mt-4 bg-white backdrop-blur-md border border-amber-300 p-6 sm:p-8 rounded-2xl shadow-2xl" onSubmit={handleSubmit}>
           
-          <div className="space-y-5">
+          <div className="space-y-4">
             {/* Grid dual para Nombres Optativos */}
             <div className="grid grid-cols-2 gap-4">
                 <Input
-                    label="Nombre"
                     id="first_name"
                     name="first_name"
                     type="text"
-                    placeholder="Opcional"
+                    placeholder="Nombre"
                     value={formData.first_name}
                     onChange={handleChange}
                 />
                 <Input
-                    label="Apellido"
                     id="last_name"
                     name="last_name"
                     type="text"
-                    placeholder="Opcional"
+                    placeholder="Apellido"
                     value={formData.last_name}
                     onChange={handleChange}
                 />
             </div>
 
             <Input
-              label="Nombre de Usuario"
               id="username"
               name="username"
               type="text"
               required
-              placeholder="Ej. JuanPerez99"
+              placeholder="Usuario: Ej. JuanPerez99"
               value={formData.username}
               onChange={handleChange}
               icon={User}
             />
 
             <Input
-              label="Correo Electrónico"
               id="email"
               name="email"
               type="email"
               required
-              placeholder="ejemplo@dfratelli.com"
+              placeholder="Correo: ejemplo@dfratelli.com"
               value={formData.email}
               onChange={handleChange}
               icon={Mail}
             />
 
             <Input
-              label="Contraseña"
               id="password"
               name="password"
               type="password"
               required
-              placeholder="••••••••"
+              placeholder="Contraseña: ••••••••"
               value={formData.password}
               onChange={handleChange}
               icon={Lock}
             />
 
             <Input
-              label="Confirmar Contraseña"
               id="confirm_password"
               name="confirm_password"
               type="password"
@@ -196,7 +190,7 @@ const Register = () => {
             />
           </div>
 
-          <div className="mt-8 pt-4 border-t border-[#5C3D11]/30">
+          <div className="mt-6 pt-4 border-t border-amber-200">
             <Button
               type="submit"
               variant="primary"
@@ -211,7 +205,7 @@ const Register = () => {
           
           <div className="mt-6 text-center text-xs justify-center text-gray-500">
             Al registrarte confirmas que aceptas nuestros <br/>
-            <a href="#" className="underline hover:text-orange-500">Términos del Servicio</a> y <a href="#" className="underline hover:text-orange-500">Privacidad</a>.
+            <a href="#" className="underline hover:text-amber-500">Términos del Servicio</a> y <a href="#" className="underline hover:text-amber-500">Privacidad</a>.
           </div>
         </form>
       </div>
