@@ -1,3 +1,14 @@
+/**
+ * @file Promotions.jsx
+ * @description Componente/Módulo de la Ferretería DFRATELLI.
+ * 
+ * @author Jhon Michael Cariaco Rosales
+ * @email jhoncariaco@gmail.com
+ * @github https://github.com/Jhonmcr
+ * @date 2026-03-20
+ * @version 1.0.0
+ */
+
 import React, { useState, useEffect, useContext } from 'react';
 import { motion } from 'framer-motion';
 import { Tag, ShoppingCart, ArrowRight, Search, Filter } from 'lucide-react';
@@ -40,7 +51,7 @@ export default function Promotions() {
   }, [searchTerm, minPrice, maxPrice]);
 
   return (
-    <div className="pt-32 pb-12 px-6 md:px-12 max-w-7xl mx-auto w-full min-h-[80vh]">
+    <div className="pt-28 pb-12 px-6 md:px-12 max-w-7xl mx-auto w-full min-h-[80vh]">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
@@ -49,7 +60,7 @@ export default function Promotions() {
           <span className="text-amber-500 font-semibold tracking-wider uppercase text-sm mb-2 block">
             Ahorra Más
           </span>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-2">
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-blue-900">
             Nuestras Mejores <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">Ofertas</span>
           </h1>
           <p className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-amber-700 max-w-xl text-lg">
@@ -139,7 +150,7 @@ export default function Promotions() {
                key={product.id}
                initial={{ opacity: 0, scale: 0.95 }}
                animate={{ opacity: 1, scale: 1 }}
-               onClick={() => navigate(`/product/${product.id}`)}
+               onClick={() => navigate(`/products/${product.id}`)}
                className="group bg-[#1a0a00] border border-amber-900/50 rounded-2xl overflow-hidden hover:border-amber-400 shadow-[0_4px_15px_rgba(0,0,0,0.5)] transition-all duration-300 relative cursor-pointer flex flex-col"
              >
                {/* Badge de Oferta */}

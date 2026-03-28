@@ -36,7 +36,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await api.get(`/products/${id}/`);
+        const response = await api.get(`products/${id}/`);
         setProduct(response.data);
       } catch (err) {
         console.error("Error fetching product:", err);
@@ -92,7 +92,7 @@ const ProductDetail = () => {
   // ─── RENDERIZADO: PANTALLA PRINCIPAL (Product Detail Hero) ────────
   
   return (
-    <div className="bg-amber-50 min-h-screen pt-24 pb-16">
+    <div className="bg-amber-50 min-h-screen pt-28 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Navegación tipo Migas de pan (Breadcrumb) retrocedible */}

@@ -61,8 +61,8 @@ const Profile = () => {
             // Requiere autenticación Bearer por su token JWT almacenado.
             // Si el token expira dentro de request (401), el interceptor en api.js lo manejaría.
             const [profileRes, ordersRes] = await Promise.all([
-                api.get("/users/profile/"),     // Datos PII del cliente
-                api.get("/orders/my-orders/")   // Relacional History Histórico
+                api.get("users/profile/"),     // Datos PII del cliente
+                api.get("orders/my-orders/")   // Relacional History Histórico
             ]);
             
             setFullProfile(profileRes.data);
@@ -234,7 +234,7 @@ const Profile = () => {
     
     if (isLoadingData) {
         return (
-            <div className="min-h-screen bg-amber-50 flex justify-center items-center pt-24">
+            <div className="min-h-screen bg-amber-50 flex justify-center items-center pt-28">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div>
             </div>
         );

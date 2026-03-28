@@ -77,7 +77,7 @@ const Login = () => {
   // ─── RENDERIZADO VISUAL ───────────────────────────────────────────
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-amber-50 py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen flex items-start justify-center bg-amber-50 pt-28 pb-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       
       {/* ─── DECORACIÓN DE FONDO ABSTRACTA ─── */}
       <div className="absolute top-0 right-0 -mr-40 -mt-20 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -128,20 +128,19 @@ const Login = () => {
                 type="password"
                 required
                 autoComplete="current-password"
-                placeholder="••••••••"
+                placeholder="Contraseña"
                 value={formData.password}
                 onChange={handleChange}
                 icon={Lock}
               />
               {/* Opción de olvido (Funcional en el Backend pero asume existir la ruta /forgot-password) */}
               <div className="flex justify-end mt-2">
-                <button 
-                  type="button" 
-                  onClick={() => toast.info('La interfaz de recuperación de contraseña está en construcción. ¡Pronto disponible!')} 
+                <Link 
+                  to="/forgot-password" 
                   className="text-xs font-medium text-gray-600 hover:text-amber-600 transition-colors cursor-pointer"
                 >
                   ¿Olvidaste tu contraseña?
-                </button>
+                </Link>
               </div>
             </div>
           </div>

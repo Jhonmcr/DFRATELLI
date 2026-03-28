@@ -15,7 +15,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { User, Mail, Lock, ShieldCheck, ArrowRight, UserPlus } from "lucide-react";
+import { User, Mail, Lock, ShieldCheck, ArrowRight, UserPlus, Phone } from "lucide-react";
 import toast from "react-hot-toast";
 
 import Input from "../../components/ui/Input";
@@ -26,10 +26,11 @@ const Register = () => {
   const [formData, setFormData] = useState({
     email: "",
     username: "",
-    first_name: "",  // Opcional en UI pero previsto por el Serializer DRF
-    last_name: "",   // Opcional
+    first_name: "",
+    last_name: "",
+    phone_number: "",
     password: "",
-    confirm_password: "", // Estrictamente local, se tira antes de enviar al backend
+    confirm_password: "",
   });
   
   const [isLoading, setIsLoading] = useState(false);
@@ -98,14 +99,14 @@ const Register = () => {
   // ─── ESTRUCTURA DE COMPONENTE VISUAL ─────────────────────────────
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-amber-50 py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen flex items-start justify-center bg-amber-50 pt-16 pb-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         
       {/* ─── FONDOS / GRADIENTES ABSTRACTOS ─── */}
       <div className="absolute top-0 left-0 -ml-40 -mt-20 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl pointer-events-none"></div>
       <div className="absolute bottom-0 right-0 -mr-40 -mb-20 w-80 h-80 bg-[#5C3D11]/20 rounded-full blur-3xl pointer-events-none"></div>
       
       <div className="max-w-md w-full space-y-4 z-10 relative">
-        <div className="text-center mt-8">
+        <div className="text-center mt-0">
           <Link to="/" className="inline-block group mx-auto mb-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-500 to-orange-700 mx-auto shadow-xl shadow-amber-500/20 group-hover:-translate-y-1 transition-transform">
               <UserPlus className="h-6 w-6 text-gray-900" />
@@ -165,6 +166,16 @@ const Register = () => {
               value={formData.email}
               onChange={handleChange}
               icon={Mail}
+            />
+
+            <Input
+              id="phone_number"
+              name="phone_number"
+              type="tel"
+              placeholder="Teléfono: Ej. +58 412 0000000"
+              value={formData.phone_number}
+              onChange={handleChange}
+              icon={Phone}
             />
 
             <Input

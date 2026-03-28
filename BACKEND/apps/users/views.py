@@ -25,6 +25,7 @@ from rest_framework import generics, status               # Vistas genéricas y 
 from rest_framework.response import Response              # Respuesta estándar HTTP de DRF
 from rest_framework.views import APIView                  # Base para vistas personalizadas
 from rest_framework.permissions import IsAdminUser, IsAuthenticated  # Permisos predeterminados
+from django.core.exceptions import PermissionDenied          # Manejo de denegación de permisos
 from rest_framework_simplejwt.views import TokenObtainPairView       # Vista base para obtención de JWT
 from django.db.models import Sum                          # Función de agregación para sumar totales
 from django.contrib.auth.hashers import check_password    # Utilidad para validar hashes de contraseñas
@@ -244,6 +245,36 @@ class RoleChangeView(APIView):
             "message": f"Rol actualizado a {new_role} para {target_user.email}.",
             "user": {"email": target_user.email, "role": target_user.role}
         })
+
+
+class AdminUserCreateView(generics.CreateAPIView):
+    """
+    Vista POST: Permite al SUPERADMIN crear nuevos usuarios con el rol de ADMIN.
+    """
+    permission_classes = [IsAuthenticated]
+    serializer_class = RegisterSerializer
+
+    def perform_create(self, serializer):
+        # Validación de seguridad a nivel de método
+        if self.request.user.role != 'SUPERADMIN':
+            raise PermissionDenied("Solo el superadmin puede crear administradores.")
+        # Se fuerza el rol a ADMIN independientemente de lo que venga en el payload
+        serializer.save(role='ADMIN')
+
+
+class UserDeleteView(generics.DestroyAPIView):
+    """
+    Vista DELETE: Permite al SUPERADMIN eliminar un usuario por su ID.
+    Previene el borrado de otros SUPERADMINS.
+    """
+    permission_classes = [IsAuthenticated]
+    queryset = User.objects.all()
+
+    def perform_destroy(self, instance):
+        # Validación: Solo SUPERADMIN borra, y no puede borrarse a sí mismo ni a otros SUPERADMINS
+        if self.request.user.role != 'SUPERADMIN' or instance.role == 'SUPERADMIN':
+            raise PermissionDenied("Acción no permitida.")
+        instance.delete()
 
 
 class AdminStatsView(APIView):

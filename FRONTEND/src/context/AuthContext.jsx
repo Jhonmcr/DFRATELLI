@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }) => {
      */
     const login = async (credentials) => {
         try {
-            const response = await api.post("/auth/login/", credentials);
+            const response = await api.post("auth/login/", credentials);
             
             // Extracción de tokens generados por SimpleJWT (Backend DRF)
             const { access, refresh } = response.data;
@@ -93,7 +93,7 @@ export const AuthProvider = ({ children }) => {
      */
     const register = async (userData) => {
         try {
-            const response = await api.post("/auth/register/", userData);
+            const response = await api.post("auth/register/", userData);
             return response;
         } catch (error) {
             console.error("Registration failed:", error.response?.data || error);

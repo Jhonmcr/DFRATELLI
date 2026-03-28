@@ -142,3 +142,4 @@ class Review(models.Model):
     def __str__(self):
         """Representación legible de la reseña para el panel de admin."""
         return f"{self.user} - {self.product.name} ({self.rating} stars)"
+

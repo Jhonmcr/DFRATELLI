@@ -1,3 +1,14 @@
+/**
+ * @file Services.jsx
+ * @description Componente/Módulo de la Ferretería DFRATELLI.
+ * 
+ * @author Jhon Michael Cariaco Rosales
+ * @email jhoncariaco@gmail.com
+ * @github https://github.com/Jhonmcr
+ * @date 2026-03-20
+ * @version 1.0.0
+ */
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Wrench, Truck, ShieldCheck, Clock, CheckCircle } from 'lucide-react';
@@ -27,7 +38,7 @@ const servicesList = [
 
 export default function Services() {
   return (
-    <div className="pt-32 pb-16 px-6 md:px-12 max-w-7xl mx-auto w-full min-h-[80vh] relative">
+    <div className="pt-28 pb-16 px-6 md:px-12 max-w-7xl mx-auto w-full min-h-[80vh] relative">
       <div className="absolute top-1/4 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[100px] -z-10" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-amber-600/10 rounded-full blur-[100px] -z-10" />
 
@@ -39,7 +50,7 @@ export default function Services() {
         <span className="text-amber-500 font-semibold tracking-wider uppercase text-sm mb-2 block">
           Lo Que Hacemos
         </span>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">
+        <h1 className="text-4xl md:text-5xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-blue-900">
           Más allá de <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">vender herramientas</span>
         </h1>
         <p className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-amber-700 max-w-2xl mx-auto text-lg">
@@ -92,7 +103,7 @@ export default function Services() {
         </div>
 
         <a 
-          href="https://wa.me/584242334809?text=Hola,%20me%20interesa%20consultar%20sobre%20un%20proyecto%20o%20servicio%20especial." 
+          href="https://wa.me/584129143109?text=Hola,%20me%20interesa%20consultar%20sobre%20un%20proyecto%20o%20servicio%20especial." 
           target="_blank" 
           rel="noopener noreferrer"
           className="inline-block bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold py-4 px-10 rounded-full transition-all shadow-neon text-lg relative z-10"

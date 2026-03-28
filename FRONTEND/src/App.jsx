@@ -1,3 +1,14 @@
+/**
+ * @file App.jsx
+ * @description Componente/Módulo de la Ferretería DFRATELLI.
+ * 
+ * @author Jhon Michael Cariaco Rosales
+ * @email jhoncariaco@gmail.com
+ * @github https://github.com/Jhonmcr
+ * @date 2026-03-20
+ * @version 1.0.0
+ */
+
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast"; 
@@ -20,6 +31,9 @@ import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import Brands from "./pages/Brands";
 import AboutUs from "./pages/AboutUs";
+import ForgotPassword from "./pages/ForgotPassword";
+import MyOrders from "./pages/MyOrders";
+import UserSettings from "./pages/UserSettings";
 
 // ─── PÁGINAS DE GESTIÓN DE CUENTA ────────────────────────────────
 import Login from "./pages/auth/Login";
@@ -31,7 +45,7 @@ import AdminLayout from "./components/admin/AdminLayout";
 import Dashboard from "./pages/AdminDashboard";
 import AdminProducts from "./pages/AdminProducts";
 import AdminOrders from "./pages/AdminOrders";
-import AdminBrands from "./pages/admin/AdminBrands";
+import AdminBrands from "./pages/AdminBrands";
 
 import AdminMessages from "./pages/AdminMessages";
 import AdminUsers from "./pages/AdminUsers";
@@ -77,10 +91,17 @@ function App() {
           
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
 
           {/* Rutas Protegidas (Requieren Login) */}
           <Route path="/profile" element={
               <PrivateRoute><Profile /></PrivateRoute>
+          } />
+          <Route path="/my-orders" element={
+              <PrivateRoute><MyOrders /></PrivateRoute>
+          } />
+          <Route path="/settings" element={
+              <PrivateRoute><UserSettings /></PrivateRoute>
           } />
           <Route path="/checkout-success" element={
               <PrivateRoute><CheckoutSuccess /></PrivateRoute>

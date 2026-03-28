@@ -1,10 +1,21 @@
+/**
+ * @file AboutUs.jsx
+ * @description Componente/Módulo de la Ferretería DFRATELLI.
+ * 
+ * @author Jhon Michael Cariaco Rosales
+ * @email jhoncariaco@gmail.com
+ * @github https://github.com/Jhonmcr
+ * @date 2026-03-20
+ * @version 1.0.0
+ */
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Building2, Users, Target, Shield } from 'lucide-react';
 
 export default function AboutUs() {
   return (
-    <div className="pt-32 pb-16 px-6 md:px-12 max-w-7xl mx-auto w-full min-h-[80vh] relative">
+    <div className="pt-28 pb-16 px-6 md:px-12 max-w-7xl mx-auto w-full min-h-[80vh] relative">
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-amber-600/10 rounded-full blur-[100px] -z-10" />
 
       <motion.div 

@@ -1,3 +1,14 @@
+/**
+ * @file ForgotPassword.jsx
+ * @description Componente/Módulo de la Ferretería DFRATELLI.
+ * 
+ * @author Jhon Michael Cariaco Rosales
+ * @email jhoncariaco@gmail.com
+ * @github https://github.com/Jhonmcr
+ * @date 2026-03-20
+ * @version 1.0.0
+ */
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -19,7 +30,7 @@ export default function ForgotPassword() {
     setMessage('');
 
     try {
-      await api.post('/users/password-reset/', { email });
+      await api.post('auth/password-reset-request/', { email });
       setStatus('idle');
       setStep(2);
       setMessage('Te hemos enviado un código al correo. Introdúcelo a continuación.');
@@ -40,7 +51,7 @@ export default function ForgotPassword() {
     setMessage('');
 
     try {
-      await api.post('/users/password-reset-confirm/', { token, password: newPassword });
+      await api.post('auth/password-reset-confirm/', { token, password: newPassword });
       setStatus('success');
       setMessage('Tu contraseña ha sido actualizada con éxito.');
     } catch (err) {

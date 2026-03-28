@@ -1,3 +1,14 @@
+/**
+ * @file AdminOrders.jsx
+ * @description Componente/Módulo de la Ferretería DFRATELLI.
+ * 
+ * @author Jhon Michael Cariaco Rosales
+ * @email jhoncariaco@gmail.com
+ * @github https://github.com/Jhonmcr
+ * @date 2026-03-20
+ * @version 1.0.0
+ */
+
 import React, { useState, useEffect } from 'react';
 import { ShoppingBag, Eye, CheckCircle, Clock, X } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -45,16 +56,17 @@ export default function AdminOrders() {
   }
 
   return (
-    <div className="py-12 px-6 md:px-12 max-w-7xl mx-auto w-full">
+    <div className="py-0 px-4 md:px-6 max-w-full mx-auto w-full overflow-x-hidden">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">Órdenes de <span className="text-amber-500">Compra</span></h1>
-        <p className="text-slate-400">Revisa y gestiona los pedidos realizados por los clientes.</p>
+        <h1 className="text-4xl font-bold text-gray-900 mb-2">Órdenes de Compra</h1>
+        <p className="text-white">Revisa y gestiona los pedidos realizados por los clientes.</p>
       </div>
 
-      <div className="bg-glass border border-slate-800 rounded-xl p-6 overflow-x-auto">
-        <table className="w-full text-left border-collapse min-w-[800px]">
+      {/* ── TABLA: visible ≥ 768px ── */}
+      <div className="hidden md:block bg-gradient-to-br from-blue-900 to-indigo-950 border border-blue-800 rounded-xl p-6 overflow-x-auto shadow-lg">
+        <table className="w-full text-left border-collapse min-w-[600px]">
           <thead>
-            <tr className="border-b border-slate-700 text-slate-400">
+            <tr className="border-b border-blue-700 text-blue-200">
               <th className="py-4 px-4 font-medium min-w-[120px]"># Orden</th>
               <th className="py-4 px-4 font-medium">Fecha</th>
               <th className="py-4 px-4 font-medium">Estado</th>
@@ -64,21 +76,21 @@ export default function AdminOrders() {
           </thead>
           <tbody>
             {orders.length === 0 ? (
-              <tr><td colSpan="5" className="text-center py-8 text-slate-500">No hay órdenes registradas.</td></tr>
+              <tr><td colSpan="5" className="text-center py-8 text-blue-200/50">No hay órdenes registradas.</td></tr>
             ) : orders.map(order => (
-              <tr key={order.id} className="border-b border-slate-800/50 hover:bg-slate-800/20 transition-colors">
+              <tr key={order.id} className="border-b border-blue-800/50 hover:bg-blue-800/20 transition-colors">
                 <td className="py-4 px-4 flex items-center gap-3">
-                   <div className="w-10 h-10 bg-slate-800 rounded flex items-center justify-center flex-shrink-0">
-                      <ShoppingBag className="w-5 h-5 text-blue-500" />
+                   <div className="w-10 h-10 bg-blue-800/50 rounded flex items-center justify-center flex-shrink-0">
+                      <ShoppingBag className="w-5 h-5 text-blue-300" />
                    </div>
-                   <span className="text-gray-900 font-medium">ORD-00{order.id}</span>
+                   <span className="text-white font-medium">ORD-00{order.id}</span>
                 </td>
-                <td className="py-4 px-4 text-slate-400">
+                <td className="py-4 px-4 text-blue-200/70">
                    {new Date(order.created_at).toLocaleString('es-ES', { dateStyle: 'short', timeStyle: 'short' })}
                 </td>
                 <td className="py-2 px-4">
-                   <select 
-                     value={order.status} 
+                   <select
+                     value={order.status}
                      onChange={(e) => handleStatusChange(order.id, e)}
                      className={`px-3 py-1.5 rounded-lg text-sm font-medium focus:outline-none focus:ring-2 focus:ring-amber-500 cursor-pointer ${
                        order.status === 'DELIVERED' ? 'bg-green-500/20 text-green-400 border border-green-500/30' :
@@ -88,16 +100,16 @@ export default function AdminOrders() {
                        'bg-amber-500/20 text-amber-500 border border-amber-500/30'
                      }`}
                    >
-                     <option value="PENDING" className="bg-slate-800 text-gray-900">Pendiente</option>
-                     <option value="PAID" className="bg-slate-800 text-gray-900">Pagada</option>
-                     <option value="SHIPPED" className="bg-slate-800 text-gray-900">Enviada</option>
-                     <option value="DELIVERED" className="bg-slate-800 text-gray-900">Completada</option>
-                     <option value="CANCELLED" className="bg-slate-800 text-gray-900">Cancelada</option>
+                     <option value="PENDING" className="bg-slate-800 text-white">Pendiente</option>
+                     <option value="PAID" className="bg-slate-800 text-white">Pagada</option>
+                     <option value="SHIPPED" className="bg-slate-800 text-white">Enviada</option>
+                     <option value="DELIVERED" className="bg-slate-800 text-white">Completada</option>
+                     <option value="CANCELLED" className="bg-slate-800 text-white">Cancelada</option>
                    </select>
                 </td>
-                <td className="py-4 px-4 text-right text-gray-900 font-bold">${parseFloat(order.total).toFixed(2)}</td>
+                <td className="py-4 px-4 text-right text-white font-bold">${parseFloat(order.total).toFixed(2)}</td>
                 <td className="py-4 px-4 text-right">
-                  <button onClick={() => setSelectedOrder(order)} className="p-2 text-slate-400 hover:text-amber-500 transition-colors" title="Ver Detalle">
+                  <button onClick={() => setSelectedOrder(order)} className="p-2 text-blue-200/60 hover:text-amber-500 transition-colors" title="Ver Detalle">
                     <Eye className="w-4 h-4"/>
                   </button>
                 </td>
@@ -107,12 +119,55 @@ export default function AdminOrders() {
         </table>
       </div>
 
+      {/* ── CARDS: visible < 768px ── */}
+      <div className="md:hidden flex flex-col gap-2">
+        {orders.length === 0 ? (
+          <div className="text-center py-8 text-blue-200/50 bg-gradient-to-br from-blue-900 to-indigo-950 border border-blue-800 rounded-xl">No hay órdenes registradas.</div>
+        ) : orders.map(order => (
+          <div key={order.id} className="bg-gradient-to-br from-blue-900 to-indigo-950 border border-blue-800 rounded-xl p-3 flex items-center gap-3 hover:bg-blue-800/30 transition-colors shadow">
+            <div className="w-10 h-10 bg-blue-800/50 rounded-lg flex items-center justify-center flex-shrink-0">
+              <ShoppingBag className="w-5 h-5 text-blue-300" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <span className="text-white font-medium text-sm block">ORD-00{order.id}</span>
+              <div className="flex items-center gap-2 mt-1 flex-wrap">
+                <span className="text-blue-200/60 text-xs">{new Date(order.created_at).toLocaleString('es-ES', { dateStyle: 'short', timeStyle: 'short' })}</span>
+                <span className={`px-1.5 py-0.5 rounded text-xs font-medium ${
+                  order.status === 'DELIVERED' ? 'bg-green-500/20 text-green-400' :
+                  order.status === 'PAID' ? 'bg-blue-500/20 text-blue-400' :
+                  order.status === 'SHIPPED' ? 'bg-purple-500/20 text-purple-400' :
+                  order.status === 'CANCELLED' ? 'bg-red-500/20 text-red-400' :
+                  'bg-amber-500/20 text-amber-400'
+                }`}>{order.status === 'DELIVERED' ? 'Completada' : order.status === 'PAID' ? 'Pagada' : order.status === 'SHIPPED' ? 'Enviada' : order.status === 'CANCELLED' ? 'Cancelada' : 'Pendiente'}</span>
+                <span className="text-amber-400 font-bold text-xs">${parseFloat(order.total).toFixed(2)}</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-1 flex-shrink-0">
+              <select
+                value={order.status}
+                onChange={(e) => handleStatusChange(order.id, e)}
+                className="text-xs px-2 py-1 bg-blue-950 border border-blue-700 rounded text-white focus:outline-none focus:ring-1 focus:ring-amber-500"
+              >
+                <option value="PENDING">Pendiente</option>
+                <option value="PAID">Pagada</option>
+                <option value="SHIPPED">Enviada</option>
+                <option value="DELIVERED">Completada</option>
+                <option value="CANCELLED">Cancelada</option>
+              </select>
+              <button onClick={() => setSelectedOrder(order)} className="p-2 text-blue-200/60 hover:text-amber-500 transition-colors" title="Ver Detalle">
+                <Eye className="w-4 h-4"/>
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
       {selectedOrder && (
         <div className="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
            <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
               <div className="flex justify-between items-center p-6 border-b border-slate-800 bg-slate-800/50">
-                <h2 className="text-2xl font-bold text-gray-900">Detalles de la Orden <span className="text-amber-500">ORD-00{selectedOrder.id}</span></h2>
-                <button onClick={() => setSelectedOrder(null)} className="text-slate-400 hover:text-gray-900 transition-colors">
+                <h2 className="text-2xl font-bold text-white">Detalles de la Orden <span className="text-amber-500">ORD-00{selectedOrder.id}</span></h2>
+                 <button onClick={() => setSelectedOrder(null)} className="text-slate-400 hover:text-white transition-colors">
                   <X className="w-6 h-6" />
                 </button>
               </div>
@@ -120,17 +175,17 @@ export default function AdminOrders() {
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700">
-                     <p className="text-sm text-slate-400 mb-1">ID Cliente</p>
-                     <p className="text-gray-900 font-medium">#{selectedOrder.user}</p>
+                     <p className="text-sm text-blue-200/60 mb-1">ID Cliente</p>
+                     <p className="text-white font-medium">#{selectedOrder.user}</p>
                   </div>
                   <div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700">
-                     <p className="text-sm text-slate-400 mb-1">Fecha de Registro</p>
-                     <p className="text-gray-900 font-medium">{new Date(selectedOrder.created_at).toLocaleString('es-ES')}</p>
+                     <p className="text-sm text-blue-200/60 mb-1">Fecha de Registro</p>
+                     <p className="text-white font-medium">{new Date(selectedOrder.created_at).toLocaleString('es-ES')}</p>
                   </div>
                 </div>
 
                 <div>
-                   <h3 className="text-lg font-bold text-gray-900 mb-4 border-b border-slate-800 pb-2">Artículos Adquiridos</h3>
+                   <h3 className="text-lg font-bold text-white mb-4 border-b border-slate-700 pb-2">Artículos Adquiridos</h3>
                    <div className="space-y-3">
                      {selectedOrder.items && selectedOrder.items.length > 0 ? (
                        selectedOrder.items.map(item => (
@@ -144,7 +199,7 @@ export default function AdminOrders() {
                                  )}
                               </div>
                               <div>
-                                <p className="text-gray-900 font-medium">{item.product_name}</p>
+                                <p className="text-white font-medium">{item.product_name}</p>
                                 <p className="text-sm text-slate-400">Cant: {item.quantity} x ${parseFloat(item.price).toFixed(2)}</p>
                               </div>
                            </div>
@@ -164,7 +219,7 @@ export default function AdminOrders() {
 
               </div>
               <div className="p-6 border-t border-slate-800 bg-slate-800/50 flex justify-end">
-                <button onClick={() => setSelectedOrder(null)} className="px-6 py-2 bg-slate-700 hover:bg-slate-600 text-gray-900 font-bold rounded-lg transition-colors">
+                 <button onClick={() => setSelectedOrder(null)} className="px-6 py-2 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg transition-colors">
                   Cerrar
                 </button>
               </div>

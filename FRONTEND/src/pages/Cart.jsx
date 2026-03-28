@@ -55,7 +55,7 @@ const Cart = () => {
   // Si no está el usuario Auth bloquea la ruta y le pide que ingrese
   if (!user) {
     return (
-      <div className="bg-amber-50 min-h-[80vh] flex items-center justify-center pt-20 px-4">
+      <div className="bg-amber-50 min-h-[80vh] flex items-center justify-center pt-28 px-4">
         <div className="bg-white border border-amber-300 p-10 rounded-2xl text-center max-w-md w-full shadow-2xl">
           <div className="w-20 h-20 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-6 border border-amber-200">
             <ShoppingBag className="h-10 w-10 text-amber-500" />
@@ -84,7 +84,7 @@ const Cart = () => {
   // Si la sesión es válida pero el Backend retorna un carrito con arr vacío `cart.items === 0` o un `null` en el carrito persistible local
   if (!cart || cart.items.length === 0) {
     return (
-      <div className="bg-amber-50 min-h-[80vh] flex flex-col items-center justify-center pt-20 px-4">
+      <div className="bg-amber-50 min-h-[80vh] flex flex-col items-center justify-center pt-28 px-4">
         <div className="w-32 h-32 bg-white rounded-full flex items-center justify-center border border-amber-300 shadow-inner mb-8 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
           <ShoppingBag className="h-16 w-16 text-amber-500/50" />
         </div>

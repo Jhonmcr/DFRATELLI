@@ -13,7 +13,9 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from "lucide-react";
+import { Instagram, Mail, Phone, MapPin } from "lucide-react";
+import { SiTiktok } from "react-icons/si";
+import { FaWhatsapp } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -36,14 +38,14 @@ const Footer = () => {
             </p>
             {/* Redes sociales */}
             <div className="flex space-x-4 pt-2">
-              <a href="#" className="text-slate-400 hover:text-amber-600 hover:-translate-y-1 transition-all duration-300">
-                <Facebook className="h-5 w-5" />
+              <a href="https://www.tiktok.com/@dfratelli_?_r=1&_t=ZS-94w1Y7kRPph" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-600 hover:-translate-y-1 transition-all duration-300">
+                <SiTiktok className="h-5 w-5" />
               </a>
-              <a href="#" className="text-slate-400 hover:text-amber-600 hover:-translate-y-1 transition-all duration-300">
+              <a href="https://www.instagram.com/dfratelli_?igsh=eXUyeWl4Yzh3cWRl" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-600 hover:-translate-y-1 transition-all duration-300">
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="#" className="text-slate-400 hover:text-amber-600 hover:-translate-y-1 transition-all duration-300">
-                <Twitter className="h-5 w-5" />
+              <a href="https://wa.me/584129143109?text=Hola,%20me%20comunico%20desde%20la%20página%20web" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-600 hover:-translate-y-1 transition-all duration-300">
+                <FaWhatsapp className="h-5 w-5" />
               </a>
             </div>
           </div>
@@ -73,15 +75,15 @@ const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <MapPin className="h-5 w-5 text-amber-500 mr-3 mt-0.5" />
-                <span className="text-slate-400 text-sm">Av. Principal Ferretera, Zona Industrial, Ciudad.</span>
+                <span className="text-slate-400 text-sm">Av. Andres Bello con Calle Norte. 23/2 Qta. Simita PB Urb. Mariperez.</span>
               </li>
               <li className="flex items-center">
                 <Phone className="h-5 w-5 text-amber-500 mr-3" />
-                <span className="text-slate-400 text-sm">+1 (234) 567-8900</span>
+                <span className="text-slate-400 text-sm">+58 (412) 914-31-09</span>
               </li>
               <li className="flex items-center">
                 <Mail className="h-5 w-5 text-amber-500 mr-3" />
-                <span className="text-slate-400 text-sm">contacto@dfratelli.com</span>
+                <span className="text-slate-400 text-sm">Inversionesdfratelli@gmail.com</span>
               </li>
             </ul>
           </div>
@@ -89,8 +91,8 @@ const Footer = () => {
 
         {/* Separador inferior y copyright */}
         <div className="border-t border-amber-900/50 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
-          <p>&copy; {new Date().getFullYear()} DFRATELLI. Todos los derechos reservados.</p>
-          <p className="mt-2 md:mt-0">Diseñado con excelencia.</p>
+          <p>&copy; {new Date().getFullYear()} INVERSIONES DFRATELLI C.A. Todos los derechos reservados.</p>
+          <p className="mt-2 md:mt-0"><a href="https://github.com/Jhonmcr" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 transition-colors">Programador - JMCR</a></p>
         </div>
       </div>
     </footer>

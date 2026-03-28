@@ -63,7 +63,7 @@ const Products = () => {
   const fetchProducts = async () => {
     setIsLoading(true);
     try {
-      let url = "/products/";
+      let url = "products/";
       
       // Construye URL opcional para delegar el filtrado al Backend Django (Filtro por categoría exacto)
       if (selectedCategory) {
@@ -114,13 +114,13 @@ const Products = () => {
   // ─── RENDERIZADO ────────────────────────────────────────────────────
 
   return (
-    <div className="bg-transparent min-h-screen pt-32 pb-12">
+    <div className="bg-transparent min-h-screen pt-28 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Cabecera Principal y Barra de Búsqueda */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
           <div>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-2">
+            <h1 className="text-4xl md:text-5xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-blue-900">
               Catálogo de <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">Productos</span>
             </h1>
             <p className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-amber-700 max-w-xl text-lg">
