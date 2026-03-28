@@ -1,16 +1,59 @@
-# React + Vite
+# DFRATELLI - Ferretería E-Commerce (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este es el proyecto Frontend para el sistema de e-commerce y gestión administrativa de la Ferretería DFRATELLI. Ha sido construido utilizando **React** (Vite) y **TailwindCSS**, enfocado en brindar una experiencia de usuario responsiva, moderna y dinámica, tanto para clientes como para el personal administrativo.
 
-Currently, two official plugins are available:
+> **Autor:** Jhon Michael Cariaco Rosales  
+> **Email:** jhoncariaco@gmail.com  
+> **GitHub:** [Jhonmcr](https://github.com/Jhonmcr)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 📌 Características Principales
+- **Autenticación Basada en Roles:** Acceso diferenciado para Usuarios (Clientes), Administradores y un SuperAdmin.
+- **Catálogo Dinámico:** Filtrado de productos, vista por categorías y marcas, y sistema de favoritos.
+- **Carrito y Compras:** Flujo transaccional completo con persistencia temporal.
+- **Panel Administrativo (Dashboard):** Gestión completa del inventario (CRUD de productos y marcas), control y cambio de roles de usuario, revisión de órdenes y mensajería en tiempo real.
+- **Estándares Visuales:** Sistema de temas personalizados utilizando TailwindCSS, animaciones ligeras con Framer Motion, e interfaces estilo "glassmorphism" modernas.
 
-## React Compiler
+## 🚀 Instalación y Puesta en Marcha (Entorno Local)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Para ejecutar este proyecto en tu entorno de desarrollo, asegúrate de tener instalado [Node.js](https://nodejs.org/) (versión 16+ recomendada).
 
-## Expanding the ESLint configuration
+### 1. Clonar el repositorio y acceder a la carpeta
+```bash
+# Navega al directorio del frontend
+cd FRONTEND
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 2. Instalar dependencias
+Asegúrate de instalar todos los módulos descritos en el `package.json`:
+```bash
+npm install
+```
+
+### 3. Configuración de Variables de Entorno
+Crea un archivo `.env` en la raíz de la carpeta `FRONTEND` e incluye las rutas de conexión al backend de Django. Ejemplo:
+```env
+VITE_API_URL=http://localhost:8000/api/
+VITE_MEDIA_URL=http://localhost:8000
+```
+*(Asegúrate de que el backend de Django esté corriendo en paralelo en ese puerto si deseas conexión completa).*
+
+### 4. Iniciar el servidor de desarrollo
+```bash
+npm run dev
+```
+Esto desplegará la aplicación generalmente en `http://localhost:5173` (Vite). Podrás ver cualquier cambio que guardes en tiempo real gracias al Hot Module Replacement de Vite.
+
+## 🛠️ Scripts Disponibles
+
+En el directorio del proyecto, puedes correr:
+- `npm run dev`: Inicia el modo desarrollo.
+- `npm run build`: Compila la aplicación en un paquete listo para producción dentro de la carpeta `/dist`.
+- `npm run preview`: Levanta el proyecto ya compilado para constatar que todo funcione correctamente como en producción.
+
+## 📁 Estructura del Código
+
+El código principal reside en `src/`:
+- `/components`: Componentes aislados y reutilizables (Botones, Layouts, Tarjetas).
+- `/context`: Manejadores de estado global (Autenticación, Carrito).
+- `/pages`: Componentes de páginas completas ruteadas.
+- `/services`: Configuraciones lógicas del cliente API (Axios).

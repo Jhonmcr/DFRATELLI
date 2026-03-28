@@ -1,3 +1,14 @@
+/**
+ * @file Promotions.jsx
+ * @description Componente/Módulo de la Ferretería DFRATELLI.
+ * 
+ * @author Jhon Michael Cariaco Rosales
+ * @email jhoncariaco@gmail.com
+ * @github https://github.com/Jhonmcr
+ * @date 2026-03-20
+ * @version 1.0.0
+ */
+
 import React, { useState, useEffect, useContext } from 'react';
 import { motion } from 'framer-motion';
 import { Tag, ShoppingCart, ArrowRight, Search, Filter } from 'lucide-react';
@@ -40,7 +51,7 @@ export default function Promotions() {
   }, [searchTerm, minPrice, maxPrice]);
 
   return (
-    <div className="py-12 px-6 md:px-12 max-w-7xl mx-auto w-full min-h-[80vh]">
+    <div className="pt-28 pb-12 px-6 md:px-12 max-w-7xl mx-auto w-full min-h-[80vh]">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
@@ -49,10 +60,10 @@ export default function Promotions() {
           <span className="text-amber-500 font-semibold tracking-wider uppercase text-sm mb-2 block">
             Ahorra Más
           </span>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-2">
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-blue-900">
             Nuestras Mejores <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">Ofertas</span>
           </h1>
-          <p className="text-slate-400 max-w-xl text-lg">
+          <p className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-amber-700 max-w-xl text-lg">
             Equipa tu taller u obra con herramientas y materiales de primera calidad al mejor precio del mercado.
           </p>
         </motion.div>
@@ -64,9 +75,9 @@ export default function Promotions() {
                placeholder="Buscar ofertas..."
                value={searchTerm}
                onChange={(e) => setSearchTerm(e.target.value)}
-               className="w-full bg-slate-900 border border-slate-700 rounded-lg py-2 pl-10 pr-4 text-white focus:outline-none focus:border-amber-500 transition-colors"
+               className="w-full bg-slate-900 border border-slate-700 rounded-lg py-2 pl-10 pr-4 text-white placeholder-white focus:outline-none focus:border-amber-500 transition-colors"
              />
-             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+             <Search className="w-4 h-4 text-white absolute left-3 top-3" />
           </div>
           <div className="relative">
             <button 
@@ -102,7 +113,7 @@ export default function Promotions() {
                 <div className="flex justify-between items-center">
                   <button 
                     onClick={() => { setMinPrice(''); setMaxPrice(''); setShowFilters(false); }}
-                    className="text-xs text-slate-400 hover:text-white transition-colors"
+                    className="text-xs text-slate-400 hover:text-gray-900 transition-colors"
                   >
                     Limpiar
                   </button>
@@ -124,9 +135,9 @@ export default function Promotions() {
            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div>
         </div>
       ) : promotions.length === 0 ? (
-        <div className="text-center py-20 bg-glass border border-slate-800 rounded-2xl">
-          <Tag className="w-16 h-16 text-slate-600 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-white mb-2">No hay promociones activas</h2>
+        <div className="text-center py-20 bg-white border border-amber-200 rounded-2xl">
+          <Tag className="w-16 h-16 text-amber-500 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">No hay promociones activas</h2>
           <p className="text-slate-400 mb-6">Actualmente no tenemos productos en oferta, vuelve pronto o visita nuestro catálogo principal.</p>
           <Link to="/catalog" className="inline-flex items-center px-6 py-3 bg-amber-500 text-slate-900 font-medium rounded-lg hover:bg-amber-400 transition-colors shadow-neon">
             Ir al Catálogo <ArrowRight className="ml-2 w-5 h-5"/>
@@ -139,8 +150,8 @@ export default function Promotions() {
                key={product.id}
                initial={{ opacity: 0, scale: 0.95 }}
                animate={{ opacity: 1, scale: 1 }}
-               onClick={() => navigate(`/product/${product.id}`)}
-               className="group bg-glass border border-amber-500/30 rounded-2xl overflow-hidden hover:border-amber-400 transition-all duration-300 relative cursor-pointer flex flex-col"
+               onClick={() => navigate(`/products/${product.id}`)}
+               className="group bg-[#1a0a00] border border-amber-900/50 rounded-2xl overflow-hidden hover:border-amber-400 shadow-[0_4px_15px_rgba(0,0,0,0.5)] transition-all duration-300 relative cursor-pointer flex flex-col"
              >
                {/* Badge de Oferta */}
                <div className="absolute top-4 left-4 bg-amber-500 text-slate-900 text-xs font-bold px-3 py-1 rounded-full z-10 shadow-neon">

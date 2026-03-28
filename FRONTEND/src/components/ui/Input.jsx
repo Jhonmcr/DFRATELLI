@@ -32,7 +32,7 @@ const Input = ({
         
       {/* ─── ETIQUETA (LABEL) ────────────────────────────────── */}
       {label && (
-        <label className="block text-sm font-medium text-gray-300 mb-1.5">
+        <label className="block text-sm font-medium text-gray-700 mb-1.5">
           {label}
         </label>
       )}
@@ -44,7 +44,7 @@ const Input = ({
         {Icon && (
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             {/* Si hay error el icono se torna rojo claro, sino naranja tenue */}
-            <Icon className={`h-5 w-5 ${error ? 'text-red-400' : 'text-orange-500/70'}`} />
+            <Icon className={`h-5 w-5 ${error ? 'text-red-400' : 'text-amber-500/70'}`} />
           </div>
         )}
 
@@ -52,16 +52,16 @@ const Input = ({
         <input
           {...props}
           className={`
-            block w-full rounded-lg bg-[#1a0f05] text-white
+            block w-full rounded-lg bg-amber-50 text-gray-900
             ${Icon ? "pl-10" : "pl-4"} pr-4 py-2.5
             border transition-colors duration-200 outline-none
             placeholder-gray-600
             ${
               error
                 ? "border-red-500 focus:ring-1 focus:ring-red-500 focus:border-red-500" // Estado de error
-                : "border-[#5C3D11]/50 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-[#5C3D11]" // Estado normal
+                : "border-amber-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 hover:border-amber-200" // Estado normal
             }
-            ${props.disabled ? "opacity-60 cursor-not-allowed bg-[#1a0f05]/50" : ""}
+            ${props.disabled ? "opacity-60 cursor-not-allowed bg-amber-50" : ""}
           `}
         />
       </div>

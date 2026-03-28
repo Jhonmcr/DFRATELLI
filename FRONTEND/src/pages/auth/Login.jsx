@@ -77,10 +77,10 @@ const Login = () => {
   // ─── RENDERIZADO VISUAL ───────────────────────────────────────────
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#1a0f05] py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen flex items-start justify-center bg-amber-50 pt-28 pb-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       
       {/* ─── DECORACIÓN DE FONDO ABSTRACTA ─── */}
-      <div className="absolute top-0 right-0 -mr-40 -mt-20 w-96 h-96 bg-orange-600/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute top-0 right-0 -mr-40 -mt-20 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl pointer-events-none"></div>
       <div className="absolute bottom-0 left-0 -ml-40 -mb-20 w-80 h-80 bg-[#5C3D11]/20 rounded-full blur-3xl pointer-events-none"></div>
       
       {/* ─── CAJA DEL FORMULARIO ─── */}
@@ -89,27 +89,26 @@ const Login = () => {
         {/* Cabecera / Marca */}
         <div className="text-center">
           <Link to="/" className="inline-block group mx-auto mb-6">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500 to-orange-700 mx-auto shadow-xl shadow-orange-500/20 group-hover:rotate-12 transition-transform">
-              <ShieldCheck className="h-8 w-8 text-white" />
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-500 to-orange-700 mx-auto shadow-xl shadow-amber-500/20 group-hover:rotate-12 transition-transform">
+              <ShieldCheck className="h-8 w-8 text-gray-900" />
             </div>
           </Link>
-          <h2 className="text-center text-3xl font-extrabold text-white tracking-tight">
+          <h2 className="text-center text-3xl font-extrabold text-gray-900 tracking-tight">
             Acceso a tu cuenta
           </h2>
-          <p className="mt-3 text-center text-sm text-gray-400">
+          <p className="mt-3 text-center text-sm text-gray-600">
             ¿Eres nuevo por aquí?{" "}
-            <Link to="/register" className="font-medium text-orange-400 hover:text-orange-300 transition-colors">
+            <Link to="/register" className="font-medium text-amber-600 hover:text-orange-300 transition-colors">
               Crea tu cuenta gratis hoy mismo
             </Link>
           </p>
         </div>
 
         {/* Formulario Principal de Credenciales */}
-        <form className="mt-8 bg-[#2a1b0a]/80 backdrop-blur-md border border-[#5C3D11]/50 p-8 rounded-2xl shadow-2xl" onSubmit={handleSubmit}>
+        <form className="mt-8 bg-white backdrop-blur-md border border-amber-300 p-8 rounded-2xl shadow-2xl" onSubmit={handleSubmit}>
           <div className="space-y-6">
             
             <Input
-              label="Correo Electrónico"
               id="email"
               name="email"
               type="email"
@@ -124,22 +123,24 @@ const Login = () => {
 
             <div>
               <Input
-                label="Contraseña"
                 id="password"
                 name="password"
                 type="password"
                 required
                 autoComplete="current-password"
-                placeholder="••••••••"
+                placeholder="Contraseña"
                 value={formData.password}
                 onChange={handleChange}
                 icon={Lock}
               />
               {/* Opción de olvido (Funcional en el Backend pero asume existir la ruta /forgot-password) */}
               <div className="flex justify-end mt-2">
-                <a href="#" className="text-xs font-medium text-gray-400 hover:text-orange-400 transition-colors">
+                <Link 
+                  to="/forgot-password" 
+                  className="text-xs font-medium text-gray-600 hover:text-amber-600 transition-colors cursor-pointer"
+                >
                   ¿Olvidaste tu contraseña?
-                </a>
+                </Link>
               </div>
             </div>
           </div>

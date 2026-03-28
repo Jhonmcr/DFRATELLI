@@ -14,6 +14,8 @@ from apps.users.views import (
     UserProfileView,
     UserListView,
     RoleChangeView,
+    AdminUserCreateView,
+    UserDeleteView,
 )
 
 from rest_framework_simplejwt.views import TokenRefreshView
@@ -31,6 +33,8 @@ urlpatterns = [
     
     path("api/admin/stats/", AdminStatsView.as_view(), name="admin_stats"),
     path("api/admin/users/", UserListView.as_view(), name="admin_users"),
+    path("api/admin/users/create/", AdminUserCreateView.as_view(), name="admin_user_create"),
+    path("api/admin/users/<int:pk>/", UserDeleteView.as_view(), name="admin_user_delete"),
     path("api/admin/role-change/", RoleChangeView.as_view(), name="role_change"),
     path("api/profile/", UserProfileView.as_view(), name="user_profile"),
 

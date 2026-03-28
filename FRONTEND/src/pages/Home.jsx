@@ -66,14 +66,14 @@ const Home = () => {
   
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-screen bg-[#1a0f05]">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
+      <div className="flex justify-center items-center min-h-screen bg-[#1a0a00]">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div>
       </div>
     );
   }
 
   return (
-    <div className="bg-[#1a0f05] min-h-screen">
+    <div className="bg-[#1a0a00] min-h-screen">
         
       {/* ─── COMPONENTE HERO ────────────────────────────────────────── */}
       <Hero />
@@ -85,13 +85,13 @@ const Home = () => {
           {/* Header de la Sección */}
           <div className="flex justify-between items-end mb-12">
             <div>
-              <h2 className="text-3xl font-bold text-white mb-2">Explorar por Categoría</h2>
-              <div className="h-1 w-20 bg-orange-500 rounded-full"></div>
+              <h2 className="text-3xl font-bold text-amber-50 mb-2">Explorar por Categoría</h2>
+              <div className="h-1 w-20 bg-amber-500 rounded-full"></div>
             </div>
             
             <Link
               to="/products"
-              className="hidden sm:flex items-center text-orange-400 hover:text-orange-300 font-medium transition-colors group"
+              className="hidden sm:flex items-center text-amber-500 hover:text-orange-300 font-medium transition-colors group"
             >
               Ver Todas
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -104,9 +104,9 @@ const Home = () => {
               <Link
                 key={category.id}
                 to={`/products?category=${category.id}`}
-                className="group bg-[#2a1b0a] border border-[#5C3D11]/30 p-6 rounded-xl hover:border-orange-500/50 hover:shadow-lg transition-all text-center flex flex-col items-center"
+                className="group bg-white border border-amber-200 p-6 rounded-xl hover:border-amber-500/50 hover:shadow-lg transition-all text-center flex flex-col items-center"
               >
-                <div className="w-16 h-16 rounded-full bg-[#1a0f05] border border-[#5C3D11] flex items-center justify-center mb-4 group-hover:scale-110 group-hover:border-orange-500 transition-all duration-300">
+                <div className="w-16 h-16 rounded-full bg-amber-50 border border-amber-200 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:border-amber-500 transition-all duration-300">
                    {category.image ? (
                         <img 
                           src={category.image} /* En DRF actual podría ya venir absoluta */
@@ -114,10 +114,10 @@ const Home = () => {
                           className="w-10 h-10 object-contain drop-shadow" 
                         />
                    ) : (
-                        <Wrench className="h-8 w-8 text-orange-500/70 group-hover:text-orange-500" />
+                        <Wrench className="h-8 w-8 text-amber-500/70 group-hover:text-amber-500" />
                    )}
                 </div>
-                <h3 className="text-white font-medium group-hover:text-orange-400 transition-colors">
+                <h3 className="text-gray-900 font-medium group-hover:text-amber-600 transition-colors">
                   {category.name}
                 </h3>
               </Link>
@@ -127,18 +127,18 @@ const Home = () => {
       </section>
 
       {/* ─── SECCIÓN: PRODUCTOS DESTACADOS ──────────────────────────── */}
-      <section className="py-20 bg-[#2a1b0a]/30 border-t border-[#5C3D11]/20">
+      <section className="py-20 bg-slate-100 border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Header de la Sección */}
           <div className="flex justify-between items-end mb-12">
             <div>
-              <h2 className="text-3xl font-bold text-white mb-2">Productos Destacados</h2>
-              <div className="h-1 w-20 bg-orange-500 rounded-full"></div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">Productos Destacados y Más Vendidos</h2>
+              <div className="h-1 w-20 bg-amber-500 rounded-full"></div>
             </div>
             <Link
               to="/products"
-              className="hidden md:flex items-center text-orange-400 hover:text-orange-300 font-medium transition-colors group"
+              className="hidden md:flex items-center text-amber-600 hover:text-amber-700 font-medium transition-colors group"
             >
               Catálogo Completo
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -156,7 +156,7 @@ const Home = () => {
           <div className="mt-10 text-center md:hidden">
             <Link
               to="/products"
-              className="inline-flex items-center justify-center px-6 py-3 border border-orange-500 text-orange-400 font-medium rounded-lg hover:bg-orange-500 hover:text-white transition-all w-full"
+              className="inline-flex items-center justify-center px-6 py-3 border border-amber-500 text-amber-600 font-medium rounded-lg hover:bg-amber-500 hover:text-gray-900 transition-all w-full"
             >
               Ver Catálogo Completo
             </Link>

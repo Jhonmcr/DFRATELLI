@@ -36,7 +36,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await api.get(`/products/${id}/`);
+        const response = await api.get(`products/${id}/`);
         setProduct(response.data);
       } catch (err) {
         console.error("Error fetching product:", err);
@@ -70,19 +70,19 @@ const ProductDetail = () => {
   
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-[80vh] bg-[#1a0f05]">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
+      <div className="flex justify-center items-center min-h-[80vh] bg-amber-50">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div>
       </div>
     );
   }
 
   if (error || !product) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[80vh] bg-[#1a0f05] text-white">
+      <div className="flex flex-col items-center justify-center min-h-[80vh] bg-amber-50 text-gray-900">
         <Package className="h-16 w-16 text-red-500 mb-4" />
         <h2 className="text-2xl font-bold mb-2">Producto No Encontrado</h2>
-        <p className="text-gray-400 mb-6">{error || "El artículo que buscas no existe o fue removido."}</p>
-        <Link to="/products" className="text-orange-500 hover:text-orange-400 font-medium">
+        <p className="text-gray-600 mb-6">{error || "El artículo que buscas no existe o fue removido."}</p>
+        <Link to="/products" className="text-amber-500 hover:text-amber-600 font-medium">
           Volver al catálogo
         </Link>
       </div>
@@ -92,22 +92,22 @@ const ProductDetail = () => {
   // ─── RENDERIZADO: PANTALLA PRINCIPAL (Product Detail Hero) ────────
   
   return (
-    <div className="bg-[#1a0f05] min-h-screen pt-24 pb-16">
+    <div className="bg-amber-50 min-h-screen pt-28 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Navegación tipo Migas de pan (Breadcrumb) retrocedible */}
-        <Link to="/products" className="inline-flex items-center text-gray-400 hover:text-orange-500 transition-colors mb-8 group font-medium">
+        <Link to="/products" className="inline-flex items-center text-gray-600 hover:text-amber-500 transition-colors mb-8 group font-medium">
           <ArrowLeft className="h-5 w-5 mr-2 group-hover:-translate-x-1 transition-transform" />
           Volver a todos los productos
         </Link>
 
         {/* Cajas Divisorias del Producto (Imagen Izq / Datos y Checkout Der) */}
-        <div className="bg-[#2a1b0a] border border-[#5C3D11]/40 rounded-3xl p-6 lg:p-10 shadow-2xl grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="bg-white border border-amber-200 rounded-3xl p-6 lg:p-10 shadow-2xl grid grid-cols-1 lg:grid-cols-2 gap-12">
           
           {/* LADO IZQUIERDO: VISOR DE IMAGEN (Gallery Stand-in) */}
-          <div className="bg-[#1a0f05] rounded-2xl border border-[#5C3D11]/30 flex items-center justify-center p-8 lg:p-12 relative overflow-hidden group h-[400px] lg:h-[550px]">
+          <div className="bg-amber-50 rounded-2xl border border-amber-200 flex items-center justify-center p-8 lg:p-12 relative overflow-hidden group h-[400px] lg:h-[550px]">
             {/* Decal Background Glow */}
-            <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent z-0 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent z-0 pointer-events-none" />
             
             {product.image ? (
                 <img
@@ -123,20 +123,20 @@ const ProductDetail = () => {
             {/* Badges de Imágen Inferenciales */}
             <div className="absolute top-4 left-4 z-20 flex gap-2 flex-col">
                 {product.is_on_sale && product.discount_percentage > 0 && (
-                    <span className="bg-red-500 text-white text-sm font-extrabold px-3 py-1.5 rounded-lg shadow-lg flex items-center">
+                    <span className="bg-red-500 text-gray-900 text-sm font-extrabold px-3 py-1.5 rounded-lg shadow-lg flex items-center">
                         <Percent className="h-4 w-4 mr-1" /> -{product.discount_percentage}% Descuento
                     </span>
                 )}
                 {product.stock <= 0 && (
-                    <span className="bg-red-500/90 backdrop-blur-md text-white border border-red-600 px-3 py-1.5 rounded-lg text-sm font-bold uppercase shadow-lg shadow-red-500/20">
+                    <span className="bg-red-500/90 backdrop-blur-md text-gray-900 border border-red-600 px-3 py-1.5 rounded-lg text-sm font-bold uppercase shadow-lg shadow-red-500/20">
                     Temporalmente Agotado
                     </span>
                 )}
             </div>
             {/* Categoría Tag Badge */}
             <div className="absolute top-4 right-4 z-20">
-                <span className="bg-[#2a1b0a]/80 backdrop-blur-sm text-gray-300 border border-[#5C3D11] px-3 py-1.5 rounded-lg text-sm font-medium flex items-center uppercase tracking-wide">
-                    <Tag className="h-4 w-4 mr-2 text-orange-500" />
+                <span className="bg-white backdrop-blur-sm text-gray-700 border border-amber-200 px-3 py-1.5 rounded-lg text-sm font-medium flex items-center uppercase tracking-wide">
+                    <Tag className="h-4 w-4 mr-2 text-amber-500" />
                     {product.category?.name || "Catálogo"}
                 </span>
             </div>
@@ -153,13 +153,13 @@ const ProductDetail = () => {
             )}
 
             {/* Nombre del Producto Monumental */}
-            <h1 className="text-3xl lg:text-5xl font-extrabold text-white mb-6 leading-tight">
+            <h1 className="text-3xl lg:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
               {product.name}
             </h1>
             
             {/* Box Precios Grandes */}
             <div className="mb-6 flex items-end">
-              <span className="text-4xl lg:text-5xl font-black text-orange-500 tracking-tighter">
+              <span className="text-4xl lg:text-5xl font-black text-amber-500 tracking-tighter">
                 {formatPrice(product.sale_price || product.price)}
               </span>
               {/* Descuento Tachado */}
@@ -173,33 +173,33 @@ const ProductDetail = () => {
             </div>
 
             {/* Párrafo Narrativo descriptivo largo */}
-            <div className="prose prose-invert prose-orange max-w-none text-gray-300 leading-relaxed mb-8">
+            <div className="prose prose-invert prose-orange max-w-none text-gray-700 leading-relaxed mb-8">
               <p className="text-lg">
                   {product.description || "Este equipo industrial cuenta con los más altos estándares de calidad, asegurando rendimiento impecable y durabilidad a largo plazo en condiciones exigentes de trabajo."}
               </p>
             </div>
 
             {/* Borde sutil divisor */}
-            <div className="border-t border-[#5C3D11]/30 my-8 py-8">
+            <div className="border-t border-amber-200 my-8 py-8">
                 
                 {/* Zona Togleadora de Acción Compra o Bloqueo Stock */}
                 {product.stock > 0 ? (
                   <div className="flex flex-col sm:flex-row gap-4 items-center">
                     
                     {/* Input Number Customizado (Resta y Suma) */}
-                    <div className="flex items-center h-14 bg-[#1a0f05] rounded-xl border border-[#5C3D11]/80 w-full sm:w-auto overflow-hidden">
+                    <div className="flex items-center h-14 bg-amber-50 rounded-xl border border-amber-400 w-full sm:w-auto overflow-hidden">
                       <button
                         onClick={() => handleQuantityChange("decrease")}
-                        className="px-5 h-full text-gray-400 hover:text-white hover:bg-[#2a1b0a] transition-colors"
+                        className="px-5 h-full text-gray-600 hover:text-gray-900 hover:bg-white transition-colors"
                       >
                         <Minus className="h-5 w-5" />
                       </button>
-                      <div className="flex-1 sm:w-16 text-center font-bold text-white text-xl border-x border-[#5C3D11]/30">
+                      <div className="flex-1 sm:w-16 text-center font-bold text-gray-900 text-xl border-x border-amber-200">
                         {quantity}
                       </div>
                       <button
                         onClick={() => handleQuantityChange("increase")}
-                        className="px-5 h-full text-gray-400 hover:text-white hover:bg-[#2a1b0a] transition-colors"
+                        className="px-5 h-full text-gray-600 hover:text-gray-900 hover:bg-white transition-colors"
                       >
                         <Plus className="h-5 w-5" />
                       </button>
@@ -233,17 +233,17 @@ const ProductDetail = () => {
 
             {/* Características de Confianza Base DRF (Iconos Decorativos Fijos) */}
             <div className="grid grid-cols-2 gap-4 mt-auto">
-              <div className="flex items-center p-4 bg-[#1a0f05] rounded-xl border border-[#5C3D11]/30">
-                <ShieldCheck className="h-8 w-8 text-orange-500 mr-3" />
+              <div className="flex items-center p-4 bg-amber-50 rounded-xl border border-amber-200">
+                <ShieldCheck className="h-8 w-8 text-amber-500 mr-3" />
                 <div>
-                  <h4 className="text-white font-medium text-sm">Garantía Premium</h4>
+                  <h4 className="text-gray-900 font-medium text-sm">Garantía Premium</h4>
                   <p className="text-gray-500 text-xs">Protección total de fábrica</p>
                 </div>
               </div>
-              <div className="flex items-center p-4 bg-[#1a0f05] rounded-xl border border-[#5C3D11]/30">
-                <Truck className="h-8 w-8 text-orange-500 mr-3" />
+              <div className="flex items-center p-4 bg-amber-50 rounded-xl border border-amber-200">
+                <Truck className="h-8 w-8 text-amber-500 mr-3" />
                 <div>
-                  <h4 className="text-white font-medium text-sm">Envío Asegurado</h4>
+                  <h4 className="text-gray-900 font-medium text-sm">Envío Asegurado</h4>
                   <p className="text-gray-500 text-xs">A todo el territorio</p>
                 </div>
               </div>

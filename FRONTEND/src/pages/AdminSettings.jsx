@@ -1,54 +1,77 @@
+/**
+ * @file AdminSettings.jsx
+ * @description Componente/Módulo de la Ferretería DFRATELLI.
+ * 
+ * @author Jhon Michael Cariaco Rosales
+ * @email jhoncariaco@gmail.com
+ * @github https://github.com/Jhonmcr
+ * @date 2026-03-20
+ * @version 1.0.0
+ */
+
 import React, { useState } from 'react';
-import { Settings, Save, Server, Shield, UserCog, CheckCircle } from 'lucide-react';
+import { Save, Server, Search, User as UserIcon } from 'lucide-react';
 import api from '../services/api';
-import toast from 'react-hot-toast';
+
 
 export default function AdminSettings() {
+  // Estado para Código Único
   const [uniqueCode, setUniqueCode] = useState('');
-  const [newRole, setNewRole] = useState('ADMIN');
-  const [saving, setSaving] = useState(false);
-  const [result, setResult] = useState(null);
+  const [searchedUser, setSearchedUser] = useState(null);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [searchError, setSearchError] = useState('');
 
-  const handleRoleChange = async (e) => {
+
+  const handleSearchUser = async (e) => {
     e.preventDefault();
-    setSaving(true);
-    setResult(null);
+    if (!uniqueCode.trim()) return;
+    
+    setSearchLoading(true);
+    setSearchError('');
+    setSearchedUser(null);
     try {
-      const res = await api.post('admin/role-change/', { unique_code: uniqueCode, role: newRole });
-      setResult({ success: true, message: res.data.message, user: res.data.user });
-      toast.success(res.data.message);
-      setUniqueCode('');
+      // Usamos el endpoint de admin users que ya tenemos, y filtramos los resultados localmente
+      // (ya que no creamos un endpoint específico de búsqueda por código único, usamos el listado general)
+      const res = await api.get('admin/users/');
+      
+      // DRF list views might return an array or a paginated object { results: [...] }
+      const users = Array.isArray(res.data) ? res.data : (res.data.results || []);
+      
+      const found = users.find(u => u.unique_code === uniqueCode.toUpperCase());
+      
+      if (found) {
+        setSearchedUser(found);
+      } else {
+        setSearchError('Usuario no encontrado con ese código.');
+      }
     } catch (err) {
-      const errMsg = err.response?.data?.error || 'Error al cambiar el rol';
-      setResult({ success: false, message: errMsg });
-      toast.error(errMsg);
+      setSearchError('Error al buscar usuario.');
     } finally {
-      setSaving(false);
+      setSearchLoading(false);
     }
   };
-
   return (
-    <div className="py-12 px-6 md:px-12 max-w-7xl mx-auto w-full">
+    <div className="py-0 px-4 md:px-6 max-w-full mx-auto w-full overflow-x-hidden">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-white mb-2">Configuraciones de <span className="text-amber-500">Sistema</span></h1>
-        <p className="text-slate-400">Ajustes avanzados y gestión de roles (Solo SuperAdmin).</p>
+        <h1 className="text-4xl font-bold text-gray-900 mb-2">Configuraciones de Sistema</h1>
+        <p className="text-white">Ajustes generales de la tienda (Solo SuperAdmin).</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
         {/* Store settings */}
-        <div className="bg-glass border border-slate-800 rounded-xl p-6">
+        <div className="bg-gradient-to-br from-blue-900 to-indigo-950 border border-blue-800 rounded-xl p-6 shadow-lg">
           <div className="flex items-center gap-3 mb-6">
              <Server className="w-6 h-6 text-amber-500" />
              <h2 className="text-xl font-bold text-white">Preferencias de Tienda</h2>
           </div>
           <form className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-slate-400 mb-1">Nombre de la Empresa</label>
-              <input type="text" defaultValue="DFRATELLI" className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-white" />
+              <label className="block text-sm font-medium text-white mb-1">Nombre de la Empresa</label>
+              <input type="text" defaultValue="DFRATELLI" className="w-full px-4 py-2 bg-blue-950 border border-blue-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-400 mb-1">Moneda Principal</label>
-              <select className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-white">
+              <label className="block text-sm font-medium text-white mb-1">Moneda Principal</label>
+              <select className="w-full px-4 py-2 bg-blue-950 border border-blue-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500">
                 <option value="USD">USD ($)</option>
                 <option value="VES">VES (Bs)</option>
               </select>
@@ -61,51 +84,52 @@ export default function AdminSettings() {
           </div>
         </div>
 
-        {/* Role Management */}
-        <div className="bg-glass border border-slate-800 rounded-xl p-6">
+        {/* Consultar Código Único */}
+        <div className="bg-gradient-to-br from-blue-900 to-indigo-950 border border-blue-800 rounded-xl p-6 shadow-lg">
           <div className="flex items-center gap-3 mb-2">
-            <UserCog className="w-6 h-6 text-amber-500" />
-            <h2 className="text-xl font-bold text-white">Cambio de Rol</h2>
+            <Search className="w-6 h-6 text-amber-500" />
+            <h2 className="text-xl font-bold text-white">Consultar Código Único</h2>
           </div>
-          <p className="text-slate-500 text-sm mb-6">Cambia el rol de un usuario usando su Código Único (visible en Configuración de Cuenta del usuario).</p>
-          <form onSubmit={handleRoleChange} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-slate-400 mb-1">Código Único del Usuario</label>
-              <input
-                type="text"
-                placeholder="Ej: A1B2C3D4E5F6"
-                value={uniqueCode}
-                onChange={e => setUniqueCode(e.target.value.toUpperCase())}
-                required
-                className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-white font-mono placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-slate-400 mb-1">Nuevo Rol</label>
-              <select
-                value={newRole}
-                onChange={e => setNewRole(e.target.value)}
-                className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
-              >
-                <option value="CLIENT">Cliente</option>
-                <option value="ADMIN">Administrador</option>
-              </select>
-            </div>
-            {result && (
-              <div className={`flex items-start gap-2 p-3 rounded-lg text-sm ${result.success ? 'bg-green-500/10 border border-green-500/30 text-green-400' : 'bg-red-500/10 border border-red-500/30 text-red-400'}`}>
-                {result.success && <CheckCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />}
-                <span>{result.message}</span>
-              </div>
-            )}
+          <p className="text-blue-200/70 text-sm mb-6">Verifica a quién pertenece un Código Único de Usuario.</p>
+          
+          <form onSubmit={handleSearchUser} className="flex gap-3 mb-4">
+            <input
+              type="text"
+              placeholder="Ej: A1B2C3D4E5F6"
+              value={uniqueCode}
+              onChange={e => setUniqueCode(e.target.value.toUpperCase())}
+              required
+              className="flex-1 px-4 py-3 bg-blue-950 border border-blue-700 rounded-lg text-white font-mono placeholder-blue-300/40 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            />
             <button
               type="submit"
-              disabled={saving || !uniqueCode.trim()}
-              className="w-full flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 disabled:opacity-50 text-slate-900 font-bold px-6 py-2.5 rounded-lg transition-all text-sm"
+              disabled={searchLoading || !uniqueCode.trim()}
+              className="bg-amber-500 hover:bg-amber-400 disabled:opacity-50 text-slate-900 font-bold px-6 py-3 rounded-lg transition-all flex items-center gap-2"
             >
-              <Shield className="w-4 h-4" />
-              {saving ? 'Actualizando...' : 'Cambiar Rol'}
+              Buscar
             </button>
           </form>
+
+          {searchError && (
+            <p className="text-red-400 text-sm mt-2">{searchError}</p>
+          )}
+
+          {searchedUser && (
+            <div className="mt-4 p-4 bg-blue-950/80 border border-blue-800 rounded-xl flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center">
+                <UserIcon className="w-6 h-6 text-amber-500" />
+              </div>
+              <div>
+                <p className="text-white font-bold">{searchedUser.first_name} {searchedUser.last_name}</p>
+                <p className="text-blue-200/70 text-sm">{searchedUser.email} • @{searchedUser.username}</p>
+              </div>
+              <div className="ml-auto">
+                <span className="px-2 py-1 bg-blue-800/50 text-blue-300 text-xs font-bold rounded border border-blue-700">
+                  {searchedUser.role}
+                </span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

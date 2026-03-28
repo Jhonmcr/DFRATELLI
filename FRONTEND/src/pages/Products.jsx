@@ -13,7 +13,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom"; // Hook para leer parámetros de la URL (?category=...etc)
-import { Search, SlidersHorizontal, PackageX } from "lucide-react";
+import { Search, SlidersHorizontal, PackageX, Filter } from "lucide-react";
 import api from "../services/api";
 
 // Componentes modulares
@@ -37,6 +37,11 @@ const Products = () => {
   
   // Estado local para la búsqueda de texto
   const [searchQuery, setSearchQuery] = useState("");
+  
+  // Estados para filtro de precios
+  const [showFilters, setShowFilters] = useState(false);
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
 
   // ─── EFECTOS DE CICLO DE VIDA ───────────────────────────────────────
 
@@ -58,7 +63,7 @@ const Products = () => {
   const fetchProducts = async () => {
     setIsLoading(true);
     try {
-      let url = "/products/";
+      let url = "products/";
       
       // Construye URL opcional para delegar el filtrado al Backend Django (Filtro por categoría exacto)
       if (selectedCategory) {
@@ -98,82 +103,104 @@ const Products = () => {
    * Filtrado en memoria (Local) sobre la lista ya traída.
    * Compara el nombre o la descripción en caso de contar con ella.
    */
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredProducts = products.filter((product) => {
+    const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const finalPrice = product.sale_price !== undefined && product.sale_price !== null ? product.sale_price : product.price;
+    const matchesMin = minPrice ? finalPrice >= Number(minPrice) : true;
+    const matchesMax = maxPrice ? finalPrice <= Number(maxPrice) : true;
+    return matchesSearch && matchesMin && matchesMax;
+  });
 
   // ─── RENDERIZADO ────────────────────────────────────────────────────
 
   return (
-    <div className="bg-[#1a0f05] min-h-screen pt-24 pb-12">
+    <div className="bg-transparent min-h-screen pt-28 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Cabecera Principal */}
-        <div className="mb-10 text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
-            Catálogo de Productos
-          </h1>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-            Encuentra las herramientas y materiales que necesitas para tu próximo gran proyecto.
-          </p>
-        </div>
-
-        {/* ─── BARRA DE HERRAMIENTAS DIRECTAS (Búsqueda + Filtro UI) ─── */}
-        <div className="bg-[#2a1b0a] border border-[#5C3D11]/50 p-4 rounded-2xl mb-10 shadow-lg shadow-orange-500/5 flex flex-col md:flex-row gap-4 items-center justify-between">
+        {/* Cabecera Principal y Barra de Búsqueda */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
+          <div>
+            <h1 className="text-4xl md:text-5xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-blue-900">
+              Catálogo de <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">Productos</span>
+            </h1>
+            <p className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-amber-700 max-w-xl text-lg">
+              Encuentra las herramientas y materiales que necesitas para tu próximo gran proyecto.
+            </p>
+          </div>
           
-          {/* Input de Búsqueda de Texto en Tiempo Real */}
-          <div className="relative w-full md:w-96">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <Search className="h-5 w-5 text-orange-500/70" />
+          <div className="flex items-center gap-3 w-full md:w-auto">
+            <div className="relative flex-grow md:w-64">
+               <input 
+                 type="text" 
+                 placeholder="Buscar productos..."
+                 value={searchQuery}
+                 onChange={(e) => setSearchQuery(e.target.value)}
+                 className="w-full bg-slate-900 border border-slate-700 rounded-lg py-2 pl-10 pr-4 text-white placeholder-white focus:outline-none focus:border-amber-500 transition-colors"
+               />
+               <Search className="w-4 h-4 text-white absolute left-3 top-3" />
             </div>
-            <input
-              type="text"
-              placeholder="Buscar herramientas, marcas, etc..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-11 pr-4 py-3 bg-[#1a0f05] border border-[#5C3D11]/70 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
-            />
-          </div>
-          
-          {/* Botón visual meramente demostrativo de Filtros */}
-          <button className="w-full md:w-auto flex items-center justify-center space-x-2 bg-[#1a0f05] border border-[#5C3D11]/70 hover:border-orange-500/50 text-gray-300 px-6 py-3 rounded-xl transition-colors">
-            <SlidersHorizontal className="h-5 w-5 text-orange-500" />
-            <span>Más Filtros</span>
-          </button>
-        </div>
-
-        {/* ─── FILTRO HORIZONTAL POR CATEGORÍAS ──────────────────────── */}
-        <div className="mb-12">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold text-white">Categorías</h2>
-            {selectedCategory && (
+            <div className="relative">
               <button 
-                onClick={() => handleSelectCategory(selectedCategory)} // Invierte para deseleccionar
-                className="text-sm text-orange-500 hover:text-orange-400 transition-colors"
+                onClick={() => setShowFilters(!showFilters)} 
+                className={`p-2 rounded-lg border transition-colors ${showFilters || minPrice || maxPrice ? 'bg-amber-500/20 text-amber-400 border-amber-500/50' : 'bg-slate-800 border-slate-700 text-slate-300 hover:text-amber-400 hover:border-amber-500/50'}`}
+                title="Filtrar por precio"
               >
-                Limpiar Filtro
+                <Filter className="w-5 h-5" />
               </button>
-            )}
+              {showFilters && (
+                <div className="absolute right-0 mt-2 w-64 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl z-50 p-4 origin-top-right">
+                  <h4 className="text-white font-bold mb-4 text-sm">Filtrar por Precio</h4>
+                  <div className="flex gap-2 mb-4">
+                    <div className="flex-1">
+                      <label className="text-xs text-slate-400 mb-1 block">Min ($)</label>
+                      <input 
+                        type="number" 
+                        value={minPrice} 
+                        onChange={(e) => setMinPrice(e.target.value)} 
+                        className="w-full bg-slate-800 border border-slate-700 rounded p-2 text-white text-sm focus:outline-none focus:border-amber-500" 
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <label className="text-xs text-slate-400 mb-1 block">Max ($)</label>
+                      <input 
+                        type="number" 
+                        value={maxPrice} 
+                        onChange={(e) => setMaxPrice(e.target.value)} 
+                        className="w-full bg-slate-800 border border-slate-700 rounded p-2 text-white text-sm focus:outline-none focus:border-amber-500" 
+                      />
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <button 
+                      onClick={() => { setMinPrice(''); setMaxPrice(''); setShowFilters(false); }}
+                      className="text-xs text-slate-400 hover:text-white transition-colors"
+                    >
+                      Limpiar
+                    </button>
+                    <button 
+                      onClick={() => setShowFilters(false)}
+                      className="text-xs bg-amber-500 text-slate-900 px-4 py-2 rounded font-bold hover:bg-amber-400 shadow-neon"
+                    >
+                      Aplicar
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
-          
-          {/* Listado dinámico de componentes Linkeables Category */}
-          <CategoryList 
-            onSelectCategory={handleSelectCategory} 
-            selectedCategory={selectedCategory} 
-          />
         </div>
 
         {/* ─── METAA DEL GRID O RESULTADOS VACÍOS ────────────────────── */}
         {isLoading ? (
           <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div>
           </div>
         ) : filteredProducts.length > 0 ? (
           <div>
             <div className="flex justify-between items-center mb-6">
                {/* Contador de resultados */}
-               <span className="text-gray-400 text-sm font-medium">
-                 Mostrando <span className="text-white">{filteredProducts.length}</span> resultados
+               <span className="text-gray-600 text-sm font-medium">
+                 Mostrando <span className="text-gray-900">{filteredProducts.length}</span> resultados
                </span>
             </div>
             
@@ -186,12 +213,12 @@ const Products = () => {
           </div>
         ) : (
           /* Empty State en caso de fallar coincidencias */
-          <div className="text-center py-20 bg-[#2a1b0a] border border-[#5C3D11]/30 rounded-2xl mt-8">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-[#1a0f05] border border-[#5C3D11] mb-6">
-                <PackageX className="h-10 w-10 text-orange-500/60" />
+          <div className="text-center py-20 bg-white border border-amber-200 rounded-2xl mt-8">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-amber-50 border border-amber-200 mb-6">
+                <PackageX className="h-10 w-10 text-amber-500/60" />
             </div>
-            <h3 className="text-2xl font-bold text-white mb-2">No se encontraron productos</h3>
-            <p className="text-gray-400 max-w-md mx-auto mb-8">
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">No se encontraron productos</h3>
+            <p className="text-gray-600 max-w-md mx-auto mb-8">
               No tenemos artículos que coincidan con tu búsqueda actual o filtro. Intenta utilizar términos más generales o limpia los filtros.
             </p>
             <button 
@@ -199,7 +226,7 @@ const Products = () => {
                     setSearchQuery("");
                     if (selectedCategory) handleSelectCategory(selectedCategory);
                 }}
-                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-xl text-white bg-orange-600 hover:bg-orange-700 transition"
+                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-xl text-gray-900 bg-amber-600 hover:bg-orange-700 transition"
             >
                 Restablecer Búsqueda
             </button>

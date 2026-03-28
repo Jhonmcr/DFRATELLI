@@ -1,6 +1,19 @@
+/**
+ * @file Contact.jsx
+ * @description Componente/Módulo de la Ferretería DFRATELLI.
+ * 
+ * @author Jhon Michael Cariaco Rosales
+ * @email jhoncariaco@gmail.com
+ * @github https://github.com/Jhonmcr
+ * @date 2026-03-20
+ * @version 1.0.0
+ */
+
 import React, { useState, useContext } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Send, CheckCircle, AlertCircle, MessageSquare, Instagram, ExternalLink } from 'lucide-react';
+import { SiTiktok } from "react-icons/si";
+import { FaWhatsapp } from "react-icons/fa";
 import api from '../services/api';
 import { AuthContext } from '../context/AuthContext';
 
@@ -28,7 +41,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="py-16 px-6 md:px-12 max-w-7xl mx-auto w-full min-h-[80vh] relative">
+    <div className="pt-28 pb-16 px-6 md:px-12 max-w-7xl mx-auto w-full min-h-[80vh] relative">
       <div className="absolute top-0 right-0 w-96 h-96 bg-amber-600/10 rounded-full blur-[100px] -z-10" />
 
       <motion.div 
@@ -39,10 +52,10 @@ export default function Contact() {
         <span className="text-amber-500 font-semibold tracking-wider uppercase text-sm mb-2 block">
           Comunícate con Nosotros
         </span>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-6">
+        <h1 className="text-4xl md:text-5xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-blue-900">
           Estamos aquí para <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">Ayudarte</span>
         </h1>
-        <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+        <p className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-amber-700 max-w-2xl mx-auto text-lg">
           ¿Dudas sobre un producto, cotizaciones de gran volumen o soporte técnico? Déjanos tu mensaje y nuestro equipo se comunicará a la brevedad.
         </p>
       </motion.div>
@@ -54,83 +67,83 @@ export default function Contact() {
           animate={{ opacity: 1, x: 0 }}
           className="space-y-8"
         >
-          <div className="bg-glass border border-slate-700 rounded-2xl p-8 hover:border-amber-500/30 transition-colors">
+          <div className="bg-[#1a0a00] border border-amber-900/50 hover:border-amber-400 shadow-[0_4px_15px_rgba(0,0,0,0.5)] rounded-2xl p-8 transition-all duration-300">
             <h3 className="text-xl font-bold text-white mb-6">Información de Contacto</h3>
             
             <div className="space-y-6">
-              <div className="flex items-start gap-4">
+              <div className="flex items-center gap-4">
                 <div className="bg-slate-800 p-3 rounded-lg text-amber-500">
                   <MapPin className="w-6 h-6" />
                 </div>
                 <div>
                   <h4 className="text-white font-medium mb-1">Dirección Principal</h4>
-                  <p className="text-slate-400">Av. Las Industrias, Galpón 45<br/>Zona Industrial, DFRATELLI.</p>
+                  <p className="text-white">Av. Andres Bello con Calle Norte. 23/2 Qta. Simita PB Urb. Mariperez.</p>
                 </div>
               </div>
               
-              <div className="flex items-start gap-4">
+              <div className="flex items-center gap-4">
                 <div className="bg-slate-800 p-3 rounded-lg text-amber-500">
                   <Phone className="w-6 h-6" />
                 </div>
                 <div>
                   <h4 className="text-white font-medium mb-1">Líneas de Atención</h4>
-                  <p className="text-slate-400">Ventas: +58 (212) 555-0100<br/>Soporte: +58 (212) 555-0101</p>
+                  <p className="text-white">Ventas: +58 (412) 914-31-09<br/>Soporte: +58 (212) 781-64-48</p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
+              <div className="flex items-center gap-4">
                 <div className="bg-slate-800 p-3 rounded-lg text-amber-500">
                   <Mail className="w-6 h-6" />
                 </div>
                 <div>
                   <h4 className="text-white font-medium mb-1">Correo Electrónico</h4>
-                  <p className="text-slate-400">ventas@dfratelli.com<br/>soporte@dfratelli.com</p>
+                  <p className="text-white">Inversionesdfratelli@gmail.com</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="bg-glass border border-slate-700 rounded-2xl p-8 hover:border-amber-500/30 transition-colors">
+          <div className="bg-[#1a0a00] border border-amber-900/50 hover:border-amber-400 shadow-[0_4px_15px_rgba(0,0,0,0.5)] rounded-2xl p-8 transition-all duration-300">
              <h3 className="text-xl font-bold text-white mb-4">Horario de Atención</h3>
-             <ul className="space-y-2 text-slate-400">
-               <li className="flex justify-between"><span>Lunes a Viernes:</span> <span className="text-white">8:00 AM - 5:00 PM</span></li>
-               <li className="flex justify-between"><span>Sábados:</span> <span className="text-white">9:00 AM - 2:00 PM</span></li>
+             <ul className="space-y-2 text-white">
+               <li className="flex justify-between"><span>Lunes a Viernes:</span> <span className="text-white font-medium">8:30 AM - 5:00 PM</span></li>
+               <li className="flex justify-between"><span>Sábados:</span> <span className="text-white font-medium">9:00 AM - 3:00 PM</span></li>
                <li className="flex justify-between"><span>Domingos:</span> <span className="text-amber-500 font-medium">Cerrado</span></li>
              </ul>
           </div>
 
-          <div className="bg-glass border border-slate-700 rounded-2xl p-8 hover:border-amber-500/30 transition-colors">
+          <div className="bg-[#1a0a00] border border-amber-900/50 hover:border-amber-400 shadow-[0_4px_15px_rgba(0,0,0,0.5)] rounded-2xl p-8 transition-all duration-300">
              <h3 className="text-xl font-bold text-white mb-6">Redes Sociales y Chat App</h3>
              <div className="flex flex-col gap-4">
-                <a href="https://wa.me/584242334809?text=Hola,%20me%20comunico%20desde%20la%20página%20web" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 bg-slate-800/50 hover:bg-slate-800 p-4 rounded-xl border border-slate-700 hover:border-green-500/50 transition-all group">
+                <a href="https://wa.me/584129143109?text=Hola,%20me%20comunico%20desde%20la%20página%20web" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 bg-slate-800/50 hover:bg-slate-800 p-4 rounded-xl border border-slate-700 hover:border-green-500/50 transition-all group">
                    <div className="bg-green-500/10 p-3 rounded-lg text-green-500 group-hover:bg-green-500 group-hover:text-slate-900 transition-colors">
-                      <MessageSquare className="w-6 h-6" />
+                      <FaWhatsapp className="w-6 h-6" />
                    </div>
                    <div className="flex-1">
                       <h4 className="text-white font-medium mb-1">WhatsApp Business</h4>
-                      <p className="text-sm text-slate-400">Atención directa e inmediata</p>
+                      <p className="text-sm text-white">Atención directa e inmediata</p>
                    </div>
                    <ExternalLink className="w-5 h-5 text-slate-600 group-hover:text-green-500 transition-colors" />
                 </a>
 
-                <a href="https://t.me/dfratelli" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 bg-slate-800/50 hover:bg-slate-800 p-4 rounded-xl border border-slate-700 hover:border-blue-500/50 transition-all group">
-                   <div className="bg-blue-500/10 p-3 rounded-lg text-blue-500 group-hover:bg-blue-500 group-hover:text-slate-900 transition-colors">
-                      <MessageSquare className="w-6 h-6" />
+                <a href="https://www.tiktok.com/@dfratelli_?_r=1&_t=ZS-94w1Y7kRPph" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 bg-slate-800/50 hover:bg-slate-800 p-4 rounded-xl border border-slate-700 hover:border-blue-500/50 transition-all group">
+                   <div className="bg-gray-100/10 p-3 rounded-lg text-blue-500 group-hover:bg-gray-500 group-hover:text-slate-900 transition-colors">
+                      <SiTiktok className="w-6 h-6" />
                    </div>
                    <div className="flex-1">
-                      <h4 className="text-white font-medium mb-1">Canal de Telegram</h4>
-                      <p className="text-sm text-slate-400">Canal y chat de soporte</p>
+                      <h4 className="text-white font-medium mb-1">TikTok</h4>
+                      <p className="text-sm text-white">Marketing</p>
                    </div>
                    <ExternalLink className="w-5 h-5 text-slate-600 group-hover:text-blue-500 transition-colors" />
                 </a>
 
-                <a href="https://instagram.com/dfratelli" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 bg-slate-800/50 hover:bg-slate-800 p-4 rounded-xl border border-slate-700 hover:border-pink-500/50 transition-all group">
+                <a href="https://www.instagram.com/dfratelli_?igsh=eXUyeWl4Yzh3cWRl" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 bg-slate-800/50 hover:bg-slate-800 p-4 rounded-xl border border-slate-700 hover:border-pink-500/50 transition-all group">
                    <div className="bg-pink-500/10 p-3 rounded-lg text-pink-500 group-hover:bg-gradient-to-tr group-hover:from-yellow-400 group-hover:via-pink-500 group-hover:to-purple-500 group-hover:text-white transition-all">
                       <Instagram className="w-6 h-6" />
                    </div>
                    <div className="flex-1">
                       <h4 className="text-white font-medium mb-1">Instagram</h4>
-                      <p className="text-sm text-slate-400">Catálogo visual y noticias</p>
+                      <p className="text-sm text-white">Catálogo visual y noticias</p>
                    </div>
                    <ExternalLink className="w-5 h-5 text-slate-600 group-hover:text-pink-500 transition-colors" />
                 </a>
@@ -142,7 +155,7 @@ export default function Contact() {
         <motion.div 
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
-          className="bg-slate-900 border border-slate-700 rounded-2xl p-8 shadow-2xl relative overflow-hidden"
+          className="bg-[#1a0a00] border border-amber-900/50 rounded-2xl p-8 shadow-2xl relative overflow-hidden"
         >
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-600"></div>
           <h3 className="text-2xl font-bold text-white mb-6">Envíanos un Mensaje</h3>
@@ -175,52 +188,47 @@ export default function Contact() {
               )}
 
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-slate-400 mb-1">Tu Nombre</label>
                 <input
                   type="text" id="name" name="name" required
                   value={formData.name} onChange={handleChange}
-                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-white placeholder-slate-500 transition-all"
-                  placeholder="Ej: Juan Pérez"
+                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-white placeholder-slate-400 transition-all"
+                  placeholder="Tu Nombre (Ej: Juan Pérez)"
                 />
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-slate-400 mb-1">Tu Correo Electrónico</label>
                 <input
                   type="email" id="email" name="email" required
                   value={formData.email} onChange={handleChange}
-                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-white placeholder-slate-500 transition-all"
-                  placeholder="ejemplo@correo.com"
+                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-white placeholder-slate-400 transition-all"
+                  placeholder="Tu Correo Electrónico"
                 />
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-slate-400 mb-1">Teléfono <span className="text-slate-600">(opcional)</span></label>
                 <input
                   type="tel" id="phone" name="phone"
                   value={formData.phone} onChange={handleChange}
-                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-white placeholder-slate-500 transition-all"
-                  placeholder="+58424..."
+                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-white placeholder-slate-400 transition-all"
+                  placeholder="Teléfono (Opcional)"
                 />
               </div>
 
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-slate-400 mb-1">Asunto</label>
                 <input
                   type="text" id="subject" name="subject" required
                   value={formData.subject} onChange={handleChange}
-                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-white placeholder-slate-500 transition-all"
-                  placeholder="Cotización, Soporte, Reclamo..."
+                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-white placeholder-slate-400 transition-all"
+                  placeholder="Asunto (Cotización, Soporte, Reclamo...)"
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-slate-400 mb-1">Mensaje</label>
                 <textarea
                   id="message" name="message" required rows="5"
                   value={formData.message} onChange={handleChange}
-                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-white placeholder-slate-500 transition-all resize-none"
-                  placeholder="Escribe tu requerimiento detallado aquí..."
+                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-white placeholder-slate-400 transition-all resize-none"
+                  placeholder="Mensaje (Escribe tu requerimiento detallado aquí...)"
                 ></textarea>
               </div>
 
@@ -237,3 +245,4 @@ export default function Contact() {
     </div>
   );
 }
+

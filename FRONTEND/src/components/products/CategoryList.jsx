@@ -47,7 +47,7 @@ const CategoryList = ({ onSelectCategory, selectedCategory }) => {
   if (isLoading) {
     return (
       <div className="flex justify-center p-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-500"></div>
       </div>
     );
   }
@@ -55,9 +55,9 @@ const CategoryList = ({ onSelectCategory, selectedCategory }) => {
   // Early return si Django la base de datos no arrojó ninguna categoría (Lista vacía)
   if (categories.length === 0) {
     return (
-      <div className="text-center p-8 bg-[#1a0f05] border border-[#5C3D11]/30 rounded-xl">
+      <div className="text-center p-8 bg-amber-50 border border-amber-200 rounded-xl">
         <Wrench className="h-8 w-8 text-gray-600 mx-auto mb-3" />
-        <p className="text-gray-400">No hay categorías disponibles.</p>
+        <p className="text-gray-600">No hay categorías disponibles.</p>
       </div>
     );
   }
@@ -76,15 +76,15 @@ const CategoryList = ({ onSelectCategory, selectedCategory }) => {
             }
           }}
           className={`
-            group bg-[#2a1b0a] border rounded-xl overflow-hidden shadow-md hover:shadow-orange-500/10 transition-all duration-300 transform hover:-translate-y-1
+            group bg-white border rounded-xl overflow-hidden shadow-md hover:shadow-amber-500/10 transition-all duration-300 transform hover:-translate-y-1
             ${selectedCategory === category.id 
-                ? 'border-orange-500 ring-1 ring-orange-500' // Está clickeado
-                : 'border-[#5C3D11]/50 hover:border-orange-500/50' // Deseleccionado normal
+                ? 'border-amber-500 ring-1 ring-amber-500' // Está clickeado
+                : 'border-amber-300 hover:border-amber-500/50' // Deseleccionado normal
             }
           `}
         >
           {/* Box de Imagen de categoría */}
-          <div className="h-24 bg-[#1a0f05] flex items-center justify-center p-4 relative">
+          <div className="h-24 bg-amber-50 flex items-center justify-center p-4 relative">
             <div className="absolute inset-0 bg-gradient-to-t from-[#2a1b0a] to-transparent opacity-50 z-10"></div>
             {category.image ? (
               <img
@@ -94,14 +94,14 @@ const CategoryList = ({ onSelectCategory, selectedCategory }) => {
               />
             ) : (
               // Ícono Wrench fallback si de casualidad no hay logo asignado
-              <Wrench className="h-10 w-10 text-orange-500/50 group-hover:text-orange-500 transition-colors z-0" />
+              <Wrench className="h-10 w-10 text-amber-500/50 group-hover:text-amber-500 transition-colors z-0" />
             )}
           </div>
           
           {/* Título de la Categoría y Cantidad contenida */}
-          <div className="p-3 bg-[#2a1b0a] flex items-center justify-between">
+          <div className="p-3 bg-white flex items-center justify-between">
             <div className="overflow-hidden">
-                <h3 className="font-semibold text-white text-sm truncate group-hover:text-orange-400 transition-colors">
+                <h3 className="font-semibold text-gray-900 text-sm truncate group-hover:text-amber-600 transition-colors">
                 {category.name}
                 </h3>
                 {/* 
@@ -115,8 +115,8 @@ const CategoryList = ({ onSelectCategory, selectedCategory }) => {
                 </p>
             </div>
             {/* Flecha microinteracción hover */}
-            <div className="h-6 w-6 rounded-full bg-[#1a0f05] flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
-                <ChevronRight className="h-3 w-3 text-orange-500" />
+            <div className="h-6 w-6 rounded-full bg-amber-50 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
+                <ChevronRight className="h-3 w-3 text-amber-500" />
             </div>
           </div>
         </Link>

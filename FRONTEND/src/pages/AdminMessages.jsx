@@ -1,3 +1,14 @@
+/**
+ * @file AdminMessages.jsx
+ * @description Componente/Módulo de la Ferretería DFRATELLI.
+ * 
+ * @author Jhon Michael Cariaco Rosales
+ * @email jhoncariaco@gmail.com
+ * @github https://github.com/Jhonmcr
+ * @date 2026-03-20
+ * @version 1.0.0
+ */
+
 import React, { useState, useEffect } from 'react';
 import { Mail, MailOpen, Phone, User, Clock, Inbox } from 'lucide-react';
 import api from '../services/api';
@@ -36,10 +47,10 @@ export default function AdminMessages() {
   };
 
   return (
-    <div className="py-12 px-6 md:px-12 max-w-7xl mx-auto w-full flex-grow">
+    <div className="py-0 px-4 md:px-6 max-w-full mx-auto w-full flex-grow overflow-x-hidden">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-white mb-2">Mensajes de <span className="text-amber-500">Contacto</span></h1>
-        <p className="text-slate-400">Mensajes enviados por clientes a través del formulario de contacto.</p>
+        <h1 className="text-4xl font-bold text-gray-900 mb-2">Mensajes de Contacto</h1>
+        <p className="text-white">Mensajes enviados por clientes a través del formulario de contacto.</p>
       </div>
 
       {loading ? (
@@ -47,10 +58,10 @@ export default function AdminMessages() {
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500" />
         </div>
       ) : (
-        <div className="flex gap-4 h-[70vh] min-h-[400px]">
+        <div className="flex flex-col sm:flex-row gap-4 sm:h-[70vh] min-h-[500px]">
           {/* Left sidebar - message list */}
-          <div className="w-72 flex-shrink-0 bg-slate-900 border border-slate-700 rounded-2xl overflow-hidden flex flex-col">
-            <div className="p-4 border-b border-slate-700 bg-slate-800/50">
+          <div className="w-full sm:w-44 md:w-56 lg:w-72 h-56 sm:h-auto flex-shrink-0 bg-gradient-to-br from-blue-900 to-indigo-950 border border-blue-800 rounded-2xl overflow-hidden flex flex-col">
+            <div className="p-4 border-b border-blue-800 bg-blue-950/50">
               <p className="text-sm font-bold text-white">
                 {messages.filter(m => !m.is_read).length} sin leer
               </p>
@@ -66,22 +77,22 @@ export default function AdminMessages() {
                   <button
                     key={msg.id}
                     onClick={() => handleSelect(msg)}
-                    className={`w-full text-left p-4 border-b border-slate-800 transition-colors flex flex-col gap-1 ${
+                    className={`w-full text-left p-3 border-b border-blue-800/50 transition-colors flex flex-col gap-1 ${
                       selected?.id === msg.id
                         ? 'bg-amber-500/10 border-l-2 border-l-amber-500'
-                        : 'hover:bg-slate-800/60'
+                        : 'hover:bg-blue-800/30'
                     }`}
                   >
                     <div className="flex items-center justify-between gap-2">
-                      <span className={`text-sm truncate font-medium ${!msg.is_read ? 'text-white' : 'text-slate-400'}`}>
+                      <span className={`text-xs truncate font-medium ${!msg.is_read ? 'text-white' : 'text-blue-200/50'}`}>
                         {msg.name || msg.email}
                       </span>
                       {!msg.is_read && (
                         <span className="w-2 h-2 rounded-full bg-amber-400 flex-shrink-0" />
                       )}
                     </div>
-                    <p className="text-xs text-slate-500 truncate">{msg.subject}</p>
-                    <p className="text-xs text-slate-600">{new Date(msg.created_at).toLocaleDateString('es-ES')}</p>
+                    <p className="text-xs text-blue-200/50 truncate">{msg.subject}</p>
+                    <p className="text-xs text-blue-200/30">{new Date(msg.created_at).toLocaleDateString('es-ES')}</p>
                   </button>
                 ))
               )}
@@ -89,12 +100,12 @@ export default function AdminMessages() {
           </div>
 
           {/* Right panel - message detail */}
-          <div className="flex-1 bg-slate-900 border border-slate-700 rounded-2xl overflow-hidden flex flex-col">
+          <div className="flex-1 min-h-[400px] max-h-[500px] sm:max-h-none sm:min-h-0 bg-gradient-to-br from-blue-900 to-indigo-950 border border-blue-800 rounded-2xl overflow-hidden flex flex-col">
             {selected ? (
               <>
-                <div className="p-6 border-b border-slate-700 bg-slate-800/50">
+                <div className="p-6 border-b border-blue-800 bg-blue-950/50">
                   <h2 className="text-xl font-bold text-white mb-3">{selected.subject}</h2>
-                  <div className="flex flex-wrap gap-4 text-sm text-slate-400">
+                  <div className="flex flex-wrap gap-4 text-sm text-blue-200/70">
                     {selected.name && (
                       <span className="flex items-center gap-1.5">
                         <User className="w-4 h-4 text-amber-500" /> {selected.name}
@@ -123,7 +134,7 @@ export default function AdminMessages() {
                 <div className="p-6 overflow-y-auto flex-1">
                   <p className="text-slate-300 whitespace-pre-wrap leading-relaxed">{selected.message}</p>
                 </div>
-                <div className="p-4 border-t border-slate-800 flex gap-3">
+                <div className="p-4 border-t border-blue-800/50 flex gap-3">
                   <a
                     href={`mailto:${selected.email}?subject=Re: ${selected.subject}`}
                     className="flex items-center gap-2 px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold rounded-lg text-sm transition-colors"

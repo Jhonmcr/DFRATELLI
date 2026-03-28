@@ -35,7 +35,7 @@ export const CartProvider = ({ children }) => {
         setLoading(true);
         try {
             // Requiere Bearer Token (usuario autenticado)
-            const response = await api.get("/cart/");
+            const response = await api.get("cart/");
             setCart(response.data);
         } catch (error) {
             console.error("Error fetching cart:", error);
@@ -54,7 +54,7 @@ export const CartProvider = ({ children }) => {
      */
     const addToCart = async (productId, quantity = 1) => {
         try {
-            await api.post("/cart/items/", { product_id: productId, quantity });
+            await api.post("cart/items/", { product_id: productId, quantity });
             toast.success("Producto agregado al carrito");
             fetchCart(); // Refresca grilla para recalcular el nuevo .total remotamente
         } catch (error) {
@@ -77,7 +77,7 @@ export const CartProvider = ({ children }) => {
      */
     const removeFromCart = async (itemId) => {
         try {
-            await api.delete(`/cart/items/${itemId}/`);
+            await api.delete(`cart/items/${itemId}/`);
             toast.success("Producto eliminado del carrito");
             fetchCart();
         } catch (error) {
@@ -96,7 +96,7 @@ export const CartProvider = ({ children }) => {
         if (quantity < 1) return; // Validación frontend temprana
         
         try {
-            await api.put(`/cart/items/${itemId}/`, { quantity });
+            await api.put(`cart/items/${itemId}/`, { quantity });
             fetchCart(); // Recalcula totales
         } catch (error) {
             console.error("Error updating quantity:", error);
@@ -110,7 +110,7 @@ export const CartProvider = ({ children }) => {
      */
     const checkout = async () => {
         try {
-            const response = await api.post("/orders/create/");
+            const response = await api.post("orders/create/");
             toast.success("Orden creada exitosamente!");
             // Se asume vaciado atómico por parte del Servidor, 
             // así que en lugar de peticionar, limpiamos el Context.
@@ -164,6 +164,7 @@ export const CartProvider = ({ children }) => {
  * 
  * @returns {Object} Objetos y modificadores del carrito
  */
+export { CartContext };
 export const useCart = () => {
     const context = useContext(CartContext);
     if (!context) {

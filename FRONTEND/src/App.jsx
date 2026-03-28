@@ -1,9 +1,7 @@
 /**
  * @file App.jsx
- * @description Punto de entrada principal y Enrutador (Router) de React.
- * Configura los Context Providers globales, define las Rutas de navegación URL, 
- * renderiza Menú y Pie de página constantes, y aloja de forma invisible a React Toast.
- *
+ * @description Componente/Módulo de la Ferretería DFRATELLI.
+ * 
  * @author Jhon Michael Cariaco Rosales
  * @email jhoncariaco@gmail.com
  * @github https://github.com/Jhonmcr
@@ -13,136 +11,135 @@
 
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { Toaster } from "react-hot-toast"; // Librería de notificaciones Push
+import { Toaster } from "react-hot-toast"; 
 
-// ─── CONTEXTOS (Estado Global Auth y Carrito) ──────────────────────
+// ─── CONTEXTOS Y SEGURIDAD ──────────────────────────────────────
 import { useAuth } from "./context/AuthContext";
 
-// ─── COMPONENTES BASE A TODA PANTALLA (Layouting) ────────────────
+// ─── COMPONENTES BASE (Layout) ──────────────────────────────────
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 
-// ─── PÁGINAS PRINCIPALES DEL CLIENTE ─────────────────────────────
+// ─── PÁGINAS PRINCIPALES DEL CLIENTE ────────────────────────────
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import CheckoutSuccess from "./pages/CheckoutSuccess";
+import Promotions from "./pages/Promotions";
+import Services from "./pages/Services";
+import Contact from "./pages/Contact";
+import Brands from "./pages/Brands";
+import AboutUs from "./pages/AboutUs";
+import ForgotPassword from "./pages/ForgotPassword";
+import MyOrders from "./pages/MyOrders";
+import UserSettings from "./pages/UserSettings";
 
-// ─── PÁGINAS DE GESTIÓN DE CUENTA ──────────────────────────────────
+// ─── PÁGINAS DE GESTIÓN DE CUENTA ────────────────────────────────
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Profile from "./pages/auth/Profile";
 
 // ─── PÁGINAS DEL PANEL DE CONTROL EMPRESARIAL (BACKOFFICE) ───────
 import AdminLayout from "./components/admin/AdminLayout";
-import Dashboard from "./pages/admin/Dashboard";
-import AdminProducts from "./pages/admin/AdminProducts";
-import AdminOrders from "./pages/admin/AdminOrders";
+import Dashboard from "./pages/AdminDashboard";
+import AdminProducts from "./pages/AdminProducts";
+import AdminOrders from "./pages/AdminOrders";
+import AdminBrands from "./pages/AdminBrands";
+
+import AdminMessages from "./pages/AdminMessages";
+import AdminUsers from "./pages/AdminUsers";
+import AdminSettings from "./pages/AdminSettings";
 
 /**
- * Higher Order Component (HOC) protector de rutas Privadas de sistema.
- * Solo deja pasar al Dashboard a la cuenta con Roll ADMIN o SUPERADMIN.
- * Si alguien escribe en la barra /admin sin sesión es botado a /login.
- * 
- * @param {Object} props Componente hijo envuelto
+ * HOC protector de rutas Privadas (Solo Administradores)
  */
 const AdminRoute = ({ children }) => {
     const { user, loading } = useAuth();
-    
-    if (loading) return <div>Cargando la bóveda...</div>; // TODO: Cambiar por componente spinner base
-    
+    if (loading) return <div>Cargando...</div>;
     const isAdmin = user?.role === 'ADMIN' || user?.role === 'SUPERADMIN';
     return isAdmin ? children : <Navigate to="/login" replace />;
 };
 
 /**
- * Higher Order Component protector para Usuarios Logueados Básicos.
- * Ejemplo: Checkout Carrito o Perfil.
+ * HOC protector para Usuarios Logueados Básicos.
  */
 const PrivateRoute = ({ children }) => {
     const { user, loading } = useAuth();
-    
-    if (loading) return null; // Previene flasheo
-    
+    if (loading) return null;
     return user ? children : <Navigate to="/login" replace />;
 };
 
-/**
- * Componente Raíz de inicialización
- */
 function App() {
   return (
-    // Fondo del cuerpo HTML base para todo el domReact
-    <div className="min-h-screen bg-[#1a0f05] flex flex-col font-sans">
-            
-            <Navbar />
+    <div className="min-h-screen flex flex-col font-sans bg-slate-100">
+      <Navbar />
 
-            {/* Expansor del Contenedor Principal. Toma todo el alto posible minus Footer y Navbar.*/}
-            <main className="flex-grow">
-              <Routes>
-                
-                {/* ─── RUTAS PÚBLICAS Y CLIENTES (Visibles a internet libre) ─── */}
-                <Route path="/" element={<Home />} />
-                <Route path="/products" element={<Products />} />
-                <Route path="/products/:id" element={<ProductDetail />} />
-                <Route path="/cart" element={<Cart />} />
-                
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+      <main className="flex-grow">
+        <Routes>
+          {/* Rutas Públicas */}
+          <Route path="/" element={<Home />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/:id" element={<ProductDetail />} />
+          <Route path="/cart" element={<Cart />} />
+          
+          <Route path="/promotions" element={<Promotions />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/brands" element={<Brands />} />
+          <Route path="/about" element={<AboutUs />} />
+          
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
 
-                {/* ─── RUTAS PROTEGIDAS CLIENTES (Req. Inicio Sesión) ───────── */}
-                <Route path="/profile" element={
-                    <PrivateRoute>
-                        <Profile />
-                    </PrivateRoute>
-                } />
-                <Route path="/checkout-success" element={
-                    <PrivateRoute>
-                        <CheckoutSuccess />
-                    </PrivateRoute>
-                } />
+          {/* Rutas Protegidas (Requieren Login) */}
+          <Route path="/profile" element={
+              <PrivateRoute><Profile /></PrivateRoute>
+          } />
+          <Route path="/my-orders" element={
+              <PrivateRoute><MyOrders /></PrivateRoute>
+          } />
+          <Route path="/settings" element={
+              <PrivateRoute><UserSettings /></PrivateRoute>
+          } />
+          <Route path="/checkout-success" element={
+              <PrivateRoute><CheckoutSuccess /></PrivateRoute>
+          } />
 
-                {/* ─── RUTAS DEL BACKOFFICE / CMS DE LA TIENDA (Req. Cargo Adm) */}
-                <Route path="/admin" element={
-                    <AdminRoute>
-                        <AdminLayout />
-                    </AdminRoute>
-                }>
-                     {/* 
-                         Layout Anidado: Renderizan dentro de <Outlet /> de AdminLayout 
-                         Toman como prefijo base la rama padre '/admin/'
-                     */}
-                    <Route index element={<Navigate to="/admin/dashboard" replace />} /> {/* Redirect default root de tab */}
-                    <Route path="dashboard" element={<Dashboard />} />
-                    <Route path="products" element={<AdminProducts />} />
-                    <Route path="orders" element={<AdminOrders />} />
-                </Route>
+          {/* Rutas Protegidas (Solo Admin) */}
+          <Route path="/admin" element={
+              <AdminRoute><AdminLayout /></AdminRoute>
+          }>
+              <Route index element={<Navigate to="/admin/dashboard" replace />} />
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="products" element={<AdminProducts />} />
+              <Route path="orders" element={<AdminOrders />} />
+              <Route path="brands" element={<AdminBrands />} />
+              <Route path="messages" element={<AdminMessages />} />
+              <Route path="users" element={<AdminUsers />} />
+              <Route path="settings" element={<AdminSettings />} />
+          </Route>
 
-                {/* ─── Ruta Fallback / Capturadora para errores 404 Ciega ─── */}
-                {/* TODO: Se recomienda crear un componente 404 Not Found Screen bonito */}
-                <Route path="*" element={<Navigate to="/" replace />} />
-              </Routes>
-            </main>
+          {/* Ruta 404 Fallback */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </main>
 
-            <Footer />
+      <Footer />
 
-            {/*
-              Inyector de componente de notificaciones visuales superpuestas global.
-              Queda oculto hasta que hacemos `toast.success()`
-            */}
-            <Toaster 
-              position="bottom-right" 
-              toastOptions={{ 
-                duration: 4000,
-                style: {
-                    background: '#2a1b0a',
-                    color: '#fff',
-                    border: '1px solid rgba(92, 61, 17, 0.5)'
-                }
-              }} 
-            />
-          </div>
+      <Toaster 
+        position="bottom-right" 
+        toastOptions={{ 
+          duration: 4000,
+          style: {
+              background: '#fffbeb',
+              color: '#1f2937',
+              border: '1px solid rgba(245,158,11,0.5)'
+          }
+        }} 
+      />
+    </div>
   );
 }
 

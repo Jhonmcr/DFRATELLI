@@ -1,3 +1,14 @@
+/**
+ * @file ProtectedRoute.jsx
+ * @description Componente/Módulo de la Ferretería DFRATELLI.
+ * 
+ * @author Jhon Michael Cariaco Rosales
+ * @email jhoncariaco@gmail.com
+ * @github https://github.com/Jhonmcr
+ * @date 2026-03-20
+ * @version 1.0.0
+ */
+
 import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';

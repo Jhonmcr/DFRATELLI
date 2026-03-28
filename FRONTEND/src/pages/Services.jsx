@@ -1,3 +1,14 @@
+/**
+ * @file Services.jsx
+ * @description Componente/Módulo de la Ferretería DFRATELLI.
+ * 
+ * @author Jhon Michael Cariaco Rosales
+ * @email jhoncariaco@gmail.com
+ * @github https://github.com/Jhonmcr
+ * @date 2026-03-20
+ * @version 1.0.0
+ */
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Wrench, Truck, ShieldCheck, Clock, CheckCircle } from 'lucide-react';
@@ -27,7 +38,7 @@ const servicesList = [
 
 export default function Services() {
   return (
-    <div className="py-16 px-6 md:px-12 max-w-7xl mx-auto w-full min-h-[80vh] relative">
+    <div className="pt-28 pb-16 px-6 md:px-12 max-w-7xl mx-auto w-full min-h-[80vh] relative">
       <div className="absolute top-1/4 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[100px] -z-10" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-amber-600/10 rounded-full blur-[100px] -z-10" />
 
@@ -39,10 +50,10 @@ export default function Services() {
         <span className="text-amber-500 font-semibold tracking-wider uppercase text-sm mb-2 block">
           Lo Que Hacemos
         </span>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-6">
+        <h1 className="text-4xl md:text-5xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-blue-900">
           Más allá de <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">vender herramientas</span>
         </h1>
-        <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+        <p className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-amber-700 max-w-2xl mx-auto text-lg">
           En DFRATELLI no solo somos una ferretería. Somos tu socio estratégico en la construcción, brindando soluciones integrales para que tu obra nunca se detenga.
         </p>
       </motion.div>
@@ -54,12 +65,12 @@ export default function Services() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
-            className="bg-glass border border-slate-700/50 hover:border-amber-500/50 rounded-2xl p-8 transition-all duration-300 group"
+            className="bg-[#1a0a00] border border-amber-900/50 hover:border-amber-400 shadow-[0_4px_15px_rgba(0,0,0,0.5)] rounded-2xl p-8 transition-all duration-300 group"
           >
-            <div className="bg-slate-800/50 w-16 h-16 rounded-xl flex items-center justify-center mb-6 border border-slate-700 group-hover:bg-slate-800 transition-colors">
+            <div className="bg-slate-800 w-16 h-16 rounded-xl flex items-center justify-center mb-6 border border-amber-900/50 group-hover:bg-amber-900/30 transition-colors">
               {service.icon}
             </div>
-            <h3 className="text-2xl font-bold text-white mb-3">{service.title}</h3>
+            <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-amber-700 mb-3">{service.title}</h3>
             <p className="text-slate-400 leading-relaxed">
               {service.description}
             </p>
@@ -71,7 +82,7 @@ export default function Services() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        className="bg-gradient-to-r from-slate-800 to-slate-900 border border-slate-700 rounded-3xl p-10 md:p-16 text-center shadow-2xl relative overflow-hidden"
+        className="bg-gradient-to-r from-slate-800 to-slate-900 border border-amber-200 rounded-3xl p-10 md:p-16 text-center shadow-2xl relative overflow-hidden"
       >
         <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-[80px]" />
         
@@ -92,7 +103,7 @@ export default function Services() {
         </div>
 
         <a 
-          href="https://wa.me/584242334809?text=Hola,%20me%20interesa%20consultar%20sobre%20un%20proyecto%20o%20servicio%20especial." 
+          href="https://wa.me/584129143109?text=Hola,%20me%20interesa%20consultar%20sobre%20un%20proyecto%20o%20servicio%20especial." 
           target="_blank" 
           rel="noopener noreferrer"
           className="inline-block bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold py-4 px-10 rounded-full transition-all shadow-neon text-lg relative z-10"

@@ -47,20 +47,20 @@ const Button = ({
   // Variantes de diseño (Primary utiliza el gradiente naranja de la marca)
   const variants = {
     primary:
-      "bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white shadow-lg shadow-orange-500/20 border border-orange-500/50",
+      "bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-500 text-gray-900 shadow-lg shadow-amber-500/20 border border-amber-500/50",
     secondary:
-      "bg-[#2a1b0a] hover:bg-[#3a2610] text-orange-400 border border-[#5C3D11] shadow-md",
+      "bg-white hover:bg-[#3a2610] text-amber-600 border border-amber-200 shadow-md",
     outline:
-      "bg-transparent hover:bg-orange-500/10 text-orange-500 border-2 border-orange-500",
+      "bg-transparent hover:bg-amber-500/10 text-amber-500 border-2 border-amber-500",
     ghost: 
-      "bg-transparent hover:bg-[#2a1b0a] text-gray-300 hover:text-white border-transparent",
+      "bg-transparent hover:bg-white text-gray-700 hover:text-gray-900 border-transparent",
     danger:
       "bg-red-500/10 hover:bg-red-500/20 text-red-500 border border-red-500/30",
   };
 
   // Clases base comunes a todos los botones
   const baseClasses =
-    "inline-flex items-center justify-center rounded-lg transition-all duration-300 transform active:scale-[0.98] outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-[#1a0f05]";
+    "inline-flex items-center justify-center rounded-lg transition-all duration-300 transform active:scale-[0.98] outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-[#1a0f05]";
   
   // Clases cuando está deshabilitado o cargando (opacidad reducida, cursor prohibido)
   const disabledClasses = "opacity-50 cursor-not-allowed transform-none active:scale-100 hover:shadow-none";
