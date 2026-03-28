@@ -24,6 +24,7 @@ export default function AdminUsers() {
   
   // Create Admin Modal State
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [newAdmin, setNewAdmin] = useState({
     email: '',
     username: '',
@@ -61,6 +62,7 @@ export default function AdminUsers() {
 
   const handleCreateAdmin = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     try {
       await api.post('admin/users/create/', newAdmin);
       toast.success('Administrador creado con éxito');
@@ -69,6 +71,8 @@ export default function AdminUsers() {
       fetchUsers();
     } catch (err) {
       toast.error(err.response?.data?.error || 'Error al crear administrador');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -220,12 +224,13 @@ export default function AdminUsers() {
         onSave={handleCreateAdmin}
         formData={newAdmin}
         setFormData={setNewAdmin}
+        isSubmitting={isSubmitting}
       />
     </div>
   );
 }
 
-function CreateAdminModal({ isOpen, onClose, onSave, formData, setFormData }) {
+function CreateAdminModal({ isOpen, onClose, onSave, formData, setFormData, isSubmitting }) {
   if (!isOpen) return null;
 
   return (
@@ -316,9 +321,10 @@ function CreateAdminModal({ isOpen, onClose, onSave, formData, setFormData }) {
             </button>
             <button 
               type="submit"
-              className="flex-1 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold py-3 rounded-xl transition-all shadow-lg shadow-amber-500/20"
+              disabled={isSubmitting}
+              className="flex-1 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold py-3 rounded-xl transition-all shadow-lg shadow-amber-500/20 disabled:opacity-50 flex items-center justify-center gap-2"
             >
-              Crear Admin
+              {isSubmitting ? <><div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-slate-900"></div> Creando...</> : 'Crear Admin'}
             </button>
           </div>
         </form>

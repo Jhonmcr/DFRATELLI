@@ -20,6 +20,7 @@ export default function AdminProducts() {
   
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [isCreatingCategory, setIsCreatingCategory] = useState(false);
@@ -91,6 +92,7 @@ export default function AdminProducts() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setIsSubmitting(true);
 
     const submitData = new FormData();
     submitData.append('name', formData.name);
@@ -117,6 +119,8 @@ export default function AdminProducts() {
     } catch (err) {
       console.error(err);
       setError('Ocurrió un error al guardar el producto. Verifica los datos e intenta de nuevo.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -391,11 +395,11 @@ export default function AdminProducts() {
               </div>
 
               <div className="p-6 border-t border-slate-800 bg-slate-800/50 flex justify-end gap-3">
-                <button onClick={() => setIsModalOpen(false)} className="px-6 py-2 border border-slate-600 rounded-lg text-white hover:text-white hover:bg-slate-700 transition-colors">
+                <button onClick={() => setIsModalOpen(false)} type="button" className="px-6 py-2 border border-slate-600 rounded-lg text-white hover:text-white hover:bg-slate-700 transition-colors">
                   Cancelar
                 </button>
-                <button type="submit" form="productForm" className="px-6 py-2 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold rounded-lg transition-colors shadow-neon">
-                  {editingId ? 'Guardar Cambios' : 'Crear Producto'}
+                <button type="submit" form="productForm" disabled={isSubmitting} className="px-6 py-2 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold rounded-lg transition-colors shadow-neon disabled:opacity-50 flex items-center justify-center gap-2">
+                  {isSubmitting ? <><div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-slate-900"></div> Guardando...</> : editingId ? 'Guardar Cambios' : 'Crear Producto'}
                 </button>
               </div>
            </div>
