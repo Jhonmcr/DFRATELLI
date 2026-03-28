@@ -28,7 +28,7 @@ const Home = () => {
   /* 
    * Se comenta la constante API_URL debido a que las operaciones con
    * baseURL las maneja ahora la instancia `api` de axios por medio de su config.
-   * const API_URL = "http://127.0.0.1:8000"; 
+   * const API_URL = import.meta.env.VITE_MEDIA_URL || "http://127.0.0.1:8000"; 
    */
 
   // ─── EFECTOS DE CICLO DE VIDA ─────────────────────────────────────
