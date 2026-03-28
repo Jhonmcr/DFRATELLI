@@ -25,7 +25,7 @@ const CategoryList = ({ onSelectCategory, selectedCategory }) => {
   const [categories, setCategories] = useState([]);      // Array vacío inicial de categorias
   const [isLoading, setIsLoading] = useState(true);      // Estado de loading spinner
 
-  const API_URL = "http://127.0.0.1:8000";
+  const API_URL = import.meta.env.VITE_MEDIA_URL || "http://127.0.0.1:8000";
 
   useEffect(() => {
     // Hook que ejecuta el fetch inmediato al montar componente.

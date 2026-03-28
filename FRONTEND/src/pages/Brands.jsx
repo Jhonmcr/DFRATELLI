@@ -34,7 +34,7 @@ export default function Brands() {                  // Componente funcional expo
     }
   };
 
-  const API_URL = "http://127.0.0.1:8000";          // URL base harcodeada para render de medias sin path absoluto
+  const API_URL = import.meta.env.VITE_MEDIA_URL || "http://127.0.0.1:8000";          // URL base harcodeada para render de medias sin path absoluto
   
   return (                                          // Inicia la renderización de la interfaz
     <div className="pt-28 pb-16 px-6 md:px-12 max-w-7xl mx-auto w-full min-h-[80vh] relative"> {/* Contenedor base de la sección con padding adaptativo */}

@@ -29,7 +29,7 @@ const ProductDetail = () => {
   const [isLoading, setIsLoading] = useState(true);      // Loader
   const [error, setError] = useState(null);              // Error 404/500
 
-  const API_URL = "http://127.0.0.1:8000";
+  const API_URL = import.meta.env.VITE_MEDIA_URL || "http://127.0.0.1:8000";
 
   // ─── CICLO DE VIDA (DidMount) ─────────────────────────────────────
   

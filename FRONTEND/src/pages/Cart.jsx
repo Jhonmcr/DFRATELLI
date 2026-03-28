@@ -24,7 +24,7 @@ const Cart = () => {
   const { user } = useAuth();
   
   const navigate = useNavigate();
-  const API_URL = "http://127.0.0.1:8000";
+  const API_URL = import.meta.env.VITE_MEDIA_URL || "http://127.0.0.1:8000";
 
   /**
    * Procesa la solicitud delegada al backend de Confirmación/Generación de Orden

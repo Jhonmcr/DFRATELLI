@@ -25,7 +25,7 @@ const ProductCard = ({ product }) => {
   const { addToCart } = useCart(); // Método del contexto para agregar al carrito backend/local
 
   // Constante de base URL de la API (útil si las imágenes no traen ruta absoluta http://)
-  const API_URL = "http://127.0.0.1:8000";
+  const API_URL = import.meta.env.VITE_MEDIA_URL || "http://127.0.0.1:8000";
 
   return (
     <div className="bg-[#1a0a00] border border-amber-900/50 rounded-xl overflow-hidden hover:border-amber-400 shadow-[0_4px_15px_rgba(0,0,0,0.5)] transition-all duration-300 group flex flex-col h-full cursor-pointer">

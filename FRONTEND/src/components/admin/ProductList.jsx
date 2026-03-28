@@ -23,7 +23,7 @@ const ProductList = () => {
     const [isLoading, setIsLoading] = useState(true);     // Estado de carga inicial
     
     // Variables por defecto pre-llenadas para cuando necesites simular la edición de categorías
-    const API_URL = "http://127.0.0.1:8000";
+    const API_URL = import.meta.env.VITE_MEDIA_URL || "http://127.0.0.1:8000";
 
     // ─── EFECTOS DE CICLO DE VIDA ─────────────────────────────────────────────
     useEffect(() => {
