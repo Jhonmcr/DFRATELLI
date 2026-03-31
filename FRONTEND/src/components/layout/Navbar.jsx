@@ -87,7 +87,7 @@ export default function Navbar() {
       {/* LOGO */}
       <Link to="/" className="flex items-center gap-1 sm:gap-2 cursor-pointer group relative z-50 shrink-0">
         <Wrench className="w-5 h-5 min-[1150px]:w-6 min-[1150px]:h-6 xl:w-8 xl:h-8 text-amber-500 group-hover:rotate-12 transition-transform" />
-        <span className="text-base min-[1150px]:text-lg xl:text-2xl font-bold tracking-wider text-white truncate max-w-[90px] sm:max-w-none">
+        <span className="text-base min-[1150px]:text-lg xl:text-2xl font-bold tracking-wider text-white whitespace-nowrap">
           D<span className="text-amber-500">FRATELLI</span>
         </span>
       </Link>

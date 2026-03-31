@@ -29,8 +29,14 @@ api.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 401) {
       console.error("Token expirado o inválido. Cerrando sesión...");
+      const hadToken = !!localStorage.getItem('accessToken');
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
+      
+      // Recargar la página limpia si teníamos token para que el Home y rutas públicas se rehagan sin token
+      if (hadToken) {
+         window.location.reload();
+      }
       // La redirección a /login ya la manejan AdminRoute y PrivateRoute en App.jsx
     }
     return Promise.reject(error);

@@ -339,54 +339,52 @@ export default function AdminProducts() {
                       </div>
                     )}
                   </div>
-                  {categories.length > 0 && (
-                    <div>
-                      <label className="block text-sm font-medium text-white mb-1">Categoría</label>
-                      <div className="flex gap-2">
-                        {isCreatingCategory ? (
-                          <>
-                            <input 
-                              type="text" 
-                              value={newCategoryName} 
-                              onChange={(e) => setNewCategoryName(e.target.value)} 
-                              placeholder="Nombre de la categoría"
-                              className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-white placeholder-slate-400" 
-                            />
-                            <button 
-                              type="button" 
-                              onClick={handleCreateCategory}
-                              className="px-4 py-2 bg-green-500 hover:bg-green-400 text-slate-900 font-bold rounded-lg transition-colors whitespace-nowrap"
-                            >
-                              Añadir
-                            </button>
-                            <button 
-                              type="button" 
-                              onClick={() => setIsCreatingCategory(false)}
-                              className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg transition-colors"
-                            >
-                              ✕
-                            </button>
-                          </>
-                        ) : (
-                          <>
-                            <select name="category" value={formData.category} onChange={handleChange} className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-white">
-                              <option value="">-- Seleccionar --</option>
-                              {categories.map(cat => (
-                                <option key={cat.id} value={cat.id}>{cat.name}</option>
-                              ))}
-                            </select>
-                            <button 
-                              type="button" 
-                              onClick={() => setIsCreatingCategory(true)}
-                              className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold rounded-lg transition-colors whitespace-nowrap flex items-center gap-1"
-                            >
-                              <Plus className="w-4 h-4" /> Nueva
-                            </button>
-                          </>
-                        )}
-                      </div>
+                  <div>
+                    <label className="block text-sm font-medium text-white mb-1">Categoría</label>
+                    <div className="flex gap-2">
+                      {isCreatingCategory ? (
+                        <>
+                          <input 
+                            type="text" 
+                            value={newCategoryName} 
+                            onChange={(e) => setNewCategoryName(e.target.value)} 
+                            placeholder="Nombre de la categoría"
+                            className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-white placeholder-slate-400" 
+                          />
+                          <button 
+                            type="button" 
+                            onClick={handleCreateCategory}
+                            className="px-4 py-2 bg-green-500 hover:bg-green-400 text-slate-900 font-bold rounded-lg transition-colors whitespace-nowrap"
+                          >
+                            Añadir
+                          </button>
+                          <button 
+                            type="button" 
+                            onClick={() => setIsCreatingCategory(false)}
+                            className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg transition-colors"
+                          >
+                            ✕
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <select name="category" value={formData.category} onChange={handleChange} className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-white">
+                            <option value="">-- Seleccionar --</option>
+                            {categories.map(cat => (
+                              <option key={cat.id} value={cat.id}>{cat.name}</option>
+                            ))}
+                          </select>
+                          <button 
+                            type="button" 
+                            onClick={() => setIsCreatingCategory(true)}
+                            className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold rounded-lg transition-colors whitespace-nowrap flex items-center gap-1"
+                          >
+                            <Plus className="w-4 h-4" /> Nueva
+                          </button>
+                        </>
+                      )}
                     </div>
-                  )}
+                  </div>
                   <div>
                     <label className="block text-sm font-medium text-white mb-1">Imagen del Producto</label>
                     <input type="file" accept="image/*" onChange={handleFileChange} className="w-full text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-medium file:bg-amber-500/20 file:text-amber-500 hover:file:bg-amber-500/30 transition-all cursor-pointer" />
