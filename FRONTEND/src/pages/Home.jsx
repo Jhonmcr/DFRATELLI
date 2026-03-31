@@ -24,6 +24,7 @@ const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]); // Lista de productos destacados
   const [categories, setCategories] = useState([]);             // Lista reducida de categorías para display
   const [isLoading, setIsLoading] = useState(true);             // Estado de carga inicial de las peticiones
+  const [showWakeUpMessage, setShowWakeUpMessage] = useState(false); // Mensaje UX para Render Cold Start
 
   /* 
    * Se comenta la constante API_URL debido a que las operaciones con
@@ -35,7 +36,14 @@ const Home = () => {
   useEffect(() => {
     // Al montar el componente, dispara la carga paralela de datos base
     fetchInitialData();
-  }, []);
+    
+    // Si la carga demora más de 4 segundos, revelamos el mensaje informativo del servidor (Render)
+    const timer = setTimeout(() => {
+      if (isLoading) setShowWakeUpMessage(true);
+    }, 4000);
+
+    return () => clearTimeout(timer);
+  }, [isLoading]);
 
   /**
    * Carga concurrentemente productos y categorías para ahorrar tiempos de red.
@@ -66,8 +74,16 @@ const Home = () => {
   
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-screen bg-[#1a0a00]">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div>
+      <div className="flex flex-col justify-center items-center min-h-screen bg-[#1a0a00] px-4 text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500 mb-6"></div>
+        
+        {showWakeUpMessage && (
+          <div className="text-amber-200 animate-pulse flex flex-col items-center gap-2 max-w-md">
+            <span className="font-bold text-amber-500 text-lg">Iniciando Servidor...</span>
+            <p className="text-sm">Nuestro backend se encuentra en modo de suspensión temporal.</p>
+            <p className="text-sm border-t border-amber-500/30 pt-2 mt-1">Por favor, espera unos segundos mientras la plataforma vuelve a estar en línea. (Puede tardar hasta 1 minuto).</p>
+          </div>
+        )}
       </div>
     );
   }

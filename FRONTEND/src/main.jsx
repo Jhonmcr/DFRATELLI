@@ -17,6 +17,15 @@ import { CartProvider } from './context/CartContext'
 import './index.css'
 import App from './App.jsx'
 
+// Limpieza de Service Workers Fantasmas que bloquean las API de Render
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    for (const registration of registrations) {
+      registration.unregister();
+    }
+  }).catch((err) => console.log('Service Worker unregistration failed: ', err));
+}
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
