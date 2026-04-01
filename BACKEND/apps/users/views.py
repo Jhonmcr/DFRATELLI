@@ -92,15 +92,14 @@ class PasswordResetRequestView(generics.GenericAPIView):
 
         token, user = serializer.save()  # Genera el token y obtiene la instancia de usuario
 
-        # Construcción del link que enviará al frontend de la aplicación web
-        frontend_url = getattr(settings, 'FRONTEND_URL', 'http://localhost:5173')
-        reset_link = f"{frontend_url}/reset-password?token={token}"
+        # Mensaje simplificado con el código de 6 caracteres
+        message_body = f"Tu código de recuperación para DFRATELLI es: {token}\n\nIntroduce este código en la página de recuperación para establecer tu nueva contraseña.\n\nEste código expirará en 30 minutos."
 
         # Envío del correo electrónico con manejo de errores para evitar crash 500
         try:
             send_mail(
-                subject="Recuperación de contraseña",
-                message=f"Usa este enlace para recuperar tu contraseña: {reset_link}",
+                subject="Código de Recuperación - DFRATELLI",
+                message=message_body,
                 from_email=settings.EMAIL_HOST_USER,  # Remitente configurado globalmente
                 recipient_list=[user.email],          # Lista de destinatarios
             )
@@ -238,8 +237,8 @@ class RoleChangeView(APIView):
         if not unique_code or not new_role:
             return Response({"error": "Debes proveer unique_code y role."}, status=400)
 
-        if new_role not in ['CLIENT', 'ADMIN']:  # Limita a escalaciones hacia CLIENT o ADMIN genérico
-            return Response({"error": "Role inválido. Usa CLIENT o ADMIN."}, status=400)
+        if new_role not in ['CLIENT', 'ADMIN', 'SUPERADMIN']:  # Permite escalaciones completas
+            return Response({"error": "Role inválido. Usa CLIENT, ADMIN o SUPERADMIN."}, status=400)
 
         try:
             target_user = User.objects.get(unique_code=unique_code)  # Adquirimos el user por su hash público
@@ -268,8 +267,11 @@ class AdminUserCreateView(generics.CreateAPIView):
         # Validación de seguridad a nivel de método
         if self.request.user.role != 'SUPERADMIN':
             raise PermissionDenied("Solo el superadmin puede crear administradores.")
-        # Se fuerza el rol a ADMIN independientemente de lo que venga en el payload
-        serializer.save(role='ADMIN')
+        # Se obtiene el rol desde el JSON enviado o se usa ADMIN por defecto
+        role = self.request.data.get('role', 'ADMIN')
+        if role not in ['ADMIN', 'SUPERADMIN']:
+             role = 'ADMIN'
+        serializer.save(role=role)
 
 
 class UserDeleteView(generics.DestroyAPIView):

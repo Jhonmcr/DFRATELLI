@@ -139,7 +139,7 @@ export default function ForgotPassword() {
                     type="text"
                     required
                     className="appearance-none rounded-lg relative block w-full px-3 py-3 pl-10 border border-slate-700 bg-slate-800/50 text-gray-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent sm:text-sm transition-all"
-                    placeholder="Código de recuperación"
+                    placeholder="Código de 6 caracteres (Ej. AB34O6)"
                     value={token}
                     onChange={(e) => setToken(e.target.value)}
                   />

@@ -31,7 +31,8 @@ export default function AdminUsers() {
     first_name: '',
     last_name: '',
     phone_number: '',
-    password: ''
+    password: '',
+    role: 'ADMIN' // Nuevo: Campo para definir el rango desde la creación
   });
 
   useEffect(() => {
@@ -191,12 +192,21 @@ export default function AdminUsers() {
                           >
                             <ArrowUpCircle className="w-4 h-4" /> Hacer Administrador
                           </button>
-                        ) : (
+                        ) : selected.role === 'ADMIN' && (
+                          <button 
+                            onClick={() => handleRoleChange(selected, 'SUPERADMIN')}
+                            className="flex items-center gap-2 px-4 py-2 bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 border border-purple-500/30 font-bold rounded-lg transition-colors text-sm shadow-sm"
+                          >
+                            <Shield className="w-4 h-4" /> Hacer Super Admin
+                          </button>
+                        )}
+                        
+                        {selected.role === 'ADMIN' && (
                           <button 
                             onClick={() => handleRoleChange(selected, 'CLIENT')}
                             className="flex items-center gap-2 px-4 py-2 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 border border-blue-500/30 font-bold rounded-lg transition-colors text-sm"
                           >
-                            <ArrowDownCircle className="w-4 h-4" /> Quitar Admin (Hacer Cliente)
+                            <ArrowDownCircle className="w-4 h-4" /> Bajar a Cliente
                           </button>
                         )}
                         
@@ -311,6 +321,18 @@ function CreateAdminModal({ isOpen, onClose, onSave, formData, setFormData, isSu
               value={formData.password}
               onChange={e => setFormData({...formData, password: e.target.value})}
             />
+          </div>
+
+          <div className="space-y-1">
+            <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Rango / Permisos</label>
+            <select
+              className="w-full bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:outline-none cursor-pointer"
+              value={formData.role}
+              onChange={e => setFormData({...formData, role: e.target.value})}
+            >
+              <option value="ADMIN">Administrador (Gestión)</option>
+              <option value="SUPERADMIN">Super Admin (Control Total)</option>
+            </select>
           </div>
 
           <div className="flex gap-4 mt-8">

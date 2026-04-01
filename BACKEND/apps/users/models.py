@@ -21,6 +21,8 @@ from django.db import models                                              # Mód
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin  # Clases base para modelo de usuario personalizado
 from .managers import UserManager                                         # Manager personalizado con create_user/create_superuser
 import uuid                                                               # Generación de tokens únicos y códigos UUID
+import random                                                             # Generación de códigos aleatorios
+import string                                                             # Conjunto de caracteres para el código
 from django.utils import timezone                                         # Utilidades de zona horaria de Django
 
 
@@ -95,12 +97,16 @@ class PasswordResetToken(models.Model):
     @staticmethod
     def generate_token():
         """
-        Genera un token hexadecimal único usando UUID4.
+        Genera un código corto de 6 caracteres alfanuméricos (Mayúsculas y Números).
+        Ejemplo: AB34O6
 
         Returns:
-            str: String hexadecimal de 32 caracteres único y aleatorio.
+            str: String de 6 caracteres alfanuméricos aleatorios.
         """
-        return uuid.uuid4().hex  # uuid4 genera un UUID aleatorio; .hex lo convierte a string hexadecimal
+        # Excluimos caracteres ambiguos como '0' / 'O' y '1' / 'I' para evitar confusión
+        chars = string.ascii_uppercase + string.digits
+        chars = chars.replace('0', '').replace('O', '').replace('1', '').replace('I', '')
+        return ''.join(random.choices(chars, k=6))
 
     def is_expired(self):
         """
