@@ -39,11 +39,14 @@ const Home = () => {
     
     // Si la carga demora más de 4 segundos, revelamos el mensaje informativo del servidor (Render)
     const timer = setTimeout(() => {
-      if (isLoading) setShowWakeUpMessage(true);
+      setShowWakeUpMessage(true);
     }, 4000);
 
+    // Guardaremos el timerId en el objeto window o una ref para limpiarlo abajo
+    window.wakeUpTimer = timer;
+
     return () => clearTimeout(timer);
-  }, [isLoading]);
+  }, []);
 
   /**
    * Carga concurrentemente productos y categorías para ahorrar tiempos de red.
@@ -55,17 +58,19 @@ const Home = () => {
         api.get("/products/categories/"),
       ]);
 
-      // Filtrar y establecer productos destacados (ej. los primeros 4 o los que están en oferta)
+      // Filtrar y establecer productos destacados (Top 8 más vendidos con al menos 1 venta)
       const products = productsRes.data;
       const featured = products
-        .filter((p) => p.is_on_sale || p.stock > 10) // Criterio arbitrario de "destacado" temporal
-        .slice(0, 4);
+        .filter((p) => p.total_sold > 0)          // Solo productos con ventas reales
+        .sort((a, b) => b.total_sold - a.total_sold) // Del más vendido al menos
+        .slice(0, 8);                                // Top 8
 
       setFeaturedProducts(featured);              // Actualiza vista Productos
       setCategories(categoriesRes.data.slice(0, 4)); // Muestra hasta las 4 categorías clave
     } catch (error) {
       console.error("Error fetching initial data:", error);
     } finally {
+      if (window.wakeUpTimer) clearTimeout(window.wakeUpTimer);
       setIsLoading(false); // Retira el loading spinner
     }
   };
@@ -114,18 +119,18 @@ const Home = () => {
             </Link>
           </div>
 
-          {/* Grid de Píldoras/Tarjetas de Categorías Minimalistas */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {/* Contenedor flexible con scroll horizontal (Slider) */}
+          <div className="flex items-stretch overflow-x-auto gap-4 md:gap-6 pb-6 custom-scrollbar snap-x scroll-smooth">
             {categories.map((category) => (
               <Link
                 key={category.id}
                 to={`/products?category=${category.id}`}
-                className="group bg-white border border-amber-200 p-6 rounded-xl hover:border-amber-500/50 hover:shadow-lg transition-all text-center flex flex-col items-center"
+                className="w-[150px] sm:w-[220px] flex-shrink-0 snap-start group bg-white border border-amber-200 p-6 rounded-xl hover:border-amber-500/50 hover:shadow-lg transition-all text-center flex flex-col items-center justify-center"
               >
                 <div className="w-16 h-16 rounded-full bg-amber-50 border border-amber-200 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:border-amber-500 transition-all duration-300">
                    {category.image ? (
                         <img 
-                          src={category.image} /* En DRF actual podría ya venir absoluta */
+                          src={category.image}
                           alt={category.name} 
                           className="w-10 h-10 object-contain drop-shadow" 
                         />
@@ -161,11 +166,13 @@ const Home = () => {
             </Link>
           </div>
 
-          {/* Grid de Tarjetas de Productos (Reutilizando ProductCard) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {featuredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+          {/* Grid de Tarjetas de Productos con Scroll Interno si hay muchos */}
+          <div className="overflow-y-auto max-h-[85vh] pr-2 -mr-2 pb-6 custom-scrollbar">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {featuredProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
           </div>
           
           {/* CTA Mobile: Ver catálogo (Solo visible en pantallas pequeñas) */}

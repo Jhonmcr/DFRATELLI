@@ -84,7 +84,7 @@ const ProductCard = ({ product }) => {
         
         {/* Título clickeable que lleva al detalle */}
         <Link to={`/products/${product.id}`} className="transition-colors">
-          <h3 className="text-lg font-bold text-white mb-2 line-clamp-2 leading-snug group-hover:text-amber-500 transition-colors">
+          <h3 className="text-lg font-bold text-white mb-2 whitespace-normal break-words leading-snug group-hover:text-amber-500 transition-colors">
             {product.name}
           </h3>
         </Link>

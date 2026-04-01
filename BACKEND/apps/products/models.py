@@ -87,6 +87,7 @@ class Product(models.Model):
         default=0,
         help_text="Porcentaje de descuento (0-100)"                   # Indicación para el panel de admin
     )
+    total_sold = models.PositiveIntegerField(default=0)               # Acumulado de ventas completadas
 
     @property
     def sale_price(self):

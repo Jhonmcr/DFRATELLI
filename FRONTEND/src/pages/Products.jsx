@@ -205,10 +205,12 @@ const Products = () => {
             </div>
             
             {/* Grilla visual de tarjetas individuales. 1x Phone -> 2x Tablet -> 3x Laptop -> 4x Desktop */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
+            <div className="overflow-y-auto max-h-[75vh] pr-2 -mr-2 pb-8 custom-scrollbar">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {filteredProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
             </div>
           </div>
         ) : (

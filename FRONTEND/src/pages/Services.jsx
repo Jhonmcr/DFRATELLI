@@ -38,7 +38,7 @@ const servicesList = [
 
 export default function Services() {
   return (
-    <div className="pt-28 pb-16 px-6 md:px-12 max-w-7xl mx-auto w-full min-h-[80vh] relative">
+    <div className="pt-28 pb-16 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto w-full min-h-[80vh] relative overflow-x-hidden">
       <div className="absolute top-1/4 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[100px] -z-10" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-amber-600/10 rounded-full blur-[100px] -z-10" />
 
@@ -50,7 +50,7 @@ export default function Services() {
         <span className="text-amber-500 font-semibold tracking-wider uppercase text-sm mb-2 block">
           Lo Que Hacemos
         </span>
-        <h1 className="text-4xl md:text-5xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-blue-900">
+        <h1 className="text-2xl sm:text-3xl md:text-5xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-blue-900 whitespace-normal break-words">
           Más allá de <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">vender herramientas</span>
         </h1>
         <p className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-amber-700 max-w-2xl mx-auto text-lg">

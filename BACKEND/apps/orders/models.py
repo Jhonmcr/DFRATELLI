@@ -59,6 +59,26 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)           # Se registra al crear, nunca se modifica
     updated_at = models.DateTimeField(auto_now=True)               # Se actualiza automáticamente en cada save()
 
+    def save(self, *args, **kwargs):
+        """
+        Sobrescribe el método save para detectar cambios de estado.
+        Si la orden pasa a 'DELIVERED', actualiza el contador de ventas de sus productos.
+        """
+        if self.pk:
+            try:
+                # Obtenemos la versión previa de la orden en DB para comparar el estado
+                old_instance = Order.objects.get(pk=self.pk)
+                if old_instance.status != "DELIVERED" and self.status == "DELIVERED":
+                    # Si el nuevo estado es DELIVERED y antes no lo era
+                    for item in self.items.all():
+                        product = item.product
+                        product.total_sold += item.quantity
+                        product.save()
+            except Order.DoesNotExist:
+                pass
+        
+        super().save(*args, **kwargs)
+
     def __str__(self):
         """Representación legible de la orden para el panel de admin."""
         return f"Orden #{self.id} - {self.user.email}"

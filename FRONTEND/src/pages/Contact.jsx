@@ -97,7 +97,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-white font-medium mb-1">Correo Electrónico</h4>
-                  <p className="text-white">Inversionesdfratelli@gmail.com</p>
+                  <p className="text-white break-all md:break-normal">Inversionesdfratelli@gmail.com</p>
                 </div>
               </div>
             </div>

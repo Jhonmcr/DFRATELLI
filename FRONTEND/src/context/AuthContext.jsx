@@ -31,12 +31,48 @@ export const AuthProvider = ({ children }) => {
         const accessToken = localStorage.getItem("accessToken");
         const refreshToken = localStorage.getItem("refreshToken");
 
+        // ── Lógica de Actividad y Refresco de Sesión ──
+        let authInterval;
+        const updateActivity = () => localStorage.setItem('lastActivity', Date.now().toString());
+
         if (accessToken) {
             try {
                 // Decodifica el token sin hacer petición a red
                 // El backend DRF fue configurado para incrustar { email, role, first_name } en el token
                 const decodedUser = jwtDecode(accessToken);
                 setUser(decodedUser);
+
+                // Registrar eventos de actividad del usuario
+                window.addEventListener('mousemove', updateActivity);
+                window.addEventListener('keydown', updateActivity);
+                window.addEventListener('click', updateActivity);
+                if (!localStorage.getItem('lastActivity')) updateActivity();
+                
+                // Bucle centinela (Se ejecuta cada 15 min)
+                authInterval = setInterval(async () => {
+                    const lastActivity = parseInt(localStorage.getItem('lastActivity') || '0', 10);
+                    const inactiveTime = Date.now() - lastActivity;
+                    const ONE_HOUR = 60 * 60 * 1000;
+                    
+                    if (inactiveTime >= ONE_HOUR) {
+                        // Expulsar por inactividad tras 1 hora
+                        logoutContextOnly();
+                        window.location.reload();
+                    } else {
+                        // Refrescar el token silenciosamente debido a que hubo actividad
+                        const refresh = localStorage.getItem('refreshToken');
+                        if (refresh) {
+                            try {
+                                const res = await api.post('auth/refresh/', { refresh });
+                                localStorage.setItem('accessToken', res.data.access);
+                                api.defaults.headers.common["Authorization"] = `Bearer ${res.data.access}`;
+                            } catch(e) { 
+                                // Falla silenciosa; si caduca refresh, el usuario lo verá al fallar otra ruta
+                            }
+                        }
+                    }
+                }, 15 * 60 * 1000);
+
             } catch (error) {
                 console.error("Token de acceso inválido o corrupto:", error);
                 // Si el token falló, limpia el storage para obligar re-autenticación
@@ -45,6 +81,13 @@ export const AuthProvider = ({ children }) => {
         }
         
         setLoading(false); // Quita pantalla de carga aunque no haya usuario (es visitante)
+
+        return () => {
+            window.removeEventListener('mousemove', updateActivity);
+            window.removeEventListener('keydown', updateActivity);
+            window.removeEventListener('click', updateActivity);
+            if (authInterval) clearInterval(authInterval);
+        };
     }, []);
 
     // ─── MÉTODOS DE AUTENTICACIÓN ───────────────────────────────────

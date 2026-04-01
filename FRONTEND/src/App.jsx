@@ -19,6 +19,7 @@ import { useAuth } from "./context/AuthContext";
 // ─── COMPONENTES BASE (Layout) ──────────────────────────────────
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
+import ScrollToTop from "./components/layout/ScrollToTop";
 
 // ─── PÁGINAS PRINCIPALES DEL CLIENTE ────────────────────────────
 import Home from "./pages/Home";
@@ -73,6 +74,7 @@ const PrivateRoute = ({ children }) => {
 function App() {
   return (
     <div className="min-h-screen flex flex-col font-sans bg-slate-100">
+      <ScrollToTop />
       <Navbar />
 
       <main className="flex-grow">

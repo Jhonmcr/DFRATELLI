@@ -24,7 +24,8 @@ Version: 1.0.0
 from rest_framework import generics, status               # Vistas genéricas y códigos de estado
 from rest_framework.response import Response              # Respuesta estándar HTTP de DRF
 from rest_framework.views import APIView                  # Base para vistas personalizadas
-from rest_framework.permissions import IsAdminUser, IsAuthenticated  # Permisos predeterminados
+from rest_framework.permissions import IsAuthenticated  # Permisos predeterminados
+from .permissions import IsAdminOrSuperAdmin, IsSuperAdmin  # Permisos personalizados del sistema
 from django.core.exceptions import PermissionDenied          # Manejo de denegación de permisos
 from rest_framework_simplejwt.views import TokenObtainPairView       # Vista base para obtención de JWT
 from django.db.models import Sum                          # Función de agregación para sumar totales
@@ -192,7 +193,7 @@ class UserListView(APIView):
     Permiso: Requerido IsAdminUser (is_staff=True interno de Django)
     """
 
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminOrSuperAdmin]
 
     def get(self, request):
         """Recupera la tabla completa de cuentas."""
@@ -290,13 +291,13 @@ class AdminStatsView(APIView):
     Permiso: Requerido IsAdminUser (is_staff=True interno de Django)
     """
 
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminOrSuperAdmin]
 
     def get(self, request):
         """Agrupa métricas de negocio para dashboard superior de ventas."""
         # 1. Indicadores Base Totales
         total_users = User.objects.count()
-        active_products = Product.objects.filter(is_active=True).count()
+        active_products = Product.objects.count()  # Contamos todos los productos en el sistema
 
         # 2. Total Facturado (Agrupando todo lo que ya no es PENDING ni está CANCELADO)
         paid_orders = Order.objects.exclude(status__in=['PENDING', 'CANCELLED'])

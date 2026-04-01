@@ -65,34 +65,36 @@ export default function Brands() {                  // Componente funcional expo
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 mb-20 px-4 max-w-5xl mx-auto"> {/* Grid responsiva (2 cols en móvil, 4 en LG) */}
           {brands.map((brand, index) => (           // Itera sobre el arreglo de marcas retornadas
             <motion.div 
-              key={brand.id || index}               // Key única de React basada en ID o fallback al índice
-              initial={{ opacity: 0, y: 20 }}       // Animación de entrada inicial: oculto y más abajo
-              animate={{ opacity: 1, y: 0 }}        // Animación de entrada final: visible en posición 0
-              transition={{ delay: index * 0.05, type: 'spring', stiffness: 300 }} // Efecto en cascada ("stagger") multiplicando delay por índice
-              className="relative aspect-square rounded-3xl overflow-hidden group cursor-pointer flex items-center justify-center bg-transparent transition-all duration-500 hover:z-10" // Contenedor interactivo que se eleva en Z al pasar el ratón
+              key={brand.id || index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.05, type: 'spring', stiffness: 300 }}
+              className="flex flex-col items-center group cursor-pointer"
             >
-              {/* Efecto de resplandor futurista detrás del logo en el hover */}
-              <div className="absolute inset-0 bg-amber-500/0 group-hover:bg-amber-500/5 transition-colors duration-500 rounded-3xl blur-xl" /> {/* Blur ámbar dinámico */}
-              
-              <div className="relative w-full h-full flex items-center justify-center p-6 z-10 transition-transform duration-700 ease-out group-hover:scale-110"> {/* Zoom in de +10% en hover de larga duración cronometrada */}
-                {brand.image ? (                    // Operador ternario interior: Si hay imagen, muéstrala. Si no, muestra la inicial.
+              {/* Contenedor de Imagen de Marca */}
+              <div className="relative w-full aspect-square bg-white rounded-3xl overflow-hidden shadow-lg border border-slate-100 flex items-center justify-center p-8 transition-all duration-500 group-hover:shadow-2xl group-hover:border-amber-500/30">
+                {/* Resplandor intero en hover */}
+                <div className="absolute inset-0 bg-amber-500/0 group-hover:bg-amber-500/5 transition-all duration-500" />
+                
+                {brand.image ? (
                   <img 
-                    src={brand.image.startsWith('http') ? brand.image : `${API_URL}${brand.image}`} // Valida si la ruta es absoluta o relativa al backend local
-                    alt={brand.name}                // Atributo ALT descriptivo
-                    className="w-full h-full object-contain drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)] group-hover:drop-shadow-[0_20px_20px_rgba(245,158,11,0.3)] transition-all duration-700" // Sombra base vs Sombra ámbar en hover
+                    src={brand.image.startsWith('http') ? brand.image : `${API_URL}${brand.image}`}
+                    alt={brand.name}
+                    className="w-full h-full object-contain transition-all duration-700 ease-out group-hover:scale-110"
                   />
                 ) : (
-                  <span className="text-7xl font-black text-white/10 group-hover:text-amber-500/80 transition-all duration-700 drop-shadow-2xl"> {/* Fallback si no hay logo: Texto inmenso */}
-                    {brand.name.charAt(0)}          // Obtiene la primera letra de la marca
+                  <span className="text-6xl font-black text-slate-100 group-hover:text-amber-500/20 transition-all duration-700">
+                    {brand.name.charAt(0)}
                   </span>
                 )}
               </div>
 
-              {/* Nombre revelado al hacer hover (PC) o permanente (Móvil) */}
-              <div className="absolute bottom-4 left-0 right-0 text-center opacity-100 translate-y-0 lg:opacity-0 lg:translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 z-20"> {/* Responsive state on Touch vs Hover on Desktop */}
-                <span className="text-sm font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-800 to-blue-950 tracking-[0.2em] uppercase drop-shadow-[0_2px_4px_rgba(255,255,255,0.8)]"> {/* Estilo de texto metálico futurista */}
-                  {brand.name}                      // Etiqueta del nombre de la marca
+              {/* Nombre de la Marca debajo de la caja */}
+              <div className="mt-6 text-center">
+                <span className="text-sm font-extrabold text-blue-900 tracking-widest uppercase transition-colors group-hover:text-amber-600 block">
+                  {brand.name}
                 </span>
+                <div className="h-1 w-0 group-hover:w-full bg-amber-500 transition-all duration-500 mx-auto mt-1 rounded-full"></div>
               </div>
             </motion.div>
           ))}

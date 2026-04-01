@@ -53,7 +53,7 @@ export default function AdminSettings() {
   return (
     <div className="py-0 px-4 md:px-6 max-w-full mx-auto w-full overflow-x-hidden">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">Configuraciones de Sistema</h1>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 whitespace-normal break-words">Configuraciones de Sistema</h1>
         <p className="text-white">Ajustes generales de la tienda (Solo SuperAdmin).</p>
       </div>
 
@@ -92,19 +92,19 @@ export default function AdminSettings() {
           </div>
           <p className="text-blue-200/70 text-sm mb-6">Verifica a quién pertenece un Código Único de Usuario.</p>
           
-          <form onSubmit={handleSearchUser} className="flex gap-3 mb-4">
+          <form onSubmit={handleSearchUser} className="flex flex-col min-[430px]:flex-row gap-3 mb-4">
             <input
               type="text"
               placeholder="Ej: A1B2C3D4E5F6"
               value={uniqueCode}
               onChange={e => setUniqueCode(e.target.value.toUpperCase())}
               required
-              className="flex-1 px-4 py-3 bg-blue-950 border border-blue-700 rounded-lg text-white font-mono placeholder-blue-300/40 focus:outline-none focus:ring-2 focus:ring-amber-500"
+              className="w-full min-[430px]:flex-1 px-4 py-3 bg-blue-950 border border-blue-700 rounded-lg text-white font-mono placeholder-blue-300/40 focus:outline-none focus:ring-2 focus:ring-amber-500"
             />
             <button
               type="submit"
               disabled={searchLoading || !uniqueCode.trim()}
-              className="bg-amber-500 hover:bg-amber-400 disabled:opacity-50 text-slate-900 font-bold px-6 py-3 rounded-lg transition-all flex items-center gap-2"
+              className="w-full min-[430px]:w-auto justify-center bg-amber-500 hover:bg-amber-400 disabled:opacity-50 text-slate-900 font-bold px-6 py-3 rounded-lg transition-all flex items-center gap-2"
             >
               Buscar
             </button>
@@ -115,16 +115,17 @@ export default function AdminSettings() {
           )}
 
           {searchedUser && (
-            <div className="mt-4 p-4 bg-blue-950/80 border border-blue-800 rounded-xl flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center">
+            <div className="mt-4 p-4 bg-blue-950/80 border border-blue-800 rounded-xl flex flex-col sm:flex-row items-center sm:items-center gap-4 text-center sm:text-left">
+              <div className="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center flex-shrink-0">
                 <UserIcon className="w-6 h-6 text-amber-500" />
               </div>
-              <div>
-                <p className="text-white font-bold">{searchedUser.first_name} {searchedUser.last_name}</p>
-                <p className="text-blue-200/70 text-sm">{searchedUser.email} • @{searchedUser.username}</p>
+              <div className="flex-1 overflow-hidden w-full">
+                <p className="text-white font-bold truncate">{searchedUser.first_name} {searchedUser.last_name}</p>
+                <p className="text-blue-200/70 text-sm truncate">{searchedUser.email}</p>
+                <p className="text-blue-200/50 text-[10px] uppercase tracking-tighter sm:hidden">@{searchedUser.username}</p>
               </div>
-              <div className="ml-auto">
-                <span className="px-2 py-1 bg-blue-800/50 text-blue-300 text-xs font-bold rounded border border-blue-700">
+              <div className="sm:ml-auto">
+                <span className="px-2 py-1 bg-amber-500 text-slate-950 text-xs font-bold rounded border border-amber-400">
                   {searchedUser.role}
                 </span>
               </div>

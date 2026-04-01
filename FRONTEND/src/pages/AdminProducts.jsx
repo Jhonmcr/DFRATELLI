@@ -15,8 +15,15 @@ import api from '../services/api';
 
 export default function AdminProducts() {
   const [products, setProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // Productos Filtrados (Aplicando la búsqueda)
+  const filteredProducts = products.filter(p => 
+     p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+     (p.description && p.description.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
   
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,6 +41,7 @@ export default function AdminProducts() {
     is_on_sale: false,
     discount_percentage: 0
   });
+  const [categorySearch, setCategorySearch] = useState('');
   const [error, setError] = useState('');
 
   const fetchProductsAndCategories = async () => {
@@ -160,32 +168,43 @@ export default function AdminProducts() {
     <div className="py-0 px-4 md:px-6 max-w-full mx-auto w-full relative overflow-x-hidden">
       <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Gestionar Productos</h1>
+          <h1 className="text-[26px] sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 whitespace-normal break-words">Gestionar Productos</h1>
           <p className="text-slate-400">Añade, edita y elimina productos de tu catálogo.</p>
         </div>
-        <button 
-          onClick={() => handleOpenModal()} 
-          className="bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold py-3 px-6 rounded-lg transition-all shadow-neon flex items-center gap-2"
-        >
-          <Plus className="w-5 h-5" /> Nuevo Producto
-        </button>
+        <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+          <input 
+             type="text" 
+             placeholder="Buscar producto por nombre..." 
+             value={searchTerm}
+             onChange={(e) => setSearchTerm(e.target.value)}
+             className="px-4 py-2 w-full sm:w-64 bg-slate-900/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-white placeholder-slate-400"
+          />
+          <button 
+            onClick={() => handleOpenModal()} 
+            className="bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold py-2 md:py-3 px-4 md:px-6 rounded-lg transition-all shadow-neon flex items-center justify-center gap-2 whitespace-nowrap"
+          >
+            <Plus className="w-5 h-5" /> Nuevo Producto
+          </button>
+        </div>
       </div>
 
       {/* ── TABLA: visible ≥ 768px ── */}
-      <div className="hidden md:block bg-glass border border-slate-800 rounded-xl p-6 overflow-x-auto">
-        <table className="w-full text-left border-collapse min-w-[600px]">
-          <thead>
-            <tr className="border-b border-slate-700 text-slate-400">
-              <th className="py-4 px-4 font-medium">Producto</th>
-              <th className="py-4 px-4 font-medium">Precio</th>
-              <th className="py-4 px-4 font-medium">Stock</th>
-              <th className="py-4 px-4 font-medium text-right">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.length === 0 ? (
-              <tr><td colSpan="4" className="text-center py-8 text-slate-500">No hay productos en el catálogo.</td></tr>
-            ) : products.map(product => (
+      <div className="hidden md:block bg-glass border border-slate-800 rounded-xl overflow-hidden p-0 pt-1">
+        {/* Contenedor Scroll Interno */}
+        <div className="overflow-y-auto max-h-[65vh] p-4 pt-0">
+          <table className="w-full text-left border-collapse min-w-[600px] relative">
+            <thead className="sticky top-0 bg-slate-900/98 backdrop-blur-md z-10 border-b border-slate-700 shadow-sm">
+              <tr className="text-slate-400">
+                <th className="py-4 px-4 font-medium">Producto</th>
+                <th className="py-4 px-4 font-medium">Precio</th>
+                <th className="py-4 px-4 font-medium">Stock</th>
+                <th className="py-4 px-4 font-medium text-right">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredProducts.length === 0 ? (
+                <tr><td colSpan="4" className="text-center py-8 text-slate-500">No hay productos que coincidan con la búsqueda.</td></tr>
+              ) : filteredProducts.map(product => (
               <tr key={product.id} className="border-b border-slate-800/50 hover:bg-slate-800/20 transition-colors">
                 <td className="py-4 px-4 flex items-center gap-3">
                    <div className="w-10 h-10 bg-slate-800 rounded flex items-center justify-center flex-shrink-0 overflow-hidden">
@@ -196,7 +215,7 @@ export default function AdminProducts() {
                       )}
                    </div>
                    <div>
-                     <span className="text-gray-900 font-medium block">{product.name}</span>
+                     <span className="text-white font-bold block whitespace-normal break-words leading-tight">{product.name}</span>
                      <span className="text-slate-500 text-sm line-clamp-1">{product.description}</span>
                    </div>
                 </td>
@@ -225,13 +244,14 @@ export default function AdminProducts() {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
 
       {/* ── CARDS: visible < 768px ── */}
-      <div className="md:hidden flex flex-col gap-2">
-        {products.length === 0 ? (
-          <div className="text-center py-8 text-slate-500 bg-glass border border-slate-800 rounded-xl">No hay productos en el catálogo.</div>
-        ) : products.map(product => (
+      <div className="md:hidden flex flex-col gap-2 overflow-y-auto max-h-[70vh] pr-1">
+        {filteredProducts.length === 0 ? (
+          <div className="text-center py-8 text-slate-500 bg-glass border border-slate-800 rounded-xl">No hay productos que coincidan con la búsqueda.</div>
+        ) : filteredProducts.map(product => (
           <div key={product.id} className="bg-glass border border-slate-800 rounded-xl p-3 flex items-center gap-3 hover:bg-slate-800/20 transition-colors">
             {/* Imagen */}
             <div className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
@@ -243,7 +263,7 @@ export default function AdminProducts() {
             </div>
             {/* Info */}
             <div className="flex-1 min-w-0">
-              <span className="text-gray-900 font-medium block truncate text-sm">{product.name}</span>
+              <span className="text-white font-bold block whitespace-normal break-words text-sm leading-tight">{product.name}</span>
               <div className="flex items-center gap-2 mt-1 flex-wrap">
                 {product.is_on_sale && product.discount_percentage > 0 ? (
                   <span className="text-amber-400 font-bold text-sm">${product.sale_price}</span>
@@ -367,21 +387,41 @@ export default function AdminProducts() {
                           </button>
                         </>
                       ) : (
-                        <>
-                          <select name="category" value={formData.category} onChange={handleChange} className="w-full px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-white">
-                            <option value="">-- Seleccionar --</option>
-                            {categories.map(cat => (
-                              <option key={cat.id} value={cat.id}>{cat.name}</option>
-                            ))}
-                          </select>
-                          <button 
-                            type="button" 
-                            onClick={() => setIsCreatingCategory(true)}
-                            className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold rounded-lg transition-colors whitespace-nowrap flex items-center gap-1"
-                          >
-                            <Plus className="w-4 h-4" /> Nueva
-                          </button>
-                        </>
+                         <div className="flex flex-col gap-2 w-full">
+                           <input 
+                             type="text" 
+                             placeholder="🔍 Buscar categoría..." 
+                             value={categorySearch}
+                             onChange={(e) => setCategorySearch(e.target.value)}
+                             className="w-full px-4 py-2 bg-slate-800/80 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-white text-sm"
+                           />
+                           <div className="max-h-40 overflow-y-auto bg-slate-800/30 border border-slate-700 rounded-lg p-1 custom-scrollbar">
+                             {categories.filter(cat => cat.name.toLowerCase().includes(categorySearch.toLowerCase())).length === 0 ? (
+                               <div className="py-2 px-3 text-slate-500 text-sm">No se encontraron categorías.</div>
+                             ) : categories.filter(cat => cat.name.toLowerCase().includes(categorySearch.toLowerCase())).map(cat => (
+                               <button
+                                 key={cat.id}
+                                 type="button"
+                                 onClick={() => setFormData({ ...formData, category: cat.id })}
+                                 className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors flex justify-between items-center ${
+                                   formData.category === cat.id 
+                                     ? 'bg-amber-500 text-slate-900 font-bold' 
+                                     : 'text-slate-300 hover:bg-slate-700'
+                                 }`}
+                               >
+                                 {cat.name}
+                                 {formData.category === cat.id && <div className="w-2 h-2 bg-slate-900 rounded-full animate-pulse"></div>}
+                               </button>
+                             ))}
+                           </div>
+                           <button 
+                             type="button" 
+                             onClick={() => setIsCreatingCategory(true)}
+                             className="w-full px-4 py-2 bg-amber-500/10 hover:bg-amber-500/20 text-amber-500 border border-amber-500/30 font-bold rounded-lg transition-colors flex items-center justify-center gap-2 text-sm"
+                           >
+                             <Plus className="w-4 h-4" /> Crear Nueva Categoría
+                           </button>
+                         </div>
                       )}
                     </div>
                   </div>

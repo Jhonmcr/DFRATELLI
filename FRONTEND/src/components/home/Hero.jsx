@@ -20,7 +20,7 @@ import BrandLogo from '../../assets/brand/logo-dfratelli.png'; // Logotipo princ
 const Hero = () => { // Declaración del componente funcional Hero
   return ( // Inicia el renderizado del componente
     // Contenedor principal con fondo oscuro simulando la identidad y abriendo contexto a pantalla completa
-    <div className="relative min-h-screen lg:h-screen flex items-center justify-center bg-[#2c1200] overflow-hidden pt-20 pb-48 sm:pb-52 lg:py-0">
+    <div className="relative min-h-screen lg:h-screen flex items-center justify-center bg-[#2c1200] overflow-hidden pt-20 pb-64 sm:pb-52 lg:py-0">
       
       {/* Círculo difuminado superior / primario */}
       <div className="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -87,7 +87,7 @@ const Hero = () => { // Declaración del componente funcional Hero
 
           {/* Lado Derecho: Logotipo de la Marca CUADRADO ANIMADO */}
           <div className="flex justify-center items-center h-full relative mt-10 lg:mt-0"> {/* Contenedor Flexbox para centrar el elemento */}
-            <div className="relative w-[160px] h-[160px] sm:w-[240px] sm:h-[240px] lg:w-[360px] lg:h-[360px] xl:w-[420px] xl:h-[420px] flex items-center justify-center"> {/* Caja responsiva que rige el tamaño total de la animación */}
+            <div className="relative w-[180px] h-[180px] sm:w-[240px] sm:h-[240px] lg:w-[360px] lg:h-[360px] xl:w-[420px] xl:h-[420px] flex items-center justify-center"> {/* Caja responsiva que rige el tamaño total de la animación */}
               
               {/* Cuadro exterior rotando */}
               <motion.div 
@@ -123,9 +123,9 @@ const Hero = () => { // Declaración del componente funcional Hero
       </div>
 
       {/* ───── START BARRA DE BENEFICIOS FULL-WIDTH AL FONDO ───── */}
-      <div className="absolute bottom-0 left-0 w-full bg-[#1a0f05]/60 backdrop-blur-md border-t border-orange-900/20 py-8 z-20"> {/* Barra oscura fijada al fondo de la pantalla inicial */}
+      <div className="absolute bottom-0 left-0 w-full bg-[#1a0f05]/60 backdrop-blur-md border-t border-orange-900/20 py-4 sm:py-8 z-20"> {/* Barra oscura fijada al fondo de la pantalla inicial */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"> {/* Contenedor que alínea la barra con los textos de arriba */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8"> {/* Layout de cuadrícula equilibrada para 3 items */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-8"> {/* Layout de cuadrícula equilibrada para 3 items */}
             {/* Ítem 1: Garantía */}
             <div className="flex items-center justify-center lg:justify-start text-amber-50/90">
               <ShieldCheck className="h-6 w-6 text-amber-500 mr-3" /> {/* Icono de escudo de chequeo */}
