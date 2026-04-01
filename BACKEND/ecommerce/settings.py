@@ -20,14 +20,23 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 # CORS Configuration
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False  # Cambiado a False para usar dominios específicos
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "https://inversionesdfratelli.com",
+    "https://www.inversionesdfratelli.com",
+]
+
 CORS_ALLOW_CREDENTIALS = True
 
-# CSRF Trusted Origins (Necesario para peticiones POST desde el frontend)
+# CSRF Trusted Origins (Necesario para peticiones POST desde el frontend en Prod)
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:3000",
     "https://inversionesdfratelli.com",
+    "https://www.inversionesdfratelli.com",
+    "https://dfratelli-backend.onrender.com",
 ]
 
 
