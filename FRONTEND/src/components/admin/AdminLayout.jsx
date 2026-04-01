@@ -19,7 +19,7 @@ import { Outlet } from 'react-router-dom';
 
 const AdminLayout = () => {
   return (
-    <div className="flex min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-amber-500 via-amber-600 to-orange-700 pt-24 text-gray-900">
+    <div className="flex min-h-screen w-full overflow-x-hidden bg-slate-100 pt-24 text-slate-800">
       <main className="flex-1 w-full max-w-full p-4 md:p-8">
         <Outlet />
       </main>

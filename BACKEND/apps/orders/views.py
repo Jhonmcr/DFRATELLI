@@ -173,6 +173,15 @@ class UpdateOrderStatusView(APIView):
         if new_status not in valid_statuses:                      # Valida que el estado sea válido
             return Response({"error": "Estado inválido"}, status=400)
 
+        # Si la orden se CANCELA y antes no lo estaba, devolvemos el stock al producto
+        if order.status != "CANCELLED" and new_status == "CANCELLED":
+            # Usar una transacción atómica para asegurar que todo el stock se devuelva o nada
+            with transaction.atomic():
+                for item in order.items.all():
+                    product = item.product
+                    product.stock += item.quantity
+                    product.save()
+
         order.status = new_status                                 # Asigna el nuevo estado
         order.save()                                              # Persiste el cambio en la base de datos
 

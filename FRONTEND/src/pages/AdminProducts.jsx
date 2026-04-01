@@ -38,6 +38,7 @@ export default function AdminProducts() {
     price: '',
     stock: '',
     category: '',
+    is_active: true,
     is_on_sale: false,
     discount_percentage: 0
   });
@@ -78,12 +79,13 @@ export default function AdminProducts() {
         price: product.price,
         stock: product.stock,
         category: product.category ? product.category.id : '',
+        is_active: product.is_active !== undefined ? product.is_active : true,
         is_on_sale: product.is_on_sale || false,
         discount_percentage: product.discount_percentage || 0
       });
     } else {
       setEditingId(null);
-      setFormData({ name: '', description: '', price: '', stock: '', category: '', is_on_sale: false, discount_percentage: 0 });
+      setFormData({ name: '', description: '', price: '', stock: '', category: '', is_active: true, is_on_sale: false, discount_percentage: 0 });
     }
     setImageFile(null);
     setIsModalOpen(true);
@@ -107,6 +109,7 @@ export default function AdminProducts() {
     submitData.append('description', formData.description);
     submitData.append('price', formData.price);
     submitData.append('stock', formData.stock);
+    submitData.append('is_active', formData.is_active);
     submitData.append('is_on_sale', formData.is_on_sale);
     submitData.append('discount_percentage', formData.discount_percentage);
     if (formData.category) submitData.append('category_id', formData.category);
@@ -160,6 +163,7 @@ export default function AdminProducts() {
     }
   };
 
+
   if (loading) {
     return <div className="flex justify-center items-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div></div>;
   }
@@ -168,8 +172,8 @@ export default function AdminProducts() {
     <div className="py-0 px-4 md:px-6 max-w-full mx-auto w-full relative overflow-x-hidden">
       <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-[26px] sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 whitespace-normal break-words">Gestionar Productos</h1>
-          <p className="text-slate-400">Añade, edita y elimina productos de tu catálogo.</p>
+          <h1 className="text-[26px] sm:text-3xl md:text-4xl font-bold text-slate-800 mb-2 whitespace-normal break-words">Gestionar Productos</h1>
+          <p className="text-amber-600 font-bold">Gestiona y actualiza tu catálogo de productos con precisión y facilidad.</p>
         </div>
         <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
           <input 
@@ -177,7 +181,7 @@ export default function AdminProducts() {
              placeholder="Buscar producto por nombre..." 
              value={searchTerm}
              onChange={(e) => setSearchTerm(e.target.value)}
-             className="px-4 py-2 w-full sm:w-64 bg-slate-900/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-white placeholder-slate-400"
+             className="px-4 py-2 w-full sm:w-64 bg-white border border-amber-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-slate-800 placeholder-slate-400 shadow-sm"
           />
           <button 
             onClick={() => handleOpenModal()} 
@@ -189,14 +193,15 @@ export default function AdminProducts() {
       </div>
 
       {/* ── TABLA: visible ≥ 768px ── */}
-      <div className="hidden md:block bg-glass border border-slate-800 rounded-xl overflow-hidden p-0 pt-1">
+      <div className="hidden md:block bg-white border border-amber-100 rounded-2xl overflow-hidden shadow-2xl p-0 pt-1">
         {/* Contenedor Scroll Interno */}
         <div className="overflow-y-auto max-h-[65vh] p-4 pt-0">
           <table className="w-full text-left border-collapse min-w-[600px] relative">
-            <thead className="sticky top-0 bg-slate-900/98 backdrop-blur-md z-10 border-b border-slate-700 shadow-sm">
-              <tr className="text-slate-400">
+            <thead className="sticky top-0 bg-white backdrop-blur-md z-10 border-b border-amber-100 shadow-sm">
+              <tr className="text-slate-900 font-black uppercase text-[11px] tracking-widest border-b-2 border-amber-100/50">
                 <th className="py-4 px-4 font-medium">Producto</th>
                 <th className="py-4 px-4 font-medium">Precio</th>
+                <th className="py-4 px-4 font-medium">Estado</th>
                 <th className="py-4 px-4 font-medium">Stock</th>
                 <th className="py-4 px-4 font-medium text-right">Acciones</th>
               </tr>
@@ -205,28 +210,35 @@ export default function AdminProducts() {
               {filteredProducts.length === 0 ? (
                 <tr><td colSpan="4" className="text-center py-8 text-slate-500">No hay productos que coincidan con la búsqueda.</td></tr>
               ) : filteredProducts.map(product => (
-              <tr key={product.id} className="border-b border-slate-800/50 hover:bg-slate-800/20 transition-colors">
+              <tr key={product.id} className="border-b border-amber-50 hover:bg-amber-50/50 transition-colors">
                 <td className="py-4 px-4 flex items-center gap-3">
-                   <div className="w-10 h-10 bg-slate-800 rounded flex items-center justify-center flex-shrink-0 overflow-hidden">
+                   <div className="w-10 h-10 bg-amber-50 border border-amber-100 rounded flex items-center justify-center flex-shrink-0 overflow-hidden">
                       {product.image ? (
                         <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
                       ) : (
-                        <Package className="w-5 h-5 text-amber-500" />
+                        <Package className="w-5 h-5 text-amber-600" />
                       )}
                    </div>
                    <div>
-                     <span className="text-white font-bold block whitespace-normal break-words leading-tight">{product.name}</span>
-                     <span className="text-slate-500 text-sm line-clamp-1">{product.description}</span>
+                     <span className="text-slate-800 font-bold block whitespace-normal break-words leading-tight">{product.name}</span>
+                     <span className="text-slate-700 font-bold text-sm line-clamp-1 italic">{product.description}</span>
                    </div>
                 </td>
                 <td className="py-4 px-4">
                   {product.is_on_sale && product.discount_percentage > 0 ? (
                     <div className="flex flex-col">
                       <span className="text-slate-500 line-through text-sm">${product.price}</span>
-                      <span className="text-amber-400 font-bold">${product.sale_price}</span>
+                      <span className="text-amber-600 font-bold">${product.sale_price}</span>
                     </div>
                   ) : (
-                    <span className="text-slate-300 font-medium">${product.price}</span>
+                    <span className="text-slate-700 font-bold">${product.price}</span>
+                  )}
+                </td>
+                <td className="py-4 px-4">
+                  {product.is_active ? (
+                    <span className="px-2 py-1 bg-green-500/10 text-green-400 rounded text-xs font-bold uppercase">Activo</span>
+                  ) : (
+                    <span className="px-2 py-1 bg-yellow-500/10 text-yellow-500 rounded text-xs font-bold uppercase">Pausado</span>
                   )}
                 </td>
                 <td className="py-4 px-4">
@@ -237,8 +249,8 @@ export default function AdminProducts() {
                   )}
                 </td>
                 <td className="py-4 px-4 text-right">
-                  <button onClick={() => handleOpenModal(product)} className="p-2 text-slate-400 hover:text-amber-500 transition-colors" title="Editar"><Edit className="w-4 h-4"/></button>
-                  <button onClick={() => handleDelete(product.id)} className="p-2 text-slate-400 hover:text-red-500 transition-colors" title="Eliminar"><Trash2 className="w-4 h-4"/></button>
+                  <button onClick={() => handleOpenModal(product)} className="p-2 text-slate-800 hover:text-amber-600 transition-colors" title="Editar"><Edit className="w-5 h-5"/></button>
+                  <button onClick={() => handleDelete(product.id)} className="p-2 text-slate-800 hover:text-red-500 transition-colors" title="Eliminar"><Trash2 className="w-5 h-5"/></button>
                 </td>
               </tr>
             ))}
@@ -248,13 +260,13 @@ export default function AdminProducts() {
       </div>
 
       {/* ── CARDS: visible < 768px ── */}
-      <div className="md:hidden flex flex-col gap-2 overflow-y-auto max-h-[70vh] pr-1">
+      <div className="md:hidden flex flex-col gap-3 overflow-y-auto max-h-[70vh] pr-1">
         {filteredProducts.length === 0 ? (
-          <div className="text-center py-8 text-slate-500 bg-glass border border-slate-800 rounded-xl">No hay productos que coincidan con la búsqueda.</div>
+          <div className="text-center py-8 text-slate-500 bg-white border border-amber-100 rounded-xl shadow-lg">No hay productos que coincidan con la búsqueda.</div>
         ) : filteredProducts.map(product => (
-          <div key={product.id} className="bg-glass border border-slate-800 rounded-xl p-3 flex items-center gap-3 hover:bg-slate-800/20 transition-colors">
+          <div key={product.id} className="bg-white border border-amber-100 rounded-xl p-4 flex items-center gap-3 hover:bg-amber-50/50 transition-colors shadow-xl">
             {/* Imagen */}
-            <div className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
+            <div className="w-12 h-12 bg-amber-50 border border-amber-100 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
               {product.image ? (
                 <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
               ) : (
@@ -263,17 +275,22 @@ export default function AdminProducts() {
             </div>
             {/* Info */}
             <div className="flex-1 min-w-0">
-              <span className="text-white font-bold block whitespace-normal break-words text-sm leading-tight">{product.name}</span>
+              <span className="text-slate-800 font-bold block whitespace-normal break-words text-sm leading-tight">{product.name}</span>
               <div className="flex items-center gap-2 mt-1 flex-wrap">
                 {product.is_on_sale && product.discount_percentage > 0 ? (
-                  <span className="text-amber-400 font-bold text-sm">${product.sale_price}</span>
+                  <span className="text-amber-700 font-bold text-sm">${product.sale_price}</span>
                 ) : (
-                  <span className="text-slate-300 font-medium text-sm">${product.price}</span>
+                  <span className="text-slate-700 font-medium text-sm">${product.price}</span>
                 )}
                 {product.stock > 0 ? (
                   <span className="px-1.5 py-0.5 bg-green-500/10 text-green-400 rounded text-xs">{product.stock} disp.</span>
                 ) : (
                   <span className="px-1.5 py-0.5 bg-red-500/10 text-red-500 rounded text-xs font-medium">Agotado</span>
+                )}
+                {product.is_active ? (
+                  <span className="px-1.5 py-0.5 bg-green-500/20 text-green-400 rounded text-[10px] font-bold uppercase">Activo</span>
+                ) : (
+                  <span className="px-1.5 py-0.5 bg-yellow-500/20 text-yellow-500 rounded text-[10px] font-bold uppercase">Pausado</span>
                 )}
               </div>
             </div>
@@ -325,6 +342,25 @@ export default function AdminProducts() {
                   </div>
 
                   <div className="bg-slate-800/30 p-4 rounded-lg border border-slate-700">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <input 
+                          type="checkbox" 
+                          name="is_active" 
+                          id="is_active"
+                          checked={formData.is_active} 
+                          onChange={(e) => setFormData({...formData, is_active: e.target.checked})}
+                          className="w-4 h-4 text-green-500 bg-slate-900 border-slate-700 rounded focus:ring-green-500 focus:ring-2"
+                        />
+                        <label htmlFor="is_active" className="text-sm font-medium text-white cursor-pointer">Producto Activo / Visible</label>
+                      </div>
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase ${formData.is_active ? 'bg-green-500/20 text-green-400' : 'bg-yellow-500/20 text-yellow-500'}`}>
+                        {formData.is_active ? 'Visible en tienda' : 'Oculto / Pausado'}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="bg-slate-800/30 p-4 rounded-lg border border-slate-700">
                     <div className="flex items-center gap-2">
                       <input 
                         type="checkbox" 
@@ -333,7 +369,7 @@ export default function AdminProducts() {
                         onChange={(e) => setFormData({...formData, is_on_sale: e.target.checked})}
                         className="w-4 h-4 text-amber-500 bg-slate-900 border-slate-700 rounded focus:ring-amber-500 focus:ring-2"
                       />
-                      <label className="text-sm font-medium text-amber-400 cursor-pointer" onClick={() => setFormData({...formData, is_on_sale: !formData.is_on_sale})}>Activar Oferta</label>
+                      <label className="text-sm font-bold text-amber-600 cursor-pointer" onClick={() => setFormData({...formData, is_on_sale: !formData.is_on_sale})}>Activar Oferta en este Producto</label>
                     </div>
 
                     {formData.is_on_sale && (

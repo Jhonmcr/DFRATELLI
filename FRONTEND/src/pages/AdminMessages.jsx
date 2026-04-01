@@ -49,20 +49,21 @@ export default function AdminMessages() {
   return (
     <div className="py-0 px-4 md:px-6 max-w-full mx-auto w-full flex-grow overflow-x-hidden">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">Mensajes de Contacto</h1>
-        <p className="text-white">Mensajes enviados por clientes a través del formulario de contacto.</p>
+        <h1 className="text-4xl font-bold text-slate-800 mb-2">Mensajes de Contacto</h1>
+        <p className="text-amber-600 font-bold text-lg">Administra y responde todas las consultas enviadas por tus clientes de forma rápida y profesional.</p>
       </div>
 
       {loading ? (
         <div className="flex justify-center py-16">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500" />
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-600" />
         </div>
       ) : (
         <div className="flex flex-col sm:flex-row gap-4 sm:h-[70vh] min-h-[500px]">
           {/* Left sidebar - message list */}
-          <div className="w-full sm:w-44 md:w-56 lg:w-72 h-56 sm:h-auto flex-shrink-0 bg-gradient-to-br from-blue-900 to-indigo-950 border border-blue-800 rounded-2xl overflow-hidden flex flex-col">
-            <div className="p-4 border-b border-blue-800 bg-blue-950/50">
-              <p className="text-sm font-bold text-white">
+          <div className="w-full sm:w-44 md:w-56 lg:w-72 h-56 sm:h-auto flex-shrink-0 bg-white border border-amber-100 rounded-2xl overflow-hidden flex flex-col shadow-2xl">
+            <div className="p-4 border-b border-amber-50 bg-amber-50/30">
+              <p className="text-sm font-bold text-slate-800 flex items-center gap-2">
+                <Inbox className="w-4 h-4 text-amber-600" />
                 {messages.filter(m => !m.is_read).length} sin leer
               </p>
             </div>
@@ -77,22 +78,22 @@ export default function AdminMessages() {
                   <button
                     key={msg.id}
                     onClick={() => handleSelect(msg)}
-                    className={`w-full text-left p-3 border-b border-blue-800/50 transition-colors flex flex-col gap-1 ${
+                    className={`w-full text-left p-4 border-b border-amber-50 transition-all flex flex-col gap-1 ${
                       selected?.id === msg.id
-                        ? 'bg-amber-500/10 border-l-2 border-l-amber-500'
-                        : 'hover:bg-blue-800/30'
+                        ? 'bg-amber-50 border-l-4 border-l-amber-500'
+                        : 'hover:bg-amber-50/50'
                     }`}
                   >
                     <div className="flex items-center justify-between gap-2">
-                      <span className={`text-xs truncate font-medium ${!msg.is_read ? 'text-white' : 'text-blue-200/50'}`}>
+                      <span className={`text-xs truncate font-bold ${!msg.is_read ? 'text-slate-800' : 'text-slate-400 font-medium'}`}>
                         {msg.name || msg.email}
                       </span>
                       {!msg.is_read && (
-                        <span className="w-2 h-2 rounded-full bg-amber-400 flex-shrink-0" />
+                        <span className="w-2 h-2 rounded-full bg-amber-600 flex-shrink-0" />
                       )}
                     </div>
-                    <p className="text-xs text-blue-200/50 truncate">{msg.subject}</p>
-                    <p className="text-xs text-blue-200/30">{new Date(msg.created_at).toLocaleDateString('es-ES')}</p>
+                    <p className={`text-xs truncate ${!msg.is_read ? 'text-slate-600' : 'text-slate-400'}`}>{msg.subject}</p>
+                    <p className="text-[10px] text-slate-400 uppercase tracking-wider">{new Date(msg.created_at).toLocaleDateString('es-ES')}</p>
                   </button>
                 ))
               )}
@@ -100,54 +101,50 @@ export default function AdminMessages() {
           </div>
 
           {/* Right panel - message detail */}
-          <div className="flex-1 min-h-[400px] max-h-[500px] sm:max-h-none sm:min-h-0 bg-gradient-to-br from-blue-900 to-indigo-950 border border-blue-800 rounded-2xl overflow-hidden flex flex-col">
+          <div className="flex-1 min-h-[400px] max-h-[500px] sm:max-h-none sm:min-h-0 bg-white border border-amber-100 rounded-2xl overflow-hidden flex flex-col shadow-2xl">
             {selected ? (
               <>
-                <div className="p-6 border-b border-blue-800 bg-blue-950/50">
-                  <h2 className="text-xl font-bold text-white mb-3">{selected.subject}</h2>
-                  <div className="flex flex-wrap gap-4 text-sm text-blue-200/70">
+                <div className="p-6 border-b border-amber-50 bg-amber-50/20">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-4">{selected.subject}</h2>
+                  <div className="flex flex-wrap gap-4 text-sm text-slate-600">
                     {selected.name && (
-                      <span className="flex items-center gap-1.5">
-                        <User className="w-4 h-4 text-amber-500" /> {selected.name}
+                      <span className="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-full border border-amber-100 shadow-sm">
+                        <User className="w-4 h-4 text-amber-600" /> <span className="font-bold text-slate-800">{selected.name}</span>
                       </span>
                     )}
-                    <span className="flex items-center gap-1.5">
-                      <Mail className="w-4 h-4 text-amber-500" /> {selected.email}
+                    <span className="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-full border border-amber-100 shadow-sm">
+                      <Mail className="w-4 h-4 text-amber-600" /> <span className="font-bold text-slate-800">{selected.email}</span>
                     </span>
                     {selected.phone && (
-                      <span className="flex items-center gap-1.5">
-                        <Phone className="w-4 h-4 text-amber-500" /> {selected.phone}
+                      <span className="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-full border border-amber-100 shadow-sm">
+                        <Phone className="w-4 h-4 text-amber-600" /> <span className="font-bold text-slate-800">{selected.phone}</span>
                       </span>
                     )}
-                    <span className="flex items-center gap-1.5">
-                      <Clock className="w-4 h-4 text-amber-500" />
-                      {new Date(selected.created_at).toLocaleString('es-ES')}
-                    </span>
-                    <span className="flex items-center gap-1.5">
+                    <span className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border shadow-sm ${selected.is_read ? 'bg-green-50 border-green-100 text-green-700' : 'bg-amber-100 border-amber-200 text-amber-700 font-bold'}`}>
                       {selected.is_read
-                        ? <MailOpen className="w-4 h-4 text-green-400" />
-                        : <Mail className="w-4 h-4 text-amber-400" />}
-                      {selected.is_read ? 'Leído' : 'Sin leer'}
+                        ? <MailOpen className="w-4 h-4" />
+                        : <Mail className="w-4 h-4 text-amber-600" />}
+                      <span className="font-bold">{selected.is_read ? 'Leído' : 'Sin leer'}</span>
                     </span>
                   </div>
                 </div>
-                <div className="p-6 overflow-y-auto flex-1">
-                  <p className="text-slate-300 whitespace-pre-wrap leading-relaxed">{selected.message}</p>
+                <div className="p-8 overflow-y-auto flex-1 bg-white">
+                  <p className="text-slate-700 whitespace-pre-wrap leading-relaxed text-lg">{selected.message}</p>
                 </div>
-                <div className="p-4 border-t border-blue-800/50 flex gap-3">
+                <div className="p-6 border-t border-amber-50 bg-slate-50 flex gap-4">
                   <a
                     href={`mailto:${selected.email}?subject=Re: ${selected.subject}`}
-                    className="flex items-center gap-2 px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold rounded-lg text-sm transition-colors"
+                    className="flex items-center gap-2 px-6 py-3 bg-slate-800 hover:bg-slate-900 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-slate-900/20"
                   >
-                    <Mail className="w-4 h-4" /> Responder por Email
+                    <Mail className="w-5 h-5" /> Responder por Email
                   </a>
                   {selected.phone && (
                     <a
                       href={`https://wa.me/${selected.phone.replace(/\D/g, '')}?text=Hola ${selected.name || ''}, recibimos tu mensaje sobre: ${selected.subject}`}
                       target="_blank" rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 bg-green-500/20 hover:bg-green-500/30 text-green-400 border border-green-500/30 rounded-lg text-sm transition-colors"
+                      className="flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-green-600/20"
                     >
-                      <Phone className="w-4 h-4" /> WhatsApp
+                      <Phone className="w-5 h-5" /> WhatsApp
                     </a>
                   )}
                 </div>

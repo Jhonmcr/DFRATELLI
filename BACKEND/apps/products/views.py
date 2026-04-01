@@ -16,7 +16,9 @@ Date:    2026-03-20
 Version: 1.0.0
 """
 
-from rest_framework import generics, viewsets, filters  # Vistas genéricas, ViewSets y backends de filtrado
+from rest_framework import generics, viewsets, filters, status  # Clase base para vistas genéricas
+from rest_framework.decorators import action                     # Permite definir rutas personalizadas (activate_all)
+from rest_framework.response import Response                   # Objeto de respuesta estándar de DRF
 from django_filters.rest_framework import DjangoFilterBackend  # Backend de filtrado avanzado con django-filters
 from rest_framework.permissions import IsAuthenticatedOrReadOnly  # Lectura pública, escritura solo autenticados
 

@@ -53,25 +53,27 @@ export default function AdminSettings() {
   return (
     <div className="py-0 px-4 md:px-6 max-w-full mx-auto w-full overflow-x-hidden">
       <div className="mb-8">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 whitespace-normal break-words">Configuraciones de Sistema</h1>
-        <p className="text-white">Ajustes generales de la tienda (Solo SuperAdmin).</p>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 mb-2 whitespace-normal break-words">Configuraciones de Sistema</h1>
+        <p className="text-amber-600 font-bold text-lg">Ajustes generales de la tienda y control de acceso exclusivo para SuperAdmin.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
         {/* Store settings */}
-        <div className="bg-gradient-to-br from-blue-900 to-indigo-950 border border-blue-800 rounded-xl p-6 shadow-lg">
+        <div className="bg-white border border-amber-100 rounded-2xl p-6 shadow-2xl">
           <div className="flex items-center gap-3 mb-6">
-             <Server className="w-6 h-6 text-amber-500" />
-             <h2 className="text-xl font-bold text-white">Preferencias de Tienda</h2>
+             <div className="p-3 bg-amber-50 rounded-xl">
+                <Server className="w-6 h-6 text-amber-600" />
+             </div>
+             <h2 className="text-xl font-bold text-slate-800">Preferencias de Tienda</h2>
           </div>
           <form className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-white mb-1">Nombre de la Empresa</label>
-              <input type="text" defaultValue="DFRATELLI" className="w-full px-4 py-2 bg-blue-950 border border-blue-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+              <label className="block text-sm font-bold text-slate-600 mb-1">Nombre de la Empresa</label>
+              <input type="text" defaultValue="DFRATELLI" className="w-full px-4 py-2 bg-white border border-amber-100 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-white mb-1">Moneda Principal</label>
-              <select className="w-full px-4 py-2 bg-blue-950 border border-blue-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+              <label className="block text-sm font-bold text-slate-600 mb-1">Moneda Principal</label>
+              <select className="w-full px-4 py-2 bg-white border border-amber-100 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500">
                 <option value="USD">USD ($)</option>
                 <option value="VES">VES (Bs)</option>
               </select>
@@ -85,12 +87,14 @@ export default function AdminSettings() {
         </div>
 
         {/* Consultar Código Único */}
-        <div className="bg-gradient-to-br from-blue-900 to-indigo-950 border border-blue-800 rounded-xl p-6 shadow-lg">
+        <div className="bg-white border border-amber-100 rounded-2xl p-6 shadow-2xl">
           <div className="flex items-center gap-3 mb-2">
-            <Search className="w-6 h-6 text-amber-500" />
-            <h2 className="text-xl font-bold text-white">Consultar Código Único</h2>
+            <div className="p-3 bg-amber-50 rounded-xl">
+              <Search className="w-6 h-6 text-amber-600" />
+            </div>
+            <h2 className="text-xl font-bold text-slate-800">Consultar Código Único</h2>
           </div>
-          <p className="text-blue-200/70 text-sm mb-6">Verifica a quién pertenece un Código Único de Usuario.</p>
+          <p className="text-slate-500 font-medium text-sm mb-6">Verifica a quién pertenece un Código Único de Usuario.</p>
           
           <form onSubmit={handleSearchUser} className="flex flex-col min-[430px]:flex-row gap-3 mb-4">
             <input
@@ -99,7 +103,7 @@ export default function AdminSettings() {
               value={uniqueCode}
               onChange={e => setUniqueCode(e.target.value.toUpperCase())}
               required
-              className="w-full min-[430px]:flex-1 px-4 py-3 bg-blue-950 border border-blue-700 rounded-lg text-white font-mono placeholder-blue-300/40 focus:outline-none focus:ring-2 focus:ring-amber-500"
+              className="w-full min-[430px]:flex-1 px-4 py-3 bg-white border border-amber-100 rounded-lg text-slate-800 font-mono placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500"
             />
             <button
               type="submit"
@@ -111,21 +115,21 @@ export default function AdminSettings() {
           </form>
 
           {searchError && (
-            <p className="text-red-400 text-sm mt-2">{searchError}</p>
+            <p className="text-red-500 font-bold text-sm mt-2">{searchError}</p>
           )}
 
           {searchedUser && (
-            <div className="mt-4 p-4 bg-blue-950/80 border border-blue-800 rounded-xl flex flex-col sm:flex-row items-center sm:items-center gap-4 text-center sm:text-left">
-              <div className="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center flex-shrink-0">
-                <UserIcon className="w-6 h-6 text-amber-500" />
+            <div className="mt-4 p-4 bg-amber-50 border border-amber-100 rounded-xl flex flex-col sm:flex-row items-center sm:items-center gap-4 text-center sm:text-left transition-all">
+              <div className="w-12 h-12 rounded-full bg-white border border-amber-200 flex items-center justify-center flex-shrink-0 animate-pulse">
+                <UserIcon className="w-6 h-6 text-amber-600" />
               </div>
               <div className="flex-1 overflow-hidden w-full">
-                <p className="text-white font-bold truncate">{searchedUser.first_name} {searchedUser.last_name}</p>
-                <p className="text-blue-200/70 text-sm truncate">{searchedUser.email}</p>
-                <p className="text-blue-200/50 text-[10px] uppercase tracking-tighter sm:hidden">@{searchedUser.username}</p>
+                <p className="text-slate-800 font-bold truncate text-lg">{searchedUser.first_name} {searchedUser.last_name}</p>
+                <p className="text-slate-500 text-sm truncate font-medium">{searchedUser.email}</p>
+                <p className="text-slate-400 text-[10px] uppercase tracking-tighter sm:hidden">@{searchedUser.username}</p>
               </div>
               <div className="sm:ml-auto">
-                <span className="px-2 py-1 bg-amber-500 text-slate-950 text-xs font-bold rounded border border-amber-400">
+                <span className="px-3 py-1 bg-amber-600 text-slate-900 text-xs font-bold rounded-lg border border-amber-400 shadow-md">
                   {searchedUser.role}
                 </span>
               </div>

@@ -24,7 +24,7 @@ Version: 1.0.0
 from rest_framework import generics, status               # Vistas genéricas y códigos de estado
 from rest_framework.response import Response              # Respuesta estándar HTTP de DRF
 from rest_framework.views import APIView                  # Base para vistas personalizadas
-from rest_framework.permissions import IsAuthenticated  # Permisos predeterminados
+from rest_framework.permissions import IsAuthenticated, AllowAny  # Permisos
 from .permissions import IsAdminOrSuperAdmin, IsSuperAdmin  # Permisos personalizados del sistema
 from django.core.exceptions import PermissionDenied          # Manejo de denegación de permisos
 from rest_framework_simplejwt.views import TokenObtainPairView       # Vista base para obtención de JWT
@@ -83,6 +83,7 @@ class PasswordResetRequestView(generics.GenericAPIView):
     """
 
     serializer_class = PasswordResetRequestSerializer
+    permission_classes = [AllowAny]
 
     def post(self, request):
         """Maneja la solicitud de restablecimiento y envía el correo."""
@@ -92,15 +93,23 @@ class PasswordResetRequestView(generics.GenericAPIView):
         token, user = serializer.save()  # Genera el token y obtiene la instancia de usuario
 
         # Construcción del link que enviará al frontend de la aplicación web
-        reset_link = f"http://localhost:3000/reset-password?token={token}"
+        frontend_url = getattr(settings, 'FRONTEND_URL', 'http://localhost:5173')
+        reset_link = f"{frontend_url}/reset-password?token={token}"
 
-        # Envío del correo electrónico (debe estar configurado SMTP en settings.py)
-        send_mail(
-            subject="Recuperación de contraseña",
-            message=f"Usa este enlace para recuperar tu contraseña: {reset_link}",
-            from_email=settings.EMAIL_HOST_USER,  # Remitente configurado globalmente
-            recipient_list=[user.email],          # Lista de destinatarios
-        )
+        # Envío del correo electrónico con manejo de errores para evitar crash 500
+        try:
+            send_mail(
+                subject="Recuperación de contraseña",
+                message=f"Usa este enlace para recuperar tu contraseña: {reset_link}",
+                from_email=settings.EMAIL_HOST_USER,  # Remitente configurado globalmente
+                recipient_list=[user.email],          # Lista de destinatarios
+            )
+        except Exception as e:
+            # Si el SMTP falla, devolvemos un 500 JSON pero con los headers de CORS ya puestos
+            return Response(
+                {"error": "El servidor de correo no está respondiendo. Por favor intente más tarde."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
 
         return Response({"message": "Se envió un correo con instrucciones."}, status=200)
 

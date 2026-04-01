@@ -96,7 +96,7 @@ export default function AdminUsers() {
   const roleBadge = (role) => {
     const styles = {
       CLIENT: 'bg-blue-500/10 text-blue-400 border-blue-500/30',
-      ADMIN: 'bg-amber-500/10 text-amber-400 border-amber-500/30',
+      ADMIN: 'bg-amber-100 text-amber-700 border-amber-200 shadow-sm',
       SUPERADMIN: 'bg-purple-500/10 text-purple-400 border-purple-500/30',
     };
     return (
@@ -110,8 +110,8 @@ export default function AdminUsers() {
     <div className="py-0 px-4 md:px-6 max-w-full mx-auto w-full overflow-x-hidden">
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-3 mb-8">
         <div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Gestión de Usuarios</h1>
-          <p className="text-white">Consulta la información de todos los usuarios registrados.</p>
+          <h1 className="text-4xl font-bold text-slate-800 mb-2">Gestión de Usuarios</h1>
+          <p className="text-amber-600 font-bold text-lg">Administra perfiles y niveles de acceso de todos los usuarios registrados en el sistema.</p>
         </div>
         {currentUser?.role === 'SUPERADMIN' && (
           <button 
@@ -125,16 +125,16 @@ export default function AdminUsers() {
 
       <div className="flex flex-col sm:flex-row gap-4 sm:h-[70vh] min-h-[500px]">
         {/* Left: user list */}
-        <div className="w-full sm:w-44 md:w-56 lg:w-72 h-56 sm:h-auto flex-shrink-0 bg-gradient-to-br from-blue-900 to-indigo-950 border border-blue-800 rounded-2xl overflow-hidden flex flex-col">
-          <div className="p-3 border-b border-blue-800">
+        <div className="w-full sm:w-44 md:w-56 lg:w-72 h-56 sm:h-auto flex-shrink-0 bg-white border border-amber-100 rounded-2xl overflow-hidden flex flex-col shadow-2xl">
+          <div className="p-3 border-b border-amber-50 bg-amber-50/30">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-blue-300/50" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-amber-600" />
               <input
                 type="text"
                 placeholder="Buscar usuario..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 bg-blue-950 text-white text-sm border border-blue-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-500 placeholder-blue-300/40"
+                className="w-full pl-9 pr-3 py-2 bg-white text-slate-800 text-sm border border-amber-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 placeholder-slate-400"
               />
             </div>
           </div>
@@ -145,10 +145,10 @@ export default function AdminUsers() {
               <button
                 key={u.id}
                 onClick={() => setSelected(u)}
-                className={`w-full text-left p-4 border-b border-blue-800/50 transition-colors ${selected?.id === u.id ? 'bg-amber-500/10 border-l-2 border-l-amber-500' : 'hover:bg-blue-800/30'}`}
+                className={`w-full text-left p-4 border-b border-amber-50 transition-all ${selected?.id === u.id ? 'bg-amber-50 border-l-4 border-l-amber-500' : 'hover:bg-amber-50/50'}`}
               >
-                <p className="text-sm font-medium text-white truncate">{u.first_name} {u.last_name || u.username}</p>
-                <p className="text-xs text-blue-200/50 truncate">{u.email}</p>
+                <p className="text-sm font-bold text-slate-800 truncate">{u.first_name} {u.last_name || u.username}</p>
+                <p className="text-xs text-slate-700 font-bold truncate">{u.email}</p>
                 <div className="mt-1">{roleBadge(u.role)}</div>
               </button>
             ))}
@@ -156,36 +156,38 @@ export default function AdminUsers() {
         </div>
 
         {/* Right: user detail */}
-        <div className="flex-1 min-h-[400px] max-h-[500px] sm:max-h-none sm:min-h-0 bg-gradient-to-br from-blue-900 to-indigo-950 border border-blue-800 rounded-2xl overflow-hidden overflow-y-auto">
+        <div className="flex-1 min-h-[400px] max-h-[500px] sm:max-h-none sm:min-h-0 bg-white border border-amber-100 rounded-2xl overflow-hidden overflow-y-auto shadow-2xl">
           {selected ? (
             <div className="p-8">
               <div className="flex items-center gap-4 mb-8">
-                <div className="w-16 h-16 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center">
-                  <Users className="w-8 h-8 text-amber-500" />
+                <div className="w-16 h-16 rounded-2xl bg-amber-50 border border-amber-100 flex items-center justify-center">
+                  <Users className="w-8 h-8 text-amber-600" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">{selected.first_name} {selected.last_name}</h2>
-                  <p className="text-blue-200/70 text-sm">@{selected.username}</p>
+                  <h2 className="text-2xl font-bold text-slate-800">{selected.first_name} {selected.last_name}</h2>
+                  <p className="text-amber-700 text-sm font-bold">@{selected.username}</p>
                 </div>
-                <div className="ml-auto">{roleBadge(selected.role)}</div>
+                <div className="ml-auto scale-125">{roleBadge(selected.role)}</div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <InfoRow icon={<Mail className="w-4 h-4 text-amber-500" />} label="Email" value={selected.email} />
-                <InfoRow icon={<Phone className="w-4 h-4 text-amber-500" />} label="Teléfono" value={selected.phone_number || '—'} />
-                <InfoRow icon={<Shield className="w-4 h-4 text-amber-500" />} label="ID del sistema" value={String(selected.id)} />
-                <InfoRow icon={<Shield className="w-4 h-4 text-amber-500" />} label="Código único" value={selected.unique_code} mono />
+                <InfoRow icon={<Mail className="w-4 h-4 text-amber-600" />} label="Email" value={selected.email} />
+                <InfoRow icon={<Phone className="w-4 h-4 text-amber-600" />} label="Teléfono" value={selected.phone_number || '—'} />
+                <InfoRow icon={<Shield className="w-4 h-4 text-amber-600" />} label="ID del sistema" value={String(selected.id)} />
+                <InfoRow icon={<Shield className="w-4 h-4 text-amber-600" />} label="Código único" value={selected.unique_code} mono />
               </div>
               
               {currentUser?.role === 'SUPERADMIN' && selected.id !== currentUser.id && (
-                <div className="mt-8 pt-6 border-t border-blue-800/50">
-                  <h3 className="text-white font-bold mb-4">Gestión de Acceso y Cuenta</h3>
+                <div className="mt-8 pt-6 border-t border-amber-50">
+                  <h3 className="text-slate-800 font-bold mb-4 flex items-center gap-2">
+                    <Shield className="w-5 h-5 text-amber-600" /> Gestión de Acceso y Cuenta
+                  </h3>
                   <div className="flex gap-4">
                     {selected.role !== 'SUPERADMIN' && (
                       <>
                         {selected.role === 'CLIENT' ? (
                           <button 
                             onClick={() => handleRoleChange(selected, 'ADMIN')}
-                            className="flex items-center gap-2 px-4 py-2 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 font-bold rounded-lg transition-colors text-sm"
+                            className="flex items-center gap-2 px-4 py-2 bg-amber-100 hover:bg-amber-200 text-amber-700 border border-amber-300 font-bold rounded-lg transition-colors text-sm shadow-sm"
                           >
                             <ArrowUpCircle className="w-4 h-4" /> Hacer Administrador
                           </button>
@@ -211,9 +213,9 @@ export default function AdminUsers() {
               )}
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center py-16 text-blue-200/40">
+            <div className="flex flex-col items-center justify-center py-16 text-slate-300">
               <Users className="w-16 h-16 mb-4 opacity-30" />
-              <p className="text-lg">Selecciona un usuario para ver sus datos</p>
+              <p className="text-lg font-black text-slate-900 animate-pulse">Selecciona un usuario para ver sus datos</p>
             </div>
           )}
         </div>
@@ -234,32 +236,32 @@ function CreateAdminModal({ isOpen, onClose, onSave, formData, setFormData, isSu
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
-      <div className="bg-gradient-to-br from-blue-900 to-indigo-950 border border-blue-800 rounded-2xl w-full max-w-md p-8 shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-md p-4">
+      <div className="bg-white border border-amber-100 rounded-3xl w-full max-w-md p-8 shadow-2xl">
         <div className="flex items-center gap-3 mb-6">
-          <div className="p-3 bg-amber-500/10 rounded-xl">
-            <UserPlus className="w-6 h-6 text-amber-500" />
+          <div className="p-3 bg-amber-50 rounded-xl">
+            <UserPlus className="w-6 h-6 text-amber-600" />
           </div>
-          <h2 className="text-2xl font-bold text-white">Nuevo Administrador</h2>
+          <h2 className="text-2xl font-bold text-slate-800">Nuevo Administrador</h2>
         </div>
 
         <form onSubmit={onSave} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-500 uppercase tracking-wider text-white">Nombre</label>
+              <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Nombre</label>
               <input 
                 type="text" 
                 required
-                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:ring-1 focus:ring-amber-500 focus:outline-none placeholder-slate-500"
+                className="w-full bg-amber-50/30 border border-amber-100 rounded-xl px-4 py-2 text-slate-800 focus:ring-2 focus:ring-amber-500 focus:outline-none placeholder-slate-400"
                 value={formData.first_name}
                 onChange={e => setFormData({...formData, first_name: e.target.value})}
               />
             </div>
             <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-500 uppercase tracking-wider text-white">Apellido</label>
+              <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Apellido</label>
               <input 
                 type="text" 
-                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:ring-1 focus:ring-amber-500 focus:outline-none placeholder-slate-500"
+                className="w-full bg-amber-50/30 border border-amber-100 rounded-xl px-4 py-2 text-slate-800 focus:ring-2 focus:ring-amber-500 focus:outline-none placeholder-slate-400"
                 value={formData.last_name}
                 onChange={e => setFormData({...formData, last_name: e.target.value})}
               />
@@ -267,32 +269,32 @@ function CreateAdminModal({ isOpen, onClose, onSave, formData, setFormData, isSu
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-bold text-slate-500 uppercase tracking-wider text-white">Email</label>
+            <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Email</label>
             <input 
               type="email" 
               required
-              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:ring-1 focus:ring-amber-500 focus:outline-none placeholder-slate-500"
+              className="w-full bg-amber-50/30 border border-amber-100 rounded-xl px-4 py-2 text-slate-800 focus:ring-2 focus:ring-amber-500 focus:outline-none placeholder-slate-400"
               value={formData.email}
               onChange={e => setFormData({...formData, email: e.target.value})}
             />
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-bold uppercase tracking-wider text-white">Nombre de Usuario</label>
+            <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Nombre de Usuario</label>
             <input 
               type="text" 
               required
-              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:ring-1 focus:ring-amber-500 focus:outline-none placeholder-slate-500"
+              className="w-full bg-amber-50/30 border border-amber-100 rounded-xl px-4 py-2 text-slate-800 focus:ring-2 focus:ring-amber-500 focus:outline-none placeholder-slate-400"
               value={formData.username}
               onChange={e => setFormData({...formData, username: e.target.value})}
             />
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-bold uppercase tracking-wider text-white">Teléfono</label>
+            <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Teléfono</label>
             <input 
               type="tel"
-              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:ring-1 focus:ring-amber-500 focus:outline-none placeholder-slate-500"
+              className="w-full bg-amber-50/30 border border-amber-100 rounded-xl px-4 py-2 text-slate-800 focus:ring-2 focus:ring-amber-500 focus:outline-none placeholder-slate-400"
               placeholder="Ej. +58 412 0000000"
               value={formData.phone_number}
               onChange={e => setFormData({...formData, phone_number: e.target.value})}
@@ -300,12 +302,12 @@ function CreateAdminModal({ isOpen, onClose, onSave, formData, setFormData, isSu
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-bold text-slate-500 uppercase tracking-wider text-white">Contraseña</label>
+            <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Contraseña</label>
             <input 
               type="password" 
               required
               minLength={6}
-              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:ring-1 focus:ring-amber-500 focus:outline-none placeholder-slate-500"
+              className="w-full bg-amber-50/30 border border-amber-100 rounded-xl px-4 py-2 text-slate-800 focus:ring-2 focus:ring-amber-500 focus:outline-none placeholder-slate-400"
               value={formData.password}
               onChange={e => setFormData({...formData, password: e.target.value})}
             />
@@ -315,14 +317,14 @@ function CreateAdminModal({ isOpen, onClose, onSave, formData, setFormData, isSu
             <button 
               type="button"
               onClick={onClose}
-              className="flex-1 bg-slate-800 hover:bg-slate-750 text-slate-300 font-bold py-3 rounded-xl transition-colors"
+              className="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold py-3 rounded-xl transition-colors"
             >
               Cancelar
             </button>
             <button 
               type="submit"
               disabled={isSubmitting}
-              className="flex-1 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold py-3 rounded-xl transition-all shadow-lg shadow-amber-500/20 disabled:opacity-50 flex items-center justify-center gap-2"
+              className="flex-1 bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 rounded-xl transition-all shadow-lg hover:shadow-slate-900/20 disabled:opacity-50 flex items-center justify-center gap-2"
             >
               {isSubmitting ? <><div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-slate-900"></div> Creando...</> : 'Crear Admin'}
             </button>
@@ -335,9 +337,9 @@ function CreateAdminModal({ isOpen, onClose, onSave, formData, setFormData, isSu
 
 function InfoRow({ icon, label, value, mono }) {
   return (
-    <div className="bg-blue-950/50 border border-blue-800 rounded-xl p-4">
-      <div className="flex items-center gap-2 text-blue-200/60 text-xs mb-2">{icon}{label}</div>
-      <p className={`text-white font-medium ${mono ? 'font-mono tracking-widest text-amber-400' : ''}`}>{value}</p>
+    <div className="bg-amber-50/30 border border-amber-100 rounded-xl p-4 shadow-sm">
+      <div className="flex items-center gap-2 text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">{icon}{label}</div>
+      <p className={`text-slate-800 font-bold text-lg ${mono ? 'font-mono tracking-widest text-amber-600' : ''}`}>{value}</p>
     </div>
   );
 }

@@ -23,6 +23,13 @@ ALLOWED_HOSTS = ['*']
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
+# CSRF Trusted Origins (Necesario para peticiones POST desde el frontend)
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "https://inversionesdfratelli.com",
+]
+
 
 # ---------------------------------------------------------
 # APPS
@@ -62,9 +69,9 @@ AUTH_USER_MODEL = 'users.User'
 # ---------------------------------------------------------
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # Añadido primero según recomendación general
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',  # Añadido para CORS
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -232,5 +239,8 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "tu_correo@gmail.com"
-EMAIL_HOST_PASSWORD = "tu_clave_de_aplicacion"
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "tu_correo@gmail.com")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "tu_clave_de_aplicacion")
+
+# URL del frontend para los links de correo (puedes ajustarla en Render)
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")

@@ -106,8 +106,8 @@ export default function AdminBrands() {
     <div className="py-1 px-6 md:px-12 max-w-7xl mx-auto w-full">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
         <div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Gestión de Marcas</h1>
-          <p className="text-white">Agrega, edita o elimina marcas y sube imágenes para cada una.</p>
+          <h1 className="text-4xl font-bold text-slate-800 mb-2">Gestión de Marcas</h1>
+          <p className="text-amber-600 font-bold text-lg">Agrega, edita o elimina marcas y gestiona sus logos de forma profesional.</p>
         </div>
         <button
           onClick={() => setCreating(!creating)}
@@ -119,7 +119,7 @@ export default function AdminBrands() {
 
       {/* New Brand Form */}
       {creating && (
-        <div className="bg-slate-900 border border-amber-500/40 rounded-2xl p-4 sm:p-6 mb-8 flex flex-col gap-4">
+        <div className="bg-white border border-amber-200 rounded-2xl p-4 sm:p-6 mb-8 flex flex-col gap-4 shadow-xl">
           <input
             autoFocus
             type="text"
@@ -127,11 +127,11 @@ export default function AdminBrands() {
             value={newBrandName}
             onChange={(e) => setNewBrandName(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleCreate()}
-            className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="w-full px-4 py-3 bg-amber-50/30 border border-amber-100 rounded-lg text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500"
           />
           
           <div className="flex flex-col sm:flex-row gap-3 items-center">
-            <label className="flex-1 w-full flex items-center justify-center gap-2 bg-slate-800 border border-dashed border-slate-600 p-3 rounded-lg cursor-pointer hover:border-amber-500 transition-colors text-slate-400 text-sm overflow-hidden text-ellipsis whitespace-nowrap">
+            <label className="flex-1 w-full flex items-center justify-center gap-2 bg-amber-50/30 border border-dashed border-amber-200 p-3 rounded-lg cursor-pointer hover:border-amber-500 transition-colors text-slate-500 text-sm overflow-hidden text-ellipsis whitespace-nowrap">
               <Upload className="w-4 h-4 flex-shrink-0" />
               {newBrandImage ? newBrandImage.name : "Seleccionar Imagen"}
               <input 
@@ -168,29 +168,29 @@ export default function AdminBrands() {
 
       {loading ? (
         <div className="flex justify-center py-16">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-600"></div>
         </div>
       ) : brands.length === 0 ? (
-        <div className="text-center py-20 border border-dashed border-slate-700 rounded-2xl">
-          <Package className="w-16 h-16 text-slate-600 mx-auto mb-4" />
-          <p className="text-slate-400 text-xl">Aún no hay marcas registradas.</p>
-          <p className="text-slate-600 mt-2">Presiona "Nueva Marca" para comenzar.</p>
+        <div className="text-center py-20 border border-dashed border-amber-200 bg-white/50 rounded-2xl">
+          <Package className="w-16 h-16 text-amber-500 mx-auto mb-4" />
+          <p className="text-slate-400 text-xl font-bold">Aún no hay marcas registradas.</p>
+          <p className="text-slate-400 mt-2">Presiona "Nueva Marca" para comenzar.</p>
         </div>
       ) : (
         <div className="overflow-y-auto max-h-[70vh] pr-2 -mr-2 pb-6 custom-scrollbar">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {brands.map((brand) => (
-              <div key={brand.id} className="group relative bg-slate-800/60 border border-slate-600 hover:border-amber-500/40 rounded-xl overflow-hidden transition-colors shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
+              <div key={brand.id} className="group relative bg-white border border-amber-100 hover:border-amber-400 rounded-2xl overflow-hidden transition-all shadow-2xl hover:shadow-amber-500/20">
                 {/* Image area */}
-                <div className="relative h-44 bg-slate-800 overflow-hidden">
+                <div className="relative h-44 bg-amber-50/30 overflow-hidden border-b border-amber-50">
                   {brand.image ? (
-                    <img src={brand.image} alt={brand.name} className="w-full h-full object-contain p-4 transition-all duration-500 group-hover:scale-110" />
+                    <img src={brand.image} alt={brand.name} className="w-full h-full object-contain p-6 transition-all duration-500 group-hover:scale-110" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
-                      <Package className="w-16 h-16 text-slate-600" />
+                      <Package className="w-16 h-16 text-amber-500" />
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-white/30 to-transparent" />
 
                   {/* Upload Image Button */}
                   <button
@@ -217,7 +217,7 @@ export default function AdminBrands() {
                         value={editName}
                         onChange={(e) => setEditName(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && handleRename(brand.id)}
-                        className="flex-1 px-3 py-2 bg-slate-800 border border-slate-600 rounded-lg text-white text-sm focus:outline-none focus:ring-1 focus:ring-amber-500"
+                        className="flex-1 px-3 py-2 bg-amber-50 border border-amber-100 rounded-lg text-slate-800 text-sm focus:outline-none focus:ring-1 focus:ring-amber-500"
                       />
                       <button onClick={() => handleRename(brand.id)} className="bg-green-500 hover:bg-green-400 text-slate-900 p-2 rounded-lg">
                         <Check className="w-4 h-4" />
@@ -228,11 +228,11 @@ export default function AdminBrands() {
                     </div>
                   ) : (
                     <div className="flex items-center justify-between">
-                      <h3 className="text-lg font-bold text-white truncate">{brand.name}</h3>
+                      <h3 className="text-lg font-bold text-slate-800 truncate">{brand.name}</h3>
                       <div className="flex gap-2 ml-2">
                         <button
                           onClick={() => { setEditingId(brand.id); setEditName(brand.name); }}
-                          className="text-slate-500 hover:text-amber-400 transition-colors p-1.5 rounded-lg hover:bg-slate-800"
+                          className="text-amber-600 hover:text-amber-700 transition-colors p-1.5 rounded-lg hover:bg-amber-50"
                           title="Renombrar"
                         >
                           <Edit2 className="w-4 h-4" />
