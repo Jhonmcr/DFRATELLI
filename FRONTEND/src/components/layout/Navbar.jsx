@@ -131,7 +131,7 @@ export default function Navbar() {
         <Link to="/contact" className={`transition-colors whitespace-nowrap ${isActive('/contact') ? 'text-amber-500 font-bold' : 'text-amber-200 hover:text-amber-400'}`}>Contacto</Link>
         
         {user && user.role === 'CLIENT' && (
-          <Link to="/my-orders" className={`transition-colors whitespace-nowrap ${isActive('/my-orders') ? 'text-amber-500 font-bold' : 'text-amber-200 hover:text-amber-400'}`}>Mis Compras</Link>
+          <Link to="/profile?tab=orders" className={`transition-colors whitespace-nowrap ${location.search.includes('tab=orders') ? 'text-amber-500 font-bold' : 'text-amber-200 hover:text-amber-400'}`}>Mis Compras</Link>
         )}
 
         {(user?.role === 'ADMIN' || user?.role === 'SUPERADMIN') && (
@@ -297,7 +297,7 @@ export default function Navbar() {
           <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-medium text-amber-200 hover:text-amber-400 p-3 rounded-lg hover:bg-amber-900/20 border-b border-amber-900/20">Contacto</Link>
           
           {user && user.role === 'CLIENT' && (
-            <Link to="/my-orders" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-medium text-amber-500 p-3 rounded-lg hover:bg-amber-900/20 border-b border-amber-900/20">Mis Compras</Link>
+            <Link to="/profile?tab=orders" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-medium text-amber-500 p-3 rounded-lg hover:bg-amber-900/20 border-b border-amber-900/20">Mis Compras</Link>
           )}
 
           {user && (

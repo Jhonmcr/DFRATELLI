@@ -82,7 +82,7 @@ export default function AdminOrders() {
                    <div className="w-10 h-10 bg-amber-50 rounded-lg flex items-center justify-center flex-shrink-0">
                       <ShoppingBag className="w-5 h-5 text-amber-600" />
                    </div>
-                   <span className="text-slate-800 font-bold">ORD-00{order.id}</span>
+                   <span className="text-slate-800 font-bold tracking-wider">ORD-{order.id.toString().padStart(3, '0')}</span>
                 </td>
                 <td className="py-4 px-4 text-slate-700 font-bold text-sm">
                    {new Date(order.created_at).toLocaleString('es-ES', { dateStyle: 'short', timeStyle: 'short' })}
@@ -128,7 +128,7 @@ export default function AdminOrders() {
               <ShoppingBag className="w-6 h-6 text-amber-600" />
             </div>
             <div className="flex-1 min-w-0">
-              <span className="text-slate-800 font-bold text-sm block">ORD-00{order.id}</span>
+              <span className="text-slate-800 font-bold text-sm block tracking-wider">ORD-{order.id.toString().padStart(3, '0')}</span>
               <div className="flex items-center gap-2 mt-1 flex-wrap">
                 <span className="text-slate-700 font-bold text-[10px]">{new Date(order.created_at).toLocaleString('es-ES', { dateStyle: 'short', timeStyle: 'short' })}</span>
                 <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold uppercase ${
@@ -165,7 +165,7 @@ export default function AdminOrders() {
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-50 flex items-center justify-center p-4">
            <div className="bg-white border border-amber-100 rounded-3xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
               <div className="flex justify-between items-center p-6 border-b border-amber-50 bg-amber-50/30">
-                <h2 className="text-2xl font-bold text-slate-800">Detalles de la Orden <span className="text-amber-700">ORD-00{selectedOrder.id}</span></h2>
+                <h2 className="text-2xl font-bold text-slate-800">Detalles de la Orden <span className="text-amber-700">ORD-{selectedOrder.id.toString().padStart(3, '0')}</span></h2>
                  <button onClick={() => setSelectedOrder(null)} className="text-slate-400 hover:text-slate-800 transition-colors p-2 rounded-full hover:bg-amber-100">
                   <X className="w-6 h-6" />
                 </button>
@@ -174,12 +174,12 @@ export default function AdminOrders() {
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100">
-                     <p className="text-xs text-slate-400 uppercase font-bold tracking-wider mb-1">ID Cliente</p>
-                     <p className="text-slate-700 font-bold text-lg">#{selectedOrder.user}</p>
+                     <p className="text-xs text-slate-400 uppercase font-bold tracking-wider mb-1">Código Único</p>
+                     <p className="text-slate-700 font-bold text-lg">{selectedOrder.codigo_cliente_real || 'Cargando ID...'}</p>
                   </div>
                   <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100">
-                     <p className="text-xs text-slate-400 uppercase font-bold tracking-wider mb-1">Fecha de Registro</p>
-                     <p className="text-slate-700 font-bold">{new Date(selectedOrder.created_at).toLocaleString('es-ES')}</p>
+                     <p className="text-xs text-slate-400 uppercase font-bold tracking-wider mb-1">Teléfono Contacto</p>
+                     <p className="text-slate-700 font-bold">{selectedOrder.telefono_cliente_real || 'Cargando Teléfono...'}</p>
                   </div>
                 </div>
 
@@ -189,24 +189,27 @@ export default function AdminOrders() {
                    </h3>
                    <div className="space-y-3">
                      {selectedOrder.items && selectedOrder.items.length > 0 ? (
-                       selectedOrder.items.map(item => (
-                         <div key={item.id} className="flex justify-between items-center bg-white p-4 rounded-2xl border border-amber-50 shadow-sm">
-                           <div className="flex items-center gap-4">
-                              <div className="w-14 h-14 bg-amber-50 rounded-xl overflow-hidden flex-shrink-0 flex justify-center items-center border border-amber-100">
-                                 {item.product_image ? (
-                                    <img src={item.product_image} alt={item.product_name} className="w-full h-full object-cover" />
-                                 ) : (
-                                    <Package className="w-6 h-6 text-amber-400" />
-                                 )}
-                              </div>
-                              <div>
-                                <p className="text-slate-800 font-bold">{item.product_name}</p>
-                                <p className="text-sm text-slate-500 font-medium">Cant: {item.quantity} x <span className="text-amber-600">${parseFloat(item.price).toFixed(2)}</span></p>
-                              </div>
-                           </div>
-                           <p className="text-slate-800 font-extrabold text-lg">${(item.quantity * item.price).toFixed(2)}</p>
-                         </div>
-                       ))
+                        selectedOrder.items.map(item => (
+                          <div key={item.id} className="flex flex-col sm:flex-row sm:items-center justify-between bg-white p-4 rounded-2xl border border-amber-50 shadow-sm gap-4">
+                            <div className="flex items-center gap-4">
+                               <div className="w-14 h-14 bg-amber-50 rounded-xl overflow-hidden flex-shrink-0 flex justify-center items-center border border-amber-100">
+                                  {item.product?.image ? (
+                                     <img src={item.product.image} alt={item.product.name} className="w-full h-full object-contain" />
+                                  ) : (
+                                     <Package className="w-6 h-6 text-amber-400" />
+                                  )}
+                               </div>
+                               <div>
+                                 <p className="text-slate-800 font-bold leading-tight">{item.product?.name || 'Producto sin nombre'}</p>
+                                 <p className="text-xs text-slate-500 font-medium mt-1">Cant: {item.quantity} x <span className="text-amber-600 font-bold">${parseFloat(item.price).toFixed(2)}</span></p>
+                               </div>
+                            </div>
+                            <div className="flex flex-col items-end border-t sm:border-0 border-slate-50 pt-3 sm:pt-0">
+                              <p className="text-xs text-slate-400 uppercase font-bold tracking-widest mb-1 sm:hidden">Subtotal</p>
+                              <p className="text-slate-900 font-black text-xl sm:text-lg">${(item.quantity * item.price).toFixed(2)}</p>
+                            </div>
+                          </div>
+                        ))
                      ) : (
                        <p className="text-slate-400 text-center py-4 bg-slate-50 rounded-xl italic">No hay detalles de artículos disponibles.</p>
                      )}

@@ -33,7 +33,6 @@ import Contact from "./pages/Contact";
 import Brands from "./pages/Brands";
 import AboutUs from "./pages/AboutUs";
 import ForgotPassword from "./pages/ForgotPassword";
-import MyOrders from "./pages/MyOrders";
 import UserSettings from "./pages/UserSettings";
 
 // ─── PÁGINAS DE GESTIÓN DE CUENTA ────────────────────────────────
@@ -99,9 +98,7 @@ function App() {
           <Route path="/profile" element={
               <PrivateRoute><Profile /></PrivateRoute>
           } />
-          <Route path="/my-orders" element={
-              <PrivateRoute><MyOrders /></PrivateRoute>
-          } />
+          <Route path="/my-orders" element={<Navigate to="/profile?tab=orders" replace />} />
           <Route path="/settings" element={
               <PrivateRoute><UserSettings /></PrivateRoute>
           } />

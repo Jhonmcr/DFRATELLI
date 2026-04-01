@@ -71,7 +71,26 @@ class OrderSerializer(serializers.ModelSerializer):
     """
 
     items = OrderItemSerializer(many=True, read_only=True)  # Lista de ítems anidada (solo lectura)
+    codigo_cliente_real = serializers.SerializerMethodField()
+    telefono_cliente_real = serializers.SerializerMethodField()
 
     class Meta:
         model = Order                                              # Modelo que se serializa
-        fields = ["id", "status", "total", "items", "created_at"]  # Campos expuestos en la respuesta
+        fields = [
+            "id", "status", "total", "items", "created_at",
+            "codigo_cliente_real", "telefono_cliente_real"
+        ]
+
+    def get_codigo_cliente_real(self, obj):
+        """Retorna el código único del usuario de forma segura."""
+        try:
+            return obj.user.unique_code if obj.user and obj.user.unique_code else "SIN_CODIGO"
+        except:
+            return "ERROR_VINCULO"
+
+    def get_telefono_cliente_real(self, obj):
+        """Retorna el teléfono del usuario de forma segura."""
+        try:
+            return obj.user.phone_number if obj.user and obj.user.phone_number else "NO_REGISTRADO"
+        except:
+            return "ERROR_VINCULO"

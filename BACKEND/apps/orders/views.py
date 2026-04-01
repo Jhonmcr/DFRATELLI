@@ -22,10 +22,11 @@ from rest_framework.response import Response                  # Objeto de respue
 from rest_framework.permissions import IsAuthenticated        # Permiso: requiere autenticación
 from django.db import transaction                             # Soporte para transacciones atómicas en DB
 from rest_framework import status                             # Constantes de códigos de estado HTTP
+from rest_framework import serializers                          # Agregado para el Serializer Directo
 
 from apps.cart.models import Cart, CartItem                   # Modelos del carrito para crear la orden
 from .models import Order, OrderItem, UserNotification        # Modelos de órdenes y notificaciones
-from .serializers import OrderSerializer                      # Serializer de órdenes para la respuesta JSON
+from .serializers import OrderSerializer, OrderItemSerializer                      # Serializer de órdenes para la respuesta JSON
 
 
 class MyOrdersListView(generics.ListAPIView):
@@ -205,6 +206,29 @@ class UpdateOrderStatusView(APIView):
         return Response({"message": "Estado actualizado correctamente"})
 
 
+class AdminOrderDirectSerializer(serializers.ModelSerializer):
+    """Serializer inmediato definido en la vista para asegurar la carga de datos."""
+    items = OrderItemSerializer(many=True, read_only=True)
+    codigo_cliente_real = serializers.SerializerMethodField()
+    telefono_cliente_real = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Order
+        fields = ["id", "status", "total", "items", "created_at", "codigo_cliente_real", "telefono_cliente_real"]
+
+    def get_codigo_cliente_real(self, obj):
+        try:
+            return obj.user.unique_code if obj.user and obj.user.unique_code else "VCP-0000"
+        except:
+            return "ERROR_VINCULO"
+
+    def get_telefono_cliente_real(self, obj):
+        try:
+            return obj.user.phone_number if obj.user and obj.user.phone_number else "No Registrado"
+        except:
+            return "ERROR_VINCULO"
+
+
 class AdminOrderListView(generics.ListAPIView):
     """
     Vista GET: Lista todas las órdenes del sistema para los administradores.
@@ -215,14 +239,14 @@ class AdminOrderListView(generics.ListAPIView):
     Permiso: Usuario autenticado con rol ADMIN o SUPERADMIN.
     """
 
-    serializer_class = OrderSerializer
+    serializer_class = AdminOrderDirectSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         """Retorna todas las órdenes solo si el usuario es administrador."""
         if self.request.user.role not in ['ADMIN', 'SUPERADMIN']:  # Verifica el rol del usuario
             return Order.objects.none()                            # Retorna queryset vacío si no es admin
-        return Order.objects.all().order_by("-created_at")         # Todas las órdenes, más recientes primero
+        return Order.objects.select_related('user').all().order_by("-created_at")         # Todas las órdenes con datos de usuario precargados
 
 
 class ClientNotificationsView(APIView):

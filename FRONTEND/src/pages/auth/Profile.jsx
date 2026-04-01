@@ -14,7 +14,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { User, Package, Settings, Bell, Clock, CreditCard, ExternalLink, Activity } from "lucide-react";
+import { User, Package, Settings, Bell, Clock, CreditCard, ExternalLink, Activity, ShieldCheck } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import api from "../../services/api";
 
@@ -27,8 +27,8 @@ const Profile = () => {
 
     // ─── MANEJADORES DE ESTADO (Carga Diferida por Componentes) ──────
     
-    // Tab de navegación activa en el panel Izquierdo ('profile', 'orders', 'notifications')
-    const activeTab = searchParams.get('tab') || 'profile';
+    // Tab de navegación activa en el panel Izquierdo ('orders', 'notifications')
+    const activeTab = searchParams.get('tab') || 'orders';
 
     // Estados para Historiales Locales (Data Backend)
     const [orders, setOrders] = useState([]);                  // Array de ordenes creadas
@@ -61,7 +61,7 @@ const Profile = () => {
             // Requiere autenticación Bearer por su token JWT almacenado.
             // Si el token expira dentro de request (401), el interceptor en api.js lo manejaría.
             const [profileRes, ordersRes] = await Promise.all([
-                api.get("users/profile/"),     // Datos PII del cliente
+                api.get("profile/"),           // Datos PII del cliente
                 api.get("orders/my-orders/")   // Relacional History Histórico
             ]);
             
@@ -186,7 +186,7 @@ const Profile = () => {
                         <div key={order.id} className="bg-white border border-amber-300 rounded-xl p-5 shadow-sm hover:border-amber-500/30 transition-colors">
                             <div className="flex flex-col sm:flex-row justify-between sm:items-center space-y-4 sm:space-y-0 border-b border-amber-200 pb-4 mb-4">
                                 <div>
-                                    <span className="text-gray-600 text-sm font-medium">Orden <span className="text-gray-900 font-mono">#{order.id.toString().padStart(5, '0')}</span></span>
+                                    <span className="text-gray-600 text-sm font-medium uppercase tracking-wider">Orden <span className="text-gray-900 font-extrabold ml-1">ORD-{order.id.toString().padStart(3, '0')}</span></span>
                                     <div className="text-gray-900 font-medium mt-1 flex items-center text-sm">
                                         <Clock className="w-3.5 h-3.5 text-gray-500 mr-2" />
                                         {formatDate(order.created_at)}
@@ -278,8 +278,8 @@ const Profile = () => {
                     {/* Barra de Menú lateral Izquierda (Sidebar) */}
                     <div className="lg:col-span-1 space-y-2">
                         <button
-                            onClick={() => setSearchParams({ tab: 'profile' })}
-                            className={`w-full flex items-center px-4 py-3 rounded-xl transition-all ${activeTab === 'profile' ? 'bg-amber-500 text-gray-900 shadow-lg shadow-amber-500/20' : 'bg-white text-gray-600 hover:bg-[#3a2610] hover:text-gray-900 border border-amber-200'}`}
+                            onClick={() => navigate('/settings')}
+                            className="w-full flex items-center px-4 py-3 rounded-xl transition-all bg-white text-gray-600 hover:bg-[#3a2610] hover:text-gray-900 border border-amber-200"
                         >
                             <User className="w-5 h-5 mr-3" /> <span className="font-medium">Mi Cuenta</span>
                         </button>
@@ -298,12 +298,6 @@ const Profile = () => {
                             <Bell className="w-5 h-5 mr-3" /> <span className="font-medium">Notificaciones</span>
                         </button>
 
-                        <button
-                            className="w-full flex items-center px-4 py-3 rounded-xl bg-white text-gray-600 border border-amber-200 opacity-50 cursor-not-allowed mt-4"
-                            disabled
-                        >
-                            <Settings className="w-5 h-5 mr-3" /> <span className="font-medium">Ajustes Web</span>
-                        </button>
                         
                         {/* El Logout cierra la sesión y redibujará el Effect forzandolo a expulsar al Login Screen */}
                         <div className="pt-8 border-t border-amber-200 mt-8">
@@ -318,7 +312,6 @@ const Profile = () => {
 
                     {/* Contenido / Vista central del Tab */}
                     <div className="lg:col-span-3">
-                        {activeTab === 'profile' && renderProfileTab()}
                         {activeTab === 'orders' && renderOrdersTab()}
                         {activeTab === 'notifications' && (
                             <div className="bg-white border border-amber-200 rounded-2xl p-12 text-center shadow-inner">
