@@ -1,6 +1,12 @@
+from django.http import JsonResponse
 from rest_framework import viewsets, permissions
 from .models import ContactMessage
 from .serializers import ContactMessageSerializer
+
+
+def health_check(request):
+    return JsonResponse({"status": "ok"})
+
 
 class ContactMessageViewSet(viewsets.ModelViewSet):
     queryset = ContactMessage.objects.all().order_by('-created_at')
