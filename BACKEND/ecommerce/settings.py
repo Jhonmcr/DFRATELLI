@@ -113,48 +113,54 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 # BASE DE DATOS
 # ---------------------------------------------------------
 
-DATABASES = {
+# For local development, set LOCAL_DEV=True in .env to use a SQLite file inside BACKEND
+LOCAL_DEV = os.getenv('LOCAL_DEV', 'False').lower() in ('1', 'true', 'yes')
+if LOCAL_DEV:
+    DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'dfratelli_db',
-            'USER': 'root',
-            'PASSWORD': 'root1234',
-            'HOST': '127.0.0.1',
-            'PORT': '3306',
-            'OPTIONS': {
-                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-            },
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+else:
+    DATABASE_URL = os.getenv("DATABASE_URL")
 
-DATABASE_URL = os.getenv("DATABASE_URL")
-
-if DATABASE_URL:
-    DATABASES = {
-        'default': dj_database_url.config(
+    if DATABASE_URL:
+        db_config = dj_database_url.config(
             default=DATABASE_URL,
             conn_max_age=600,
             conn_health_checks=True,
         )
-    }
-    DATABASES['default']['ENGINE'] = 'django.db.backends.mysql'
-    if 'OPTIONS' not in DATABASES['default']:
-        DATABASES['default']['OPTIONS'] = {}
-    DATABASES['default']['OPTIONS']['init_command'] = "SET sql_mode='STRICT_TRANS_TABLES'"
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'dfratelli_db',
-            'USER': 'root',
-            'PASSWORD': 'root1234',
-            'HOST': '127.0.0.1',
-            'PORT': '3306',
-            'OPTIONS': {
-                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-            },
+        DATABASES = {'default': db_config}
+
+        # Ajustar motor según la URL (Postgres o MySQL)
+        lower_db_url = DATABASE_URL.lower()
+        if 'postgres' in lower_db_url or 'postgresql' in lower_db_url:
+            DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
+        elif 'mysql' in lower_db_url:
+            DATABASES['default']['ENGINE'] = 'django.db.backends.mysql'
+
+        if 'OPTIONS' not in DATABASES['default']:
+            DATABASES['default']['OPTIONS'] = {}
+
+        # Solo aplicar init_command para MySQL
+        if DATABASES['default'].get('ENGINE') == 'django.db.backends.mysql':
+            DATABASES['default']['OPTIONS']['init_command'] = "SET sql_mode='STRICT_TRANS_TABLES'"
+    else:
+        # Configuración por defecto para desarrollo local (MySQL)
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.mysql',
+                'NAME': 'dfratelli_db',
+                'USER': 'root',
+                'PASSWORD': 'root1234',
+                'HOST': '127.0.0.1',
+                'PORT': '3306',
+                'OPTIONS': {
+                    'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+                },
+            }
         }
-    }
 
 
 # ---------------------------------------------------------

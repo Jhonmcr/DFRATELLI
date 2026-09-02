@@ -36,6 +36,10 @@ BACKEND/upload_test.py
 BACKEND/test_image.py
 BACKEND/test_api_upload.py
 
+# Script local de superusuario (no subir credenciales locales)
+BACKEND/scripts/create_local_superuser.py
+BACKEND/db.sqlite3
+
 # Carpeta de productos locales (si no deben subirse)
 BACKEND/products/*.png
 BACKEND/products/*.jpg
