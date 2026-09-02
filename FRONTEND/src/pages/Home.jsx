@@ -34,44 +34,55 @@ const Home = () => {
 
   // ─── EFECTOS DE CICLO DE VIDA ─────────────────────────────────────
   useEffect(() => {
-    // Al montar el componente, dispara la carga paralela de datos base
-    fetchInitialData();
-    
-    // Si la carga demora más de 4 segundos, revelamos el mensaje informativo del servidor (Render)
-    const timer = setTimeout(() => {
-      setShowWakeUpMessage(true);
+    let isMounted = true;
+
+    fetchInitialData(isMounted);
+
+    const wakeTimer = setTimeout(() => {
+      if (isMounted) setShowWakeUpMessage(true);
     }, 4000);
 
-    // Guardaremos el timerId en el objeto window o una ref para limpiarlo abajo
-    window.wakeUpTimer = timer;
+    const failSafeTimer = setTimeout(() => {
+      if (isMounted) {
+        setIsLoading(false);
+      }
+    }, 20000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      isMounted = false;
+      clearTimeout(wakeTimer);
+      clearTimeout(failSafeTimer);
+    };
   }, []);
 
   /**
    * Carga concurrentemente productos y categorías para ahorrar tiempos de red.
    */
-  const fetchInitialData = async () => {
+  const fetchInitialData = async (isMounted = true) => {
     try {
-      const [productsRes, categoriesRes] = await Promise.all([
+      const [productsResult, categoriesResult] = await Promise.allSettled([
         api.get("/products/"),
         api.get("/products/categories/"),
       ]);
 
-      // Filtrar y establecer productos destacados (Top 8 más vendidos con al menos 1 venta)
-      const products = productsRes.data;
-      const featured = products
-        .filter((p) => p.total_sold > 0)          // Solo productos con ventas reales
-        .sort((a, b) => b.total_sold - a.total_sold) // Del más vendido al menos
-        .slice(0, 8);                                // Top 8
+      if (!isMounted) return;
 
-      setFeaturedProducts(featured);              // Actualiza vista Productos
-      setCategories(categoriesRes.data.slice(0, 4)); // Muestra hasta las 4 categorías clave
+      const products = productsResult.status === "fulfilled" ? productsResult.value.data : [];
+      const categories = categoriesResult.status === "fulfilled" ? categoriesResult.value.data : [];
+
+      const featured = products
+        .filter((p) => p.total_sold > 0)
+        .sort((a, b) => b.total_sold - a.total_sold)
+        .slice(0, 8);
+
+      setFeaturedProducts(featured);
+      setCategories(categories.slice(0, 4));
     } catch (error) {
       console.error("Error fetching initial data:", error);
     } finally {
-      if (window.wakeUpTimer) clearTimeout(window.wakeUpTimer);
-      setIsLoading(false); // Retira el loading spinner
+      if (isMounted) {
+        setIsLoading(false);
+      }
     }
   };
 
