@@ -30,10 +30,16 @@ export default function ForgotPassword() {
     setMessage('');
 
     try {
-      await api.post('auth/password-reset-request/', { email });
+      const response = await api.post('auth/password-reset-request/', { email });
       setStatus('idle');
       setStep(2);
-      setMessage('Te hemos enviado un código al correo. Introdúcelo a continuación.');
+
+      const debugToken = response?.data?.debug_token;
+      if (debugToken) {
+        setMessage(`Código de prueba: ${debugToken}. Introdúcelo a continuación.`);
+      } else {
+        setMessage('Te hemos enviado un código al correo. Introdúcelo a continuación.');
+      }
     } catch (err) {
       setStatus('error');
       if (err.response && err.response.data) {
