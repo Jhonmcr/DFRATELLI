@@ -100,17 +100,29 @@ class PasswordResetRequestView(generics.GenericAPIView):
             send_mail(
                 subject="Código de Recuperación - DFRATELLI",
                 message=message_body,
-                from_email=settings.EMAIL_HOST_USER,  # Remitente configurado globalmente
-                recipient_list=[user.email],          # Lista de destinatarios
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[user.email],
             )
-        except Exception as e:
-            # Si el SMTP falla, devolvemos un 500 JSON pero con los headers de CORS ya puestos
+        except Exception:
+            if getattr(settings, "DEBUG", False) or getattr(settings, "LOCAL_DEV", False):
+                return Response(
+                    {
+                        "message": "El correo SMTP no está disponible en este entorno. Usa este código de prueba para continuar.",
+                        "debug_token": token,
+                    },
+                    status=status.HTTP_200_OK,
+                )
+
             return Response(
                 {"error": "El servidor de correo no está respondiendo. Por favor intente más tarde."},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                status=status.HTTP_503_SERVICE_UNAVAILABLE,
             )
 
-        return Response({"message": "Se envió un correo con instrucciones."}, status=200)
+        response = {"message": "Se envió un correo con instrucciones."}
+        if getattr(settings, "DEBUG", False) or getattr(settings, "LOCAL_DEV", False):
+            response["debug_token"] = token
+
+        return Response(response, status=200)
 
 
 class PasswordResetConfirmView(generics.GenericAPIView):
